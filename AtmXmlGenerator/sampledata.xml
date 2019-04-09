@@ -119,8 +119,7 @@
             <firstName>Raysean</firstName>
             <id>1</id>
             <lastName>Jones</lastName>
-            <password>A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ=</password>
-            <socialSecurityNumber>1234</socialSecurityNumber>
+            <pin>A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ=</pin>
             <userName>rjd123</userName>
         </UserAccount>
         <UserAccount>
@@ -129,8 +128,7 @@
             <firstName>Tonye</firstName>
             <id>2</id>
             <lastName>Martial</lastName>
-            <password>VpZeKhqZXHTaUACIlHrxHfonlRzDUNC5fQYzB1lpwxs=</password>
-            <socialSecurityNumber>1122</socialSecurityNumber>
+            <pin>VpZeKhqZXHTaUACIlHrxHfonlRzDUNC5fQYzB1lpwxs=</pin>
             <userName>tam112</userName>
         </UserAccount>
         <UserAccount>
@@ -139,8 +137,7 @@
             <firstName>Matt</firstName>
             <id>3</id>
             <lastName>Mitchell</lastName>
-            <password>MO7s6wKUFGnvaTUtHHvrBm4r3fLvrdJcTVuuSd5rZl8=</password>
-            <socialSecurityNumber>7615</socialSecurityNumber>
+            <pin>MO7s6wKUFGnvaTUtHHvrBm4r3fLvrdJcTVuuSd5rZl8=</pin>
             <userName>mmm761</userName>
         </UserAccount>
         <UserAccount>
@@ -149,8 +146,7 @@
             <firstName>Kristine</firstName>
             <id>4</id>
             <lastName>Dudley</lastName>
-            <password>Uv2OPxdqzfp01c5gh0lFZQ73KpvEkB/O/nOICZZgul8=</password>
-            <socialSecurityNumber>1525</socialSecurityNumber>
+            <pin>Uv2OPxdqzfp01c5gh0lFZQ73KpvEkB/O/nOICZZgul8=</pin>
             <userName>kd8</userName>
         </UserAccount>
         <UserAccount>
@@ -159,8 +155,7 @@
             <firstName>Woo</firstName>
             <id>5</id>
             <lastName>Choi</lastName>
-            <password>KhPOgoDtvCBWxgoCYp7VpZSANG+rXEO+RQWaic9WT8Q=</password>
-            <socialSecurityNumber>8800</socialSecurityNumber>
+            <pin>KhPOgoDtvCBWxgoCYp7VpZSANG+rXEO+RQWaic9WT8Q=</pin>
             <userName>chw005</userName>
         </UserAccount>
         <UserAccount>
@@ -169,8 +164,7 @@
             <firstName>Justin</firstName>
             <id>6</id>
             <lastName>Kim</lastName>
-            <password>zO+GxwmYNXJ2Jsz66e83XAK8KpbN1wGBlvMNhiLEcOk=</password>
-            <socialSecurityNumber>9585</socialSecurityNumber>
+            <pin>zO+GxwmYNXJ2Jsz66e83XAK8KpbN1wGBlvMNhiLEcOk=</pin>
             <userName>jdk09</userName>
         </UserAccount>
     </UserAccountList>

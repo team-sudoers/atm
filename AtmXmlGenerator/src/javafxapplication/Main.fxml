@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="416.0" prefWidth="379.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication.MainController">
+<AnchorPane id="AnchorPane" prefHeight="416.0" prefWidth="626.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication.MainController">
    <children>
       <TextField id="firstName" fx:id="firstName" layoutX="33.0" layoutY="41.0" />
       <TextField id="lastName" fx:id="lastName" layoutX="198.0" layoutY="40.0" />
@@ -13,7 +13,6 @@
       <TextField id="email" fx:id="email" layoutX="198.0" layoutY="90.0" />
       <TextField id="userName" fx:id="userName" layoutX="33.0" layoutY="147.0" />
       <TextField id="password" fx:id="password" layoutX="197.0" layoutY="146.0" />
-      <TextField id="ssn" fx:id="ssn" layoutX="33.0" layoutY="199.0" prefHeight="25.0" prefWidth="78.0" />
       <TextField id="checkingAccountNumber" fx:id="checkingAccountNumber" layoutX="33.0" layoutY="254.0" />
       <TextField id="checkingAccountBalance" fx:id="checkingAccountBalance" layoutX="199.0" layoutY="254.0" />
       <TextField id="savingsAccountNumber" fx:id="savingsAccountNumber" layoutX="34.0" layoutY="311.0" />
@@ -25,10 +24,10 @@
       <Label layoutX="34.0" layoutY="69.0" text="Cell" />
       <Label layoutX="198.0" layoutY="69.0" text="Email" />
       <Label layoutX="198.0" layoutY="127.0" text="Password" />
-      <Label layoutX="33.0" layoutY="180.0" text="SSN" />
       <Label layoutX="33.0" layoutY="234.0" text="Checking Account #" />
       <Label layoutX="199.0" layoutY="234.0" text="Checking Account Balance" />
       <Label layoutX="34.0" layoutY="291.0" text="Savings Account #" />
       <Label layoutX="200.0" layoutY="291.0" text="Savings Account Balance" />
+      <Button layoutX="430.0" layoutY="40.0" mnemonicParsing="false" />
    </children>
 </AnchorPane>

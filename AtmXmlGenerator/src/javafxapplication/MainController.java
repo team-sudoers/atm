@@ -88,7 +88,6 @@ public class MainController implements Initializable {
          String strEmail = email.getText();
          String strUserName = userName.getText();
          String strPassword = hashPassword("SHA-256", password.getText());
-         String strSocialSecurityNumber = ssn.getText();
          String strCheckingAccount = checkingAccountNumber.getText();
          String strSavingsAccount = savingsAccountNumber.getText();
          String strCheckingBalance = checkingAccountBalance.getText();
@@ -102,8 +101,7 @@ public class MainController implements Initializable {
          userAccount.setCellNumber(strCellNumber);
          userAccount.setEmail(strEmail);
          userAccount.setUserName(strUserName);
-         userAccount.setPassword(strPassword);
-         userAccount.setSocialSecurityNumber(strSocialSecurityNumber);
+         userAccount.setPin(strPassword);
          dataAccess.addUserAccount(userAccount);
 
          // setup checking account

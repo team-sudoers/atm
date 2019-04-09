@@ -20,8 +20,7 @@ public class UserAccount {
    private String cellNumber;
    private String email;
    private String userName;
-   private String password;
-   private String socialSecurityNumber;
+   private String pin;
    private String checkingAccountNumber;
    private String checkingAccountBalance;
    private String savingsAccountNumber;
@@ -102,31 +101,17 @@ public class UserAccount {
    }
 
    /**
-    * @return the password
+    * @return the pin
     */
-   public String getPassword() {
-      return password;
+   public String getPin() {
+      return pin;
    }
 
    /**
-    * @param password the password to set
+    * @param pin the pin to set
     */
-   public void setPassword(String password) {
-      this.password = password;
-   }
-
-   /**
-    * @return the socialSecurityNumber
-    */
-   public String getSocialSecurityNumber() {
-      return socialSecurityNumber;
-   }
-
-   /**
-    * @param socialSecurityNumber the socialSecurityNumber to set
-    */
-   public void setSocialSecurityNumber(String socialSecurityNumber) {
-      this.socialSecurityNumber = socialSecurityNumber;
+   public void setPin(String pin) {
+      this.pin = pin;
    }
 
    /**
