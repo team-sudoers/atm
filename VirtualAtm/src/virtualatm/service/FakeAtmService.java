@@ -11,10 +11,6 @@ import virtualatm.datamodel.BankAccount;
 import virtualatm.datamodel.Transaction;
 import virtualatm.datamodel.UserAccount;
 
-/**
- *
- * @author Matt
- */
 public class FakeAtmService implements IAtmService {
 
    @Override
