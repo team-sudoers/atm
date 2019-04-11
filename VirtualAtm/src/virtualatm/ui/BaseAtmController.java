@@ -26,6 +26,7 @@ public class BaseAtmController implements Initializable {
    private IAtmService atmService;
    private Scene loginScene;
    private Scene mainScene;
+   private String languageId;
 
    /**
     * Initializes the controller class.
@@ -57,5 +58,13 @@ public class BaseAtmController implements Initializable {
    
    public Scene getMainScene(Scene mainScene) {
       return mainScene;
+   }
+   
+   public void setLanguageId(String langId) {
+      languageId = langId;
+   }
+   
+   public String getLanguageId() {
+      return languageId;
    }
 }

@@ -20,4 +20,9 @@ public interface IAtmService {
    void deposit(double amount, BankAccount toAccount);
    List<Transaction> getAccountHistory(UserAccount user);
    boolean login(String username, String password);
+   public void logout();
+   public UserAccount getLoggedInUser();
+   public BankAccount getCheckingAccount(UserAccount user);
+   public BankAccount getSavingsAccount(UserAccount user);
+
 }

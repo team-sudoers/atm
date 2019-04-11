@@ -11,42 +11,36 @@ public class LoginPageController extends BaseAtmController {
 
     @FXML
     void handleDeutschAction(ActionEvent event) {
-
+       //setLanguageId();
     }
 
     @FXML
     void handleEnglishAction(ActionEvent event) {
-
+       //setLanguageId();
     }
 
     @FXML
     void handleFrenchAction(ActionEvent event) {
-
+       //setLanguageId();
     }
 
     @FXML
     void handleKoreanAction(ActionEvent event) {
-
+       //setLanguageId();
     }
 
     @FXML
     void handleLoginAction(ActionEvent event) {
-
+        // getAtmService().login(username, password)
     }
 
     @FXML
     void handleSimplifiedChineseAction(ActionEvent event) {
-
+       //setLanguageId();
     }
 
     @FXML
     void handleSpanishAction(ActionEvent event) {
-
+       //setLanguageId();
     }
-
-    @FXML // This method is called by the FXMLLoader when initialization is complete
-    void initialize() {
-
-    }
-
 }
