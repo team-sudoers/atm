@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="VirtualAtm">
+  <ClassDiagramComponents>
+    <Class name="AtmData" package="virtualatm.datamodel" visibility="public" xPosition="598.0" yPosition="38.0">
+      <Fields>
+        <Field name="userAccountsList" type="List&lt;UserAccount&gt;" visibility="private"/>
+        <Field name="bankAccountsList" type="List&lt;BankAccount&gt;" visibility="private"/>
+        <Field name="transactionsList" type="List&lt;Transaction&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getUserAccounts" returnType="List&lt;UserAccount&gt;" visibility="public"/>
+        <Method name="setUserAccounts" returnType="void" visibility="public">
+          <Argument type="List&lt;UserAccount&gt;" name="userAccounts"/>
+        </Method>
+        <Method name="getBankAccounts" returnType="List&lt;BankAccount&gt;" visibility="public"/>
+        <Method name="setBankAccounts" returnType="void" visibility="public">
+          <Argument type="List&lt;BankAccount&gt;" name="bankAccounts"/>
+        </Method>
+        <Method name="getTransactions" returnType="List&lt;Transaction&gt;" visibility="public"/>
+        <Method name="setTransactions" returnType="void" visibility="public">
+          <Argument type="List&lt;Transaction&gt;" name="transactions"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="BankAccount" package="virtualatm.datamodel" visibility="public" xPosition="1115.0" yPosition="38.0">
+      <Fields>
+        <Field name="userId" type="long" visibility="private"/>
+        <Field name="accountType" type="String" visibility="private"/>
+        <Field name="accountNumber" type="long" visibility="private"/>
+        <Field name="accountBalance" type="double" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getAccountNumber" returnType="long" visibility="public"/>
+        <Method name="setAccountNumber" returnType="void" visibility="public">
+          <Argument type="long" name="accountNumber"/>
+        </Method>
+        <Method name="getAccountBalance" returnType="double" visibility="public"/>
+        <Method name="setAccountBalance" returnType="void" visibility="public">
+          <Argument type="double" name="accountBalance"/>
+        </Method>
+        <Method name="getUserId" returnType="long" visibility="public"/>
+        <Method name="setUserId" returnType="void" visibility="public">
+          <Argument type="long" name="userId"/>
+        </Method>
+        <Method name="getAccountType" returnType="String" visibility="public"/>
+        <Method name="setAccountType" returnType="void" visibility="public">
+          <Argument type="String" name="accountType"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Transaction" package="virtualatm.datamodel" visibility="public" xPosition="482.0" yPosition="822.0">
+      <Fields>
+        <Field name="bankAccountId" type="long" visibility="private"/>
+        <Field name="date" type="Date" visibility="private"/>
+        <Field name="amount" type="double" visibility="private"/>
+        <Field name="activityType" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getBankAccountId" returnType="long" visibility="public"/>
+        <Method name="setBankAccountId" returnType="void" visibility="public">
+          <Argument type="long" name="bankAccountId"/>
+        </Method>
+        <Method name="getDate" returnType="Date" visibility="public"/>
+        <Method name="setDate" returnType="void" visibility="public">
+          <Argument type="Date" name="date"/>
+        </Method>
+        <Method name="getAmount" returnType="double" visibility="public"/>
+        <Method name="setAmount" returnType="void" visibility="public">
+          <Argument type="double" name="amount"/>
+        </Method>
+        <Method name="getActivityType" returnType="String" visibility="public"/>
+        <Method name="setActivityType" returnType="void" visibility="public">
+          <Argument type="String" name="activityType"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="UserAccount" package="virtualatm.datamodel" visibility="public" xPosition="955.0" yPosition="412.0">
+      <Fields>
+        <Field name="id" type="long" visibility="private"/>
+        <Field name="firstName" type="String" visibility="private"/>
+        <Field name="lastName" type="String" visibility="private"/>
+        <Field name="cellNumber" type="String" visibility="private"/>
+        <Field name="email" type="String" visibility="private"/>
+        <Field name="userName" type="String" visibility="private"/>
+        <Field name="pin" type="String" visibility="private"/>
+        <Field name="checkingAccountNumber" type="String" visibility="private"/>
+        <Field name="checkingAccountBalance" type="String" visibility="private"/>
+        <Field name="savingsAccountNumber" type="String" visibility="private"/>
+        <Field name="savingsAccountBalance" type="String" visibility="private"/>
+        <Field name="transactionHistory" type="List&lt;Transaction&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getFirstName" returnType="String" visibility="public"/>
+        <Method name="setFirstName" returnType="void" visibility="public">
+          <Argument type="String" name="firstName"/>
+        </Method>
+        <Method name="getLastName" returnType="String" visibility="public"/>
+        <Method name="setLastName" returnType="void" visibility="public">
+          <Argument type="String" name="lastName"/>
+        </Method>
+        <Method name="getCellNumber" returnType="String" visibility="public"/>
+        <Method name="setCellNumber" returnType="void" visibility="public">
+          <Argument type="String" name="cellNumber"/>
+        </Method>
+        <Method name="getEmail" returnType="String" visibility="public"/>
+        <Method name="setEmail" returnType="void" visibility="public">
+          <Argument type="String" name="email"/>
+        </Method>
+        <Method name="getUserName" returnType="String" visibility="public"/>
+        <Method name="setUserName" returnType="void" visibility="public">
+          <Argument type="String" name="userName"/>
+        </Method>
+        <Method name="getPin" returnType="String" visibility="public"/>
+        <Method name="setPin" returnType="void" visibility="public">
+          <Argument type="String" name="pin"/>
+        </Method>
+        <Method name="getCheckingAccountNumber" returnType="String" visibility="public"/>
+        <Method name="setCheckingAccountNumber" returnType="void" visibility="public">
+          <Argument type="String" name="checkingAccountNumber"/>
+        </Method>
+        <Method name="getCheckingAccountBalance" returnType="String" visibility="public"/>
+        <Method name="setCheckingAccountBalance" returnType="void" visibility="public">
+          <Argument type="String" name="checkingAccountBalance"/>
+        </Method>
+        <Method name="getSavingsAccountNumber" returnType="String" visibility="public"/>
+        <Method name="setSavingsAccountNumber" returnType="void" visibility="public">
+          <Argument type="String" name="savingsAccountNumber"/>
+        </Method>
+        <Method name="getSavingsAccountBalance" returnType="String" visibility="public"/>
+        <Method name="setSavingsAccountBalance" returnType="void" visibility="public">
+          <Argument type="String" name="savingsAccountBalance"/>
+        </Method>
+        <Method name="getTransactionHistory" returnType="List&lt;Transaction&gt;" visibility="public"/>
+        <Method name="setTransactionHistory" returnType="void" visibility="public">
+          <Argument type="List&lt;Transaction&gt;" name="transactionHistory"/>
+        </Method>
+        <Method name="getId" returnType="long" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="long" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="XmlDataAccess" package="virtualatm.datamodel" visibility="public" xPosition="40.0" yPosition="382.0">
+      <Fields>
+        <Field name="filePath" type="String" visibility="private" isFinal="true"/>
+        <Field name="dirty" type="boolean" visibility="private"/>
+        <Field name="dataCache" type="AtmData" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="xmlPath"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="Save" returnType="Boolean" visibility="public">
+          <Argument type="Boolean" name="force"/>
+        </Method>
+        <Method name="Save" returnType="Boolean" visibility="public">
+          <Argument type="String" name="path"/>
+          <Argument type="Boolean" name="force"/>
+        </Method>
+        <Method name="Load" returnType="Boolean" visibility="public"/>
+        <Method name="getAllUserAccounts" returnType="List&lt;UserAccount&gt;" visibility="public"/>
+        <Method name="findAllBankAccountsForUser" returnType="List&lt;BankAccount&gt;" visibility="public">
+          <Argument type="UserAccount" name="account"/>
+        </Method>
+        <Method name="findUserAccount" returnType="UserAccount" visibility="public">
+          <Argument type="String" name="userName"/>
+        </Method>
+        <Method name="addBankAccount" returnType="void" visibility="public">
+          <Argument type="BankAccount" name="account"/>
+        </Method>
+        <Method name="addTransaction" returnType="void" visibility="public">
+          <Argument type="Transaction" name="transaction"/>
+        </Method>
+        <Method name="addUserAccount" returnType="void" visibility="public">
+          <Argument type="UserAccount" name="account"/>
+        </Method>
+        <Method name="ReadFile" returnType="void" visibility="private" isSynchronized="true">
+          <Argument type="String" name="path"/>
+        </Method>
+        <Method name="WriteFile" returnType="void" visibility="private" isSynchronized="true">
+          <Argument type="String" name="path"/>
+          <Argument type="AtmData" name="data"/>
+        </Method>
+        <Method name="getTransactionsForUser" returnType="List&lt;Transaction&gt;" visibility="public">
+          <Argument type="UserAccount" name="user"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="FakeAtmService" package="virtualatm.service" visibility="public" xPosition="1954.0" yPosition="1848.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="withdraw" returnType="void" visibility="public">
+          <Argument type="BankAccount" name="account"/>
+        </Method>
+        <Method name="transfer" returnType="void" visibility="public">
+          <Argument type="BankAccount" name="fromAccount"/>
+          <Argument type="BankAccount" name="toAccount"/>
+        </Method>
+        <Method name="deposit" returnType="void" visibility="public">
+          <Argument type="double" name="amount"/>
+          <Argument type="BankAccount" name="toAccount"/>
+        </Method>
+        <Method name="getAccountHistory" returnType="List&lt;Transaction&gt;" visibility="public">
+          <Argument type="UserAccount" name="user"/>
+        </Method>
+        <Method name="login" returnType="boolean" visibility="public">
+          <Argument type="String" name="username"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="logout" returnType="void" visibility="public"/>
+        <Method name="getLoggedInUser" returnType="UserAccount" visibility="public"/>
+        <Method name="getCheckingAccount" returnType="BankAccount" visibility="public">
+          <Argument type="UserAccount" name="user"/>
+        </Method>
+        <Method name="getSavingsAccount" returnType="BankAccount" visibility="public">
+          <Argument type="UserAccount" name="user"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="BaseAtmController" package="virtualatm.ui" visibility="public" xPosition="482.0" yPosition="1493.0">
+      <Fields>
+        <Field name="resources" type="ResourceBundle" visibility="private"/>
+        <Field name="location" type="URL" visibility="private"/>
+        <Field name="atmService" type="IAtmService" visibility="private"/>
+        <Field name="loginScene" type="Scene" visibility="private"/>
+        <Field name="mainScene" type="Scene" visibility="private"/>
+        <Field name="languageId" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="initialize" returnType="void" visibility="public">
+          <Argument type="URL" name="url"/>
+          <Argument type="ResourceBundle" name="rb"/>
+        </Method>
+        <Method name="setAtmService" returnType="void" visibility="public">
+          <Argument type="IAtmService" name="svc"/>
+        </Method>
+        <Method name="getAtmService" returnType="IAtmService" visibility="public"/>
+        <Method name="setLoginScene" returnType="void" visibility="public">
+          <Argument type="Scene" name="scene"/>
+        </Method>
+        <Method name="setMainScene" returnType="void" visibility="public">
+          <Argument type="Scene" name="scene"/>
+        </Method>
+        <Method name="getLoginScene" returnType="Scene" visibility="public">
+          <Argument type="Scene" name="scene"/>
+        </Method>
+        <Method name="getMainScene" returnType="Scene" visibility="public">
+          <Argument type="Scene" name="mainScene"/>
+        </Method>
+        <Method name="setLanguageId" returnType="void" visibility="public">
+          <Argument type="String" name="langId"/>
+        </Method>
+        <Method name="getLanguageId" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="DepositPageController" package="virtualatm.ui" visibility="public" xPosition="40.0" yPosition="1419.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="initialize" returnType="void" visibility="public">
+          <Argument type="URL" name="url"/>
+          <Argument type="ResourceBundle" name="rb"/>
+        </Method>
+        <Method name="handleConfirmAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="HistoryPageController" package="virtualatm.ui" visibility="public" xPosition="348.0" yPosition="1260.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="initialize" returnType="void" visibility="public">
+          <Argument type="URL" name="url"/>
+          <Argument type="ResourceBundle" name="rb"/>
+        </Method>
+        <Method name="handleLogoutAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+        <Method name="handleReturnAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="LoginPageController" package="virtualatm.ui" visibility="public" xPosition="674.0" yPosition="1235.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="handleDeutschAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+        <Method name="handleEnglishAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+        <Method name="handleFrenchAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+        <Method name="handleKoreanAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+        <Method name="handleLoginAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+        <Method name="handleSimplifiedChineseAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+        <Method name="handleSpanishAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="MainPageController" package="virtualatm.ui" visibility="public" xPosition="855.0" yPosition="1493.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="initialize" returnType="void" visibility="public">
+          <Argument type="URL" name="url"/>
+          <Argument type="ResourceBundle" name="rb"/>
+        </Method>
+        <Method name="handleAccountHistoryAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+        <Method name="handleDepositAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+        <Method name="handleLogoutAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+        <Method name="handleTransferAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+        <Method name="handleWithdrawAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="TransferPageController" package="virtualatm.ui" visibility="public" xPosition="27.0" yPosition="1594.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="initialize" returnType="void" visibility="public">
+          <Argument type="URL" name="url"/>
+          <Argument type="ResourceBundle" name="rb"/>
+        </Method>
+        <Method name="handleConfirmAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="WithdrawPageController" package="virtualatm.ui" visibility="public" xPosition="40.0" yPosition="1753.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="initialize" returnType="void" visibility="public">
+          <Argument type="URL" name="url"/>
+          <Argument type="ResourceBundle" name="rb"/>
+        </Method>
+        <Method name="handleConfirmAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+        <Method name="handleWithdrawEightyAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+        <Method name="handleWithdrawFortyAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+        <Method name="handleWithdrawOneHundredAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+        <Method name="handleWithdrawSixtyAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+        <Method name="handleWithdrawTwentyAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+        <Method name="handleWithdrawTwoHundredAction" returnType="void" visibility="package">
+          <Argument type="ActionEvent" name="event"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="VirtualAtm" package="" visibility="public" xPosition="1521.0" yPosition="1357.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="start" returnType="void" visibility="public">
+          <Argument type="Stage" name="primaryStage"/>
+        </Method>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Interface name="IAtmDataAccess" package="virtualatm.datamodel" visibility="public" xPosition="98.0" yPosition="38.0">
+      <Methods>
+        <Method name="getAllUserAccounts" returnType="List&lt;UserAccount&gt;" visibility="package"/>
+        <Method name="findAllBankAccountsForUser" returnType="List&lt;BankAccount&gt;" visibility="package">
+          <Argument type="UserAccount" name="account"/>
+        </Method>
+        <Method name="findUserAccount" returnType="UserAccount" visibility="package">
+          <Argument type="String" name="userName"/>
+        </Method>
+        <Method name="addUserAccount" returnType="void" visibility="package">
+          <Argument type="UserAccount" name="account"/>
+        </Method>
+        <Method name="addBankAccount" returnType="void" visibility="package">
+          <Argument type="BankAccount" name="account"/>
+        </Method>
+        <Method name="addTransaction" returnType="void" visibility="package">
+          <Argument type="Transaction" name="transaction"/>
+        </Method>
+        <Method name="getTransactionsForUser" returnType="List&lt;Transaction&gt;" visibility="package">
+          <Argument type="UserAccount" name="user"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Interface name="IAtmService" package="virtualatm.service" visibility="public" xPosition="1428.0" yPosition="1848.0">
+      <Methods>
+        <Method name="withdraw" returnType="void" visibility="package">
+          <Argument type="BankAccount" name="account"/>
+        </Method>
+        <Method name="transfer" returnType="void" visibility="package">
+          <Argument type="BankAccount" name="fromAccount"/>
+          <Argument type="BankAccount" name="toAccount"/>
+        </Method>
+        <Method name="deposit" returnType="void" visibility="package">
+          <Argument type="double" name="amount"/>
+          <Argument type="BankAccount" name="toAccount"/>
+        </Method>
+        <Method name="getAccountHistory" returnType="List&lt;Transaction&gt;" visibility="package">
+          <Argument type="UserAccount" name="user"/>
+        </Method>
+        <Method name="login" returnType="boolean" visibility="package">
+          <Argument type="String" name="username"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="logout" returnType="void" visibility="public"/>
+        <Method name="getLoggedInUser" returnType="UserAccount" visibility="public"/>
+        <Method name="getCheckingAccount" returnType="BankAccount" visibility="public">
+          <Argument type="UserAccount" name="user"/>
+        </Method>
+        <Method name="getSavingsAccount" returnType="BankAccount" visibility="public">
+          <Argument type="UserAccount" name="user"/>
+        </Method>
+      </Methods>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="dataCache" source="virtualatm.datamodel.XmlDataAccess" target="virtualatm.datamodel.AtmData" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="userAccountsList" source="virtualatm.datamodel.AtmData" target="virtualatm.datamodel.UserAccount" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;UserAccount&gt;"/>
+    <IsRelation name="is" source="virtualatm.ui.WithdrawPageController" target="virtualatm.ui.BaseAtmController"/>
+    <IsRelation name="is" source="virtualatm.ui.TransferPageController" target="virtualatm.ui.BaseAtmController"/>
+    <HasRelation name="atmService" source="virtualatm.ui.BaseAtmController" target="virtualatm.service.IAtmService" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="virtualatm.ui.MainPageController" target="virtualatm.ui.BaseAtmController"/>
+    <IsRelation name="is" source="virtualatm.ui.LoginPageController" target="virtualatm.ui.BaseAtmController"/>
+    <UseRelation source="virtualatm.datamodel.XmlDataAccess" target="virtualatm.datamodel.BankAccount" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="bankAccountsList" source="virtualatm.datamodel.AtmData" target="virtualatm.datamodel.BankAccount" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;BankAccount&gt;"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="virtualatm.datamodel.XmlDataAccess" target="virtualatm.datamodel.IAtmDataAccess"/>
+    <IsRelation name="is" source="virtualatm.ui.DepositPageController" target="virtualatm.ui.BaseAtmController"/>
+    <HasRelation name="transactionsList" source="virtualatm.datamodel.AtmData" target="virtualatm.datamodel.Transaction" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Transaction&gt;"/>
+    <IsRelation name="is" source="virtualatm.ui.HistoryPageController" target="virtualatm.ui.BaseAtmController"/>
+    <HasRelation name="transactionHistory" source="virtualatm.datamodel.UserAccount" target="virtualatm.datamodel.Transaction" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Transaction&gt;"/>
+    <UseRelation source="virtualatm.ui.BaseAtmController" target="virtualatm.service.IAtmService" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="virtualatm.datamodel.XmlDataAccess" target="virtualatm.datamodel.UserAccount" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="virtualatm.service.FakeAtmService" target="virtualatm.service.IAtmService"/>
+    <UseRelation source="virtualatm.datamodel.XmlDataAccess" target="virtualatm.datamodel.Transaction" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
