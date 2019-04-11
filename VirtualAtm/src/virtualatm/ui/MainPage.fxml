@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="virtualatm.ui.MainPageController">
+   <children>
+      <Button layoutX="72.0" layoutY="119.0" mnemonicParsing="false" onAction="#handleWithdrawAction" text="WITHDRAW FUNDS" />
+      <Button layoutX="72.0" layoutY="207.0" mnemonicParsing="false" onAction="#handleTransferAction" text="TRANSFER FUNDS" />
+      <Button layoutX="285.0" layoutY="119.0" mnemonicParsing="false" onAction="#handleDepositAction" text="DEPOSIT FUNDS" />
+      <Button layoutX="285.0" layoutY="207.0" mnemonicParsing="false" onAction="#handleAccountHistoryAction" text="ACCOUNT HISTORY" />
+      <Button layoutX="425.0" layoutY="312.0" mnemonicParsing="false" onAction="#handleLogoutAction" text="LOGOUT" />
+   </children>
+</AnchorPane>
