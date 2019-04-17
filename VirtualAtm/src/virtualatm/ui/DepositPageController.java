@@ -65,6 +65,9 @@ public class DepositPageController extends BaseAtmController {
    @FXML // fx:id="depositAmount"
    private TextField depositAmount; // Value injected by FXMLLoader
    private String selectedAccountType;
+  
+   @FXML
+    private Button returnButton;
 
    @Override
    public void initialize(URL url, ResourceBundle rb) {
@@ -126,7 +129,7 @@ public class DepositPageController extends BaseAtmController {
             ba = getAtmService().getSavingsAccount();
          }
 
-         long amount = parseDepositAmount(depositAmount.getText());
+         double amount = parseDepositAmount(depositAmount.getText());
          getAtmService().deposit(amount, ba);
          refresh();
 
@@ -158,17 +161,20 @@ public class DepositPageController extends BaseAtmController {
       return parseDepositAmount(depositAmount.getText()) >= 0;
    }
 
-   private long parseDepositAmount(String text) {
+   private double parseDepositAmount(String text) {
 
       if (text.length() <= 0) {
-         return 0;
+         return 0.0;
       }
 
       if (text.startsWith("$")) {
          text = text.substring(1);
       }
 
-      return Long.parseLong(text);
+      return Double.parseDouble(text);
    }
-
+    @FXML
+    void handleReturnAction(ActionEvent event) {
+        showMainPage();
+    }
 }
