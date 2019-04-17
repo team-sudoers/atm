@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -85,35 +87,39 @@ public class HistoryPageController extends BaseAtmController {
    }
 
    private void refresh() {
-      String pattern = "MM/dd/yyyy";
-      SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-      topLabel.setText(String.format("%s", simpleDateFormat.format(new Date())));
-
-      UserAccount user = getAtmService().getLoggedInUser();
-      BankAccount ca = getAtmService().getCheckingAccount();
-      BankAccount sa = getAtmService().getSavingsAccount();
-      Transaction lastTransaction = getAtmService().getLastTransaction();
-
-      if (ca != null) {
-         checkingAmountLabel.setText(String.format("$%.2f", ca.getAccountBalance()));
-      }
-
-      if (sa != null) {
-         savingsAmountLabel.setText(String.format("$%.2f", sa.getAccountBalance()));
-      }
-
-      if (lastTransaction != null) {
-         lastTransactionDateLabel.setText(String.format("%s", simpleDateFormat.format(lastTransaction.getDate())));
-      }
-      
-      List<Transaction> history = getAtmService().getAccountHistory();
-      
-      dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-      typeColumn.setCellValueFactory(new PropertyValueFactory<>("activityType"));
-      amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
-      
-      ObservableList<Transaction> data = FXCollections.observableArrayList(history);
-      historyTableView.setItems(data);
+       try {
+          String pattern = "MM/dd/yyyy";
+          SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+          topLabel.setText(String.format("%s", simpleDateFormat.format(new Date())));
+          
+          UserAccount user = getAtmService().getLoggedInUser();
+          BankAccount ca = getAtmService().getCheckingAccount();
+          BankAccount sa = getAtmService().getSavingsAccount();
+          Transaction lastTransaction = getAtmService().getLastTransaction();
+          
+          if (ca != null) {
+             checkingAmountLabel.setText(String.format("$%.2f", ca.getAccountBalance()));
+          }
+          
+          if (sa != null) {
+             savingsAmountLabel.setText(String.format("$%.2f", sa.getAccountBalance()));
+          }
+          
+          if (lastTransaction != null) {
+             lastTransactionDateLabel.setText(String.format("%s", simpleDateFormat.format(lastTransaction.getDate())));
+          }
+          
+          List<Transaction> history = getAtmService().getAccountHistory();
+          
+          dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+          typeColumn.setCellValueFactory(new PropertyValueFactory<>("activityType"));
+          amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+          
+          ObservableList<Transaction> data = FXCollections.observableArrayList(history);
+          historyTableView.setItems(data);
+       } catch (Exception ex) {
+          Logger.getLogger(HistoryPageController.class.getName()).log(Level.SEVERE, null, ex);
+       }
 
    }
 }

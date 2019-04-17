@@ -7,6 +7,8 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -113,8 +115,12 @@ public class WithdrawPageController extends BaseAtmController {
 
    @FXML
    void handleLogoutAction(ActionEvent event) {
-      getAtmService().logout();
-      showLoginPage();
+      try {
+         getAtmService().logout();
+         showLoginPage();
+      } catch (Exception ex) {
+         Logger.getLogger(WithdrawPageController.class.getName()).log(Level.SEVERE, null, ex);
+      }
    }
 
    @FXML
@@ -153,25 +159,29 @@ public class WithdrawPageController extends BaseAtmController {
    }
 
    private void refresh() {
-      String pattern = "MM/dd/yyyy";
-      SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-      topLabel.setText(String.format("%s", simpleDateFormat.format(new Date())));
-
-      UserAccount user = getAtmService().getLoggedInUser();
-      BankAccount ca = getAtmService().getCheckingAccount();
-      BankAccount sa = getAtmService().getSavingsAccount();
-      Transaction lastTransaction = getAtmService().getLastTransaction();
-
-      if (ca != null) {
-         checkingAmountLabel.setText(String.format("$%.2f", ca.getAccountBalance()));
-      }
-
-      if (sa != null) {
-         savingsAmountLabel.setText(String.format("$%.2f", sa.getAccountBalance()));
-      }
-
-      if (lastTransaction != null) {
-         lastTransactionDateLabel.setText(String.format("%s", simpleDateFormat.format(lastTransaction.getDate())));
+      try {
+         String pattern = "MM/dd/yyyy";
+         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+         topLabel.setText(String.format("%s", simpleDateFormat.format(new Date())));
+         
+         UserAccount user = getAtmService().getLoggedInUser();
+         BankAccount ca = getAtmService().getCheckingAccount();
+         BankAccount sa = getAtmService().getSavingsAccount();
+         Transaction lastTransaction = getAtmService().getLastTransaction();
+         
+         if (ca != null) {
+            checkingAmountLabel.setText(String.format("$%.2f", ca.getAccountBalance()));
+         }
+         
+         if (sa != null) {
+            savingsAmountLabel.setText(String.format("$%.2f", sa.getAccountBalance()));
+         }
+         
+         if (lastTransaction != null) {
+            lastTransactionDateLabel.setText(String.format("%s", simpleDateFormat.format(lastTransaction.getDate())));
+         }
+      } catch (Exception ex) {
+         Logger.getLogger(WithdrawPageController.class.getName()).log(Level.SEVERE, null, ex);
       }
    }
 
