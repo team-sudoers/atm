@@ -126,9 +126,9 @@ public class FakeAtmService implements IAtmService {
          throw new Exception("Please select a valid account");
       }
 
-      double balance = checkingAccount.getAccountBalance();
+      double balance = destination.getAccountBalance();
       balance += amount;
-      checkingAccount.setAccountBalance(balance);
+      destination.setAccountBalance(balance);
    }
 
    @Override
