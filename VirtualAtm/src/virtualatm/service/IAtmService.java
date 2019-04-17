@@ -15,14 +15,18 @@ import virtualatm.datamodel.UserAccount;
  * @author Matt
  */
 public interface IAtmService {
-   void withdraw(BankAccount account);
-   void transfer(BankAccount fromAccount, BankAccount toAccount);
-   void deposit(double amount, BankAccount toAccount);
-   List<Transaction> getAccountHistory(UserAccount user);
-   boolean login(String username, String password);
-   public void logout();
-   public UserAccount getLoggedInUser();
-   public BankAccount getCheckingAccount(UserAccount user);
-   public BankAccount getSavingsAccount(UserAccount user);
+   
+   boolean login(String username, String pin) throws Exception;
+   void logout() throws Exception;
+   
+   UserAccount getLoggedInUser() throws Exception;
+   BankAccount getCheckingAccount() throws Exception;
+   BankAccount getSavingsAccount() throws Exception;
+   List<Transaction> getAccountHistory() throws Exception;
+   Transaction getLastTransaction() throws Exception;
 
+   void withdraw(double amount, BankAccount source) throws Exception;
+   void transfer(double amount, BankAccount source, BankAccount destination) throws Exception;
+   void deposit(double amount, BankAccount destination) throws Exception;
+   
 }

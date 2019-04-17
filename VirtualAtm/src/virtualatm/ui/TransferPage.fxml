@@ -1,11 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="virtualatm.ui.TransferPageController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.TransferPageController">
    <children>
-      <Button layoutX="254.0" layoutY="328.0" mnemonicParsing="false" onAction="#handleConfirmAction" text="Confirm" />
+      <Button layoutX="183.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleTransferAction" prefHeight="45.0" prefWidth="142.0" text="TRANSFER">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button fx:id="logoutButton" layoutX="444.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleLogoutAction" prefHeight="45.0" prefWidth="142.0" text="LOGOUT">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label fx:id="topLabel" layoutX="40.0" layoutY="25.0" prefHeight="45.0" prefWidth="337.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="accountBalancesLabel" layoutX="444.0" layoutY="25.0" text="Account Balances">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="checkingLabel" layoutX="444.0" layoutY="64.0" text="Checking">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="checkingAmountLabel" layoutX="444.0" layoutY="88.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="savingsLabel" layoutX="444.0" layoutY="120.0" text="Savings">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="savingsAmountLabel" layoutX="444.0" layoutY="151.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lastTransactionLabel" layoutX="444.0" layoutY="251.0" text="Last Transaction">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lastTransactionDateLabel" layoutX="444.0" layoutY="276.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="sourceAcountTypeLabel" layoutX="40.0" layoutY="122.0" text="Transfer from:" />
+      <Label fx:id="selectAmountLabel" layoutX="40.0" layoutY="230.0" text="Select Amount:" />
+      <Button fx:id="fromCheckingButton" layoutX="183.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleFromCheckingSelectedAction" prefHeight="25.0" prefWidth="85.0" text="Checking" />
+      <Button fx:id="fromSavingsButton" layoutX="280.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleFromSavingsSelectedAction" prefHeight="25.0" prefWidth="85.0" text="Savings" />
+      <TextField fx:id="transferAmount" layoutX="183.0" layoutY="226.0" prefHeight="25.0" prefWidth="186.0" promptText="Enter Amount" />
+      <Label fx:id="sourceAcountTypeLabel1" layoutX="40.0" layoutY="175.0" text="Transfer to:" />
+      <Button fx:id="toCheckingButton" layoutX="183.0" layoutY="171.0" mnemonicParsing="false" onAction="#handleToCheckingSelectedAction" prefHeight="25.0" prefWidth="85.0" text="Checking" />
+      <Button fx:id="toSavingsButton" layoutX="280.0" layoutY="171.0" mnemonicParsing="false" onAction="#handleToSavingsSelectedAction" prefHeight="25.0" prefWidth="85.0" text="Savings" />
    </children>
 </AnchorPane>

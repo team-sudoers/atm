@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.LoginPageController">
    <children>
-      <Button layoutX="277.0" layoutY="218.0" mnemonicParsing="false" onAction="#handleLoginAction" text="Login" />
+      <Button layoutX="187.0" layoutY="216.0" mnemonicParsing="false" onAction="#handleLoginAction" prefHeight="41.0" prefWidth="192.0" text="Login" />
       <Button layoutX="45.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleEnglishAction" text="English" />
       <Button layoutX="125.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleSpanishAction" text="Español" />
       <Button layoutX="201.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleFrenchAction" text="Français" />
       <Button layoutX="283.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleDeutschAction" text="Deutsch" />
       <Button layoutX="368.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleSimplifiedChineseAction" text="中文" />
       <Button layoutX="428.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleKoreanAction" text="한국어" />
+      <Label fx:id="welcomeText" layoutX="31.0" layoutY="29.0" prefHeight="72.0" prefWidth="541.0" text="Welcome! Please enter your credentials to sign in.">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="userName" layoutX="113.0" layoutY="152.0" promptText="Username" />
+      <TextField fx:id="userPin" layoutX="305.0" layoutY="152.0" promptText="Pin" />
    </children>
 </AnchorPane>

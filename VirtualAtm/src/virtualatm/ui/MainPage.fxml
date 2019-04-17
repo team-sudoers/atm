@@ -1,15 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="virtualatm.ui.MainPageController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.MainPageController">
    <children>
-      <Button layoutX="72.0" layoutY="119.0" mnemonicParsing="false" onAction="#handleWithdrawAction" text="WITHDRAW FUNDS" />
-      <Button layoutX="72.0" layoutY="207.0" mnemonicParsing="false" onAction="#handleTransferAction" text="TRANSFER FUNDS" />
-      <Button layoutX="285.0" layoutY="119.0" mnemonicParsing="false" onAction="#handleDepositAction" text="DEPOSIT FUNDS" />
-      <Button layoutX="285.0" layoutY="207.0" mnemonicParsing="false" onAction="#handleAccountHistoryAction" text="ACCOUNT HISTORY" />
-      <Button layoutX="425.0" layoutY="312.0" mnemonicParsing="false" onAction="#handleLogoutAction" text="LOGOUT" />
+      <Button layoutX="36.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleWithdrawAction" prefHeight="99.0" prefWidth="142.0" text="WITHDRAW FUNDS" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button layoutX="36.0" layoutY="215.0" mnemonicParsing="false" onAction="#handleTransferAction" prefHeight="99.0" prefWidth="142.0" text="TRANSFER FUNDS" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button layoutX="229.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleDepositAction" prefHeight="99.0" prefWidth="142.0" text="DEPOSIT FUNDS" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button layoutX="229.0" layoutY="215.0" mnemonicParsing="false" onAction="#handleAccountHistoryAction" prefHeight="99.0" prefWidth="142.0" text="ACCOUNT HISTORY" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button layoutX="440.0" layoutY="333.0" mnemonicParsing="false" onAction="#handleLogoutAction" prefHeight="45.0" prefWidth="142.0" text="LOGOUT">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Label fx:id="topLabel" layoutX="36.0" layoutY="28.0" prefHeight="45.0" prefWidth="337.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="accountBalancesLabel" layoutX="440.0" layoutY="28.0" text="Account Balances">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="checkingLabel" layoutX="440.0" layoutY="67.0" text="Checking">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="checkingAmountLabel" layoutX="440.0" layoutY="91.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="savingsLabel" layoutX="440.0" layoutY="123.0" text="Savings">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="savingsAmountLabel" layoutX="440.0" layoutY="154.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lastTransactionLabel" layoutX="440.0" layoutY="254.0" text="Last Transaction">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lastTransactionDateLabel" layoutX="440.0" layoutY="279.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

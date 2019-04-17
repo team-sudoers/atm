@@ -1,18 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package virtualatm.datamodel;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- *
- * @author Matt
- */
-//@XmlRootElement(name = "UserAccount")
 public class UserAccount {
    private long id;
    private String firstName;
@@ -25,11 +13,7 @@ public class UserAccount {
    private String checkingAccountBalance;
    private String savingsAccountNumber;
    private String savingsAccountBalance;
-   private List<Transaction> transactionHistory;
-   
-   public UserAccount() {
-      transactionHistory = new ArrayList<>();
-   }
+ 
    /**
     * @return the firstName
     */
@@ -168,20 +152,6 @@ public class UserAccount {
     */
    public void setSavingsAccountBalance(String savingsAccountBalance) {
       this.savingsAccountBalance = savingsAccountBalance;
-   }
-
-   /**
-    * @return the transactionHistory
-    */
-   public List<Transaction> getTransactionHistory() {
-      return transactionHistory;
-   }
-
-   /**
-    * @param transactionHistory the transactionHistory to set
-    */
-   public void setTransactionHistory(List<Transaction> transactionHistory) {
-      this.transactionHistory = transactionHistory;
    }
 
    /**
