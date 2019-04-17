@@ -81,6 +81,13 @@ public class FakeAtmService implements IAtmService {
       }
 
       currentBalance -= amount;
+
+      Transaction withdrawTransaction = new Transaction();
+      withdrawTransaction.setActivityType("Withdraw");
+      withdrawTransaction.setAmount(amount);
+      withdrawTransaction.setBankAccountId(account.getAccountNumber());
+      withdrawTransaction.setDate(new Date());
+      transactions.add(withdrawTransaction);
    }
 
    @Override
@@ -109,9 +116,23 @@ public class FakeAtmService implements IAtmService {
          throw new Exception("Insufficient Funds: Please select a lesser amount.");
       }
       sourceBalance -= amount;
-
+      Transaction withdrawTransaction = new Transaction();
+      withdrawTransaction.setActivityType("Withdraw");
+      withdrawTransaction.setAmount(amount);
+      withdrawTransaction.setBankAccountId(source.getAccountNumber());
+      withdrawTransaction.setDate(new Date());
+      transactions.add(withdrawTransaction);
+      
+      
       double destinationBalance = destination.getAccountBalance();
       destinationBalance += amount;
+      Transaction depositTransaction = new Transaction();
+      depositTransaction.setActivityType("Deposit");
+      depositTransaction.setAmount(amount);
+      depositTransaction.setBankAccountId(destination.getAccountNumber());
+      depositTransaction.setDate(new Date());
+      transactions.add(depositTransaction);
+
    }
 
    @Override
@@ -129,6 +150,13 @@ public class FakeAtmService implements IAtmService {
       double balance = destination.getAccountBalance();
       balance += amount;
       destination.setAccountBalance(balance);
+      
+      Transaction transaction = new Transaction();
+      transaction.setActivityType("Deposit");
+      transaction.setAmount(amount);
+      transaction.setBankAccountId(destination.getAccountNumber());
+      transaction.setDate(new Date());
+      transactions.add(transaction);
    }
 
    @Override
