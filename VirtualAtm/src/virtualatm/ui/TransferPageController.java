@@ -176,6 +176,29 @@ public class TransferPageController extends BaseAtmController {
          Logger.getLogger(TransferPageController.class.getName()).log(Level.SEVERE, null, ex);
       }
    }
+   
+   
+    @FXML
+    void handleToAccount(ActionEvent event) {
+        String accountType = destinationAccount.getValue();
+        if(accountType.equals("checking")){
+            fromAccount.setValue("savings");
+        } 
+        if(accountType.equals("savings")){
+            fromAccount.setValue("checking");
+        }
+    }
+    
+    @FXML
+    void handleFromAccount(ActionEvent event) {
+        String accountType = fromAccount.getValue();
+        if(accountType.equals("checking")){
+            destinationAccount.setValue("savings");
+        } 
+        if(accountType.equals("savings")){
+            destinationAccount.setValue("checking");
+        } 
+    }
 
    private double parseWithdrawalAmount(String text) {
 

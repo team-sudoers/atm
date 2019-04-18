@@ -67,7 +67,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <ComboBox fx:id="fromAccount" layoutX="121.0" layoutY="118.0" prefWidth="150.0" promptText="Select Account" />
-      <ComboBox fx:id="destinationAccount" layoutX="121.0" layoutY="180.0" prefWidth="150.0" promptText="Select Account" />
+      <ComboBox fx:id="fromAccount" layoutX="121.0" layoutY="118.0" onAction="#handleFromAccount" prefWidth="150.0" promptText="Select Account" />
+      <ComboBox fx:id="destinationAccount" layoutX="121.0" layoutY="180.0" onAction="#handleToAccount" prefWidth="150.0" promptText="Select Account" />
    </children>
 </AnchorPane>
