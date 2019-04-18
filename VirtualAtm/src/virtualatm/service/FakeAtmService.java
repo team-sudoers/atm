@@ -61,7 +61,7 @@ public class FakeAtmService implements IAtmService {
       savingsTransaction.setBankAccountId(22222222);
       savingsTransaction.setDate(new Date());
       transactions.add(savingsTransaction);
-   }
+      }
 
    @Override
    public void withdraw(double amount, BankAccount account) throws Exception {
@@ -80,7 +80,9 @@ public class FakeAtmService implements IAtmService {
          throw new Exception("Insufficient Funds: Please select a lesser amount.");
       }
 
-      currentBalance -= amount;
+      double balance = account.getAccountBalance();
+      balance -= amount;
+      account.setAccountBalance(balance);
    }
 
    @Override
@@ -109,9 +111,10 @@ public class FakeAtmService implements IAtmService {
          throw new Exception("Insufficient Funds: Please select a lesser amount.");
       }
       sourceBalance -= amount;
-
+      source.setAccountBalance(sourceBalance);
       double destinationBalance = destination.getAccountBalance();
       destinationBalance += amount;
+      destination.setAccountBalance(destinationBalance);
    }
 
    @Override
