@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -60,13 +61,12 @@
       </Button>
       <Label fx:id="depositAcountTypeLabel" layoutX="46.0" layoutY="135.0" text="Deposit to:" />
       <Label fx:id="enterAmountLabel" layoutX="46.0" layoutY="218.0" text="Enter Amount:" />
-      <Button fx:id="checkingButton" layoutX="189.0" layoutY="131.0" mnemonicParsing="false" onAction="#handleCheckingSelectedAction" prefHeight="25.0" prefWidth="85.0" text="Checking" />
-      <Button fx:id="SavingsButton" layoutX="286.0" layoutY="131.0" mnemonicParsing="false" onAction="#handleSavingsSelectedAction" prefHeight="25.0" prefWidth="85.0" text="Savings" />
       <TextField fx:id="depositAmount" layoutX="189.0" layoutY="214.0" prefHeight="25.0" prefWidth="186.0" promptText="Enter Amount" />
       <Button fx:id="returnButton" layoutX="14.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleReturnAction" prefHeight="45.0" prefWidth="142.0" text="RETURN">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
+      <ComboBox fx:id="fromAccount" layoutX="140.0" layoutY="131.0" onAction="#handleDepositAccountType" prefWidth="150.0" promptText="Select Account" />
    </children>
 </AnchorPane>

@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import virtualatm.datamodel.BankAccount;
@@ -68,10 +69,15 @@ public class DepositPageController extends BaseAtmController {
   
    @FXML
     private Button returnButton;
+   
+   @FXML
+   private ComboBox<String> fromAccount;
+   
 
    @Override
    public void initialize(URL url, ResourceBundle rb) {
       super.initialize(url, rb); //To change body of generated methods, choose Tools | Templates.
+      fromAccount.getItems().addAll("checking", "savings");
       refresh();
    }
 
@@ -102,6 +108,14 @@ public class DepositPageController extends BaseAtmController {
       }
    }
 
+     @FXML
+    void handleDepositAccountType(ActionEvent event) {
+         String accountType = fromAccount.getValue();
+        if (accountType != null){
+            selectedAccountType = accountType;
+        }
+    }
+   
    @FXML
    void handleCheckingSelectedAction(ActionEvent event) {
       selectedAccountType = "checking";
