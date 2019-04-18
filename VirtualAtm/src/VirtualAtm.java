@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -12,22 +8,18 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import virtualatm.ui.BaseAtmController;
 
-/**
- *
- * @author Matt
- */
 public class VirtualAtm extends Application {
 
    @Override
    public void start(Stage primaryStage) {
 
       try {
-
-         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("virtualatm/ui/LoginPage.fxml"));
+         ResourceBundle bundle = ResourceBundle.getBundle("virtualatm.ui.resources.uitext", Locale.ENGLISH);
+         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("virtualatm/ui/LoginPage.fxml"), bundle);
          Scene loginScene = new Scene(fxmlLoader.load());
 
          BaseAtmController.setStage(primaryStage);
-         
+         primaryStage.resizableProperty().setValue(Boolean.FALSE); // disable maximize
          primaryStage.setTitle("CMSC 495 Virtual ATM");
          primaryStage.setScene(loginScene);
          primaryStage.show();

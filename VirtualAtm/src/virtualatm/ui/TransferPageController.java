@@ -1,6 +1,3 @@
-/**
- * Sample Skeleton for 'TransferPage.fxml' Controller Class
- */
 package virtualatm.ui;
 
 import java.net.URL;
@@ -11,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -20,9 +16,6 @@ import virtualatm.datamodel.Transaction;
 import virtualatm.datamodel.UserAccount;
 
 public class TransferPageController extends BaseAtmController {
-
-   @FXML // fx:id="logoutButton"
-   private Button logoutButton; // Value injected by FXMLLoader
 
    @FXML // fx:id="topLabel"
    private Label topLabel; // Value injected by FXMLLoader
@@ -54,38 +47,23 @@ public class TransferPageController extends BaseAtmController {
    @FXML // fx:id="selectAmountLabel"
    private Label selectAmountLabel; // Value injected by FXMLLoader
 
-   @FXML // fx:id="fromCheckingButton"
-   private Button fromCheckingButton; // Value injected by FXMLLoader
-
-   @FXML // fx:id="fromSavingsButton"
-   private Button fromSavingsButton; // Value injected by FXMLLoader
-
    @FXML // fx:id="transferAmount"
    private TextField transferAmount; // Value injected by FXMLLoader
 
    @FXML // fx:id="sourceAcountTypeLabel1"
    private Label sourceAcountTypeLabel1; // Value injected by FXMLLoader
 
-   @FXML // fx:id="toCheckingButton"
-   private Button toCheckingButton; // Value injected by FXMLLoader
-
-   @FXML // fx:id="toSavingsButton"
-   private Button toSavingsButton; // Value injected by FXMLLoader
-   
    @FXML
-    private ComboBox<String> fromAccount;
+   private ComboBox<String> fromAccount;
 
-    @FXML
-    private ComboBox<String> destinationAccount;
-   
    @FXML
-    private Button returnButton;
+   private ComboBox<String> destinationAccount;
 
    @Override
    public void initialize(URL url, ResourceBundle rb) {
       super.initialize(url, rb); //To change body of generated methods, choose Tools | Templates.
-     fromAccount.getItems().addAll("checking", "savings");
-     destinationAccount.getItems().addAll("checking", "savings");
+      fromAccount.getItems().addAll("checking", "savings");
+      destinationAccount.getItems().addAll("checking", "savings");
       refresh();
    }
 
@@ -120,7 +98,7 @@ public class TransferPageController extends BaseAtmController {
          } else {
             source = getAtmService().getSavingsAccount();
          }
-         
+
          BankAccount destination = null;
          if (destinationAccount.getValue().equals("checking")) {
             destination = getAtmService().getCheckingAccount();
@@ -151,24 +129,24 @@ public class TransferPageController extends BaseAtmController {
 
    private void refresh() {
       try {
-         
+
          String pattern = "MM/dd/yyyy";
          SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
          topLabel.setText(String.format("%s", simpleDateFormat.format(new Date())));
-         
+
          UserAccount user = getAtmService().getLoggedInUser();
          BankAccount ca = getAtmService().getCheckingAccount();
          BankAccount sa = getAtmService().getSavingsAccount();
          Transaction lastTransaction = getAtmService().getLastTransaction();
-         
+
          if (ca != null) {
             checkingAmountLabel.setText(String.format("$%.2f", ca.getAccountBalance()));
          }
-         
+
          if (sa != null) {
             savingsAmountLabel.setText(String.format("$%.2f", sa.getAccountBalance()));
          }
-         
+
          if (lastTransaction != null) {
             lastTransactionDateLabel.setText(String.format("%s", simpleDateFormat.format(lastTransaction.getDate())));
          }
@@ -176,29 +154,28 @@ public class TransferPageController extends BaseAtmController {
          Logger.getLogger(TransferPageController.class.getName()).log(Level.SEVERE, null, ex);
       }
    }
-   
-   
-    @FXML
-    void handleToAccount(ActionEvent event) {
-        String accountType = destinationAccount.getValue();
-        if(accountType.equals("checking")){
-            fromAccount.setValue("savings");
-        } 
-        if(accountType.equals("savings")){
-            fromAccount.setValue("checking");
-        }
-    }
-    
-    @FXML
-    void handleFromAccount(ActionEvent event) {
-        String accountType = fromAccount.getValue();
-        if(accountType.equals("checking")){
-            destinationAccount.setValue("savings");
-        } 
-        if(accountType.equals("savings")){
-            destinationAccount.setValue("checking");
-        } 
-    }
+
+   @FXML
+   void handleToAccount(ActionEvent event) {
+      String accountType = destinationAccount.getValue();
+      if (accountType.equals("checking")) {
+         fromAccount.setValue("savings");
+      }
+      if (accountType.equals("savings")) {
+         fromAccount.setValue("checking");
+      }
+   }
+
+   @FXML
+   void handleFromAccount(ActionEvent event) {
+      String accountType = fromAccount.getValue();
+      if (accountType.equals("checking")) {
+         destinationAccount.setValue("savings");
+      }
+      if (accountType.equals("savings")) {
+         destinationAccount.setValue("checking");
+      }
+   }
 
    private double parseWithdrawalAmount(String text) {
 
@@ -212,8 +189,9 @@ public class TransferPageController extends BaseAtmController {
 
       return Double.parseDouble(text);
    }
-@FXML
-    void handleReturnAction(ActionEvent event) {
-        showMainPage();
-    }
+
+   @FXML
+   void handleReturnAction(ActionEvent event) {
+      showMainPage();
+   }
 }

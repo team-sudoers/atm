@@ -1,6 +1,3 @@
-/**
- * Sample Skeleton for 'DepositPage.fxml' Controller Class
- */
 package virtualatm.ui;
 
 import java.net.URL;
@@ -20,9 +17,6 @@ import virtualatm.datamodel.Transaction;
 import virtualatm.datamodel.UserAccount;
 
 public class DepositPageController extends BaseAtmController {
-
-   @FXML // fx:id="logoutButton"
-   private Button logoutButton; // Value injected by FXMLLoader
 
    @FXML // fx:id="topLabel"
    private Label topLabel; // Value injected by FXMLLoader
@@ -57,26 +51,16 @@ public class DepositPageController extends BaseAtmController {
    @FXML // fx:id="enterAmountLabel"
    private Label enterAmountLabel; // Value injected by FXMLLoader
 
-   @FXML // fx:id="checkingButton"
-   private Button checkingButton; // Value injected by FXMLLoader
-
-   @FXML // fx:id="SavingsButton"
-   private Button SavingsButton; // Value injected by FXMLLoader
-
    @FXML // fx:id="depositAmount"
    private TextField depositAmount; // Value injected by FXMLLoader
    private String selectedAccountType;
-  
-   @FXML
-    private Button returnButton;
-   
+
    @FXML
    private ComboBox<String> fromAccount;
-   
 
    @Override
    public void initialize(URL url, ResourceBundle rb) {
-      super.initialize(url, rb); //To change body of generated methods, choose Tools | Templates.
+      super.initialize(url, rb);
       fromAccount.getItems().addAll("checking", "savings");
       refresh();
    }
@@ -86,20 +70,20 @@ public class DepositPageController extends BaseAtmController {
          String pattern = "MM/dd/yyyy";
          SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
          topLabel.setText(String.format("%s", simpleDateFormat.format(new Date())));
-         
+
          UserAccount user = getAtmService().getLoggedInUser();
          BankAccount ca = getAtmService().getCheckingAccount();
          BankAccount sa = getAtmService().getSavingsAccount();
          Transaction lastTransaction = getAtmService().getLastTransaction();
-         
+
          if (ca != null) {
             checkingAmountLabel.setText(String.format("$%.2f", ca.getAccountBalance()));
          }
-         
+
          if (sa != null) {
             savingsAmountLabel.setText(String.format("$%.2f", sa.getAccountBalance()));
          }
-         
+
          if (lastTransaction != null) {
             lastTransactionDateLabel.setText(String.format("%s", simpleDateFormat.format(lastTransaction.getDate())));
          }
@@ -108,17 +92,12 @@ public class DepositPageController extends BaseAtmController {
       }
    }
 
-     @FXML
-    void handleDepositAccountType(ActionEvent event) {
-         String accountType = fromAccount.getValue();
-        if (accountType != null){
-            selectedAccountType = accountType;
-        }
-    }
-   
    @FXML
-   void handleCheckingSelectedAction(ActionEvent event) {
-      selectedAccountType = "checking";
+   void handleDepositAccountType(ActionEvent event) {
+      String accountType = fromAccount.getValue();
+      if (accountType != null) {
+         selectedAccountType = accountType;
+      }
    }
 
    @FXML
@@ -162,11 +141,6 @@ public class DepositPageController extends BaseAtmController {
       }
    }
 
-   @FXML
-   void handleSavingsSelectedAction(ActionEvent event) {
-      selectedAccountType = "savings";
-   }
-
    private boolean validateUserInput() {
       if (selectedAccountType.length() <= 0) {
          return false;
@@ -187,8 +161,9 @@ public class DepositPageController extends BaseAtmController {
 
       return Double.parseDouble(text);
    }
-    @FXML
-    void handleReturnAction(ActionEvent event) {
-        showMainPage();
-    }
+
+   @FXML
+   void handleReturnAction(ActionEvent event) {
+      showMainPage();
+   }
 }

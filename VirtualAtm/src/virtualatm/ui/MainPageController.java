@@ -1,6 +1,3 @@
-/**
- * Sample Skeleton for 'MainPage.fxml' Controller Class
- */
 package virtualatm.ui;
 
 import java.net.URL;

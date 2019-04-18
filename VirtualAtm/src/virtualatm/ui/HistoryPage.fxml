@@ -9,11 +9,11 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.HistoryPageController">
    <children>
-      <Button fx:id="returnButton" layoutX="28.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleReturnAction" prefHeight="45.0" prefWidth="142.0" text="RETURN">
+      <Button layoutX="28.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleReturnAction" prefHeight="45.0" prefWidth="142.0" text="%returnButtonText">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Button fx:id="logoutButton" layoutX="432.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleLogoutAction" prefHeight="45.0" prefWidth="142.0" text="LOGOUT">
+      <Button layoutX="432.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleLogoutAction" prefHeight="45.0" prefWidth="142.0" text="%logoutButtonText">
          <font>
             <Font size="18.0" />
          </font>

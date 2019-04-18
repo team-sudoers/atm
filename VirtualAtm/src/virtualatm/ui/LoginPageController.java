@@ -1,8 +1,7 @@
-/**
- * Sample Skeleton for 'LoginPage.fxml' Controller Class
- */
 package virtualatm.ui;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,27 +19,37 @@ public class LoginPageController extends BaseAtmController {
    @FXML // fx:id="userPin"
    private TextField userPin; // Value injected by FXMLLoader
  
-   @FXML
-    private Button loginButton;
+   @FXML // fx:id="loginButton"
+    private Button loginButton; // Value injected by FXMLLoader
+   
+   @Override
+   public void initialize(URL url, ResourceBundle rb) {
+      super.initialize(url, rb);
+      
+      welcomeText.textProperty().bind(createTranslatedTextBinding("welcomeLabelText"));
+      userName.promptTextProperty().bind(createTranslatedTextBinding("userNameText"));
+      userPin.promptTextProperty().bind(createTranslatedTextBinding("userPinText"));
+      loginButton.textProperty().bind(createTranslatedTextBinding("loginButtonText"));
+   }
    
    @FXML
    void handleDeutschAction(ActionEvent event) {
-      //setLanguageId();
+      setLanguageId("de", "DE");
    }
 
    @FXML
    void handleEnglishAction(ActionEvent event) {
-      //setLanguageId();
+      setLanguageId("en", "EN");
    }
 
    @FXML
    void handleFrenchAction(ActionEvent event) {
-      //setLanguageId();
+      setLanguageId("fr", "FR");
    }
 
    @FXML
    void handleKoreanAction(ActionEvent event) {
-      //setLanguageId();
+      setLanguageId("ko", "KO");
    }
 
    
@@ -67,12 +76,12 @@ public class LoginPageController extends BaseAtmController {
 
    @FXML
    void handleSimplifiedChineseAction(ActionEvent event) {
-      //setLanguageId();
+      setLanguageId("zh", "CN");
    }
 
    @FXML
    void handleSpanishAction(ActionEvent event) {
-      //setLanguageId();
+      setLanguageId("es", "ES");
    }
 
    private boolean validateUserInput() {

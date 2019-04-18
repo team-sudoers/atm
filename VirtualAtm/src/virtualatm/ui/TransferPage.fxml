@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.TransferPageController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.TransferPageController">
    <children>
       <Button layoutX="205.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleTransferAction" prefHeight="45.0" prefWidth="142.0" text="TRANSFER">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Button fx:id="logoutButton" layoutX="444.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleLogoutAction" prefHeight="45.0" prefWidth="142.0" text="LOGOUT">
+      <Button layoutX="444.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleLogoutAction" prefHeight="45.0" prefWidth="142.0" text="%logoutButtonText">
          <font>
             <Font size="18.0" />
          </font>
@@ -62,7 +62,7 @@
       <Label fx:id="selectAmountLabel" layoutX="40.0" layoutY="230.0" text="Select Amount:" />
       <TextField fx:id="transferAmount" layoutX="183.0" layoutY="226.0" prefHeight="25.0" prefWidth="186.0" promptText="Enter Amount" />
       <Label fx:id="sourceAcountTypeLabel1" layoutX="40.0" layoutY="175.0" text="Transfer to:" />
-      <Button fx:id="returnButton" layoutX="14.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleReturnAction" prefHeight="45.0" prefWidth="142.0" text="RETURN">
+      <Button layoutX="14.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleReturnAction" prefHeight="45.0" prefWidth="142.0" text="%returnButtonText">
          <font>
             <Font size="18.0" />
          </font>

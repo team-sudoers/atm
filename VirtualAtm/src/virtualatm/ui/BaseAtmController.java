@@ -7,11 +7,15 @@ package virtualatm.ui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.StringBinding;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,12 +31,6 @@ import virtualatm.service.IAtmService;
  */
 public class BaseAtmController implements Initializable {
 
-//   private static final String DEPOSITPAGEKEY = "deposit";
-//   private static final String HISTORYPAGEKEY = "history";
-//   private static final String LOGINPAGEKEY = "login";
-//   private static final String MAINPAGEKEY = "main";
-//   private static final String TRANSFERPAGEKEY = "transfer";
-//   private static final String WITHDRAWPAGEKEY = "withdraw";
    private static final String DEPOSITPAGEKEY = "DepositPage.fxml";
    private static final String HISTORYPAGEKEY = "HistoryPage.fxml";
    private static final String LOGINPAGEKEY = "LoginPage.fxml";
@@ -40,80 +38,90 @@ public class BaseAtmController implements Initializable {
    private static final String TRANSFERPAGEKEY = "TransferPage.fxml";
    private static final String WITHDRAWPAGEKEY = "WithdrawPage.fxml";
 
-   public static void setStage(Stage stage) {
-      primaryStage = stage;
-   }
-
    @FXML // ResourceBundle that was given to the FXMLLoader
    private ResourceBundle resources;
 
    @FXML // URL location of the FXML file that was given to the FXMLLoader
    private URL location;
 
-   private String languageId;
+   private ObjectProperty<Locale> locale;
 
    private static IAtmService atmService;
-   private static final Map<String, Scene> pages = new HashMap<>();
+
    private static Stage primaryStage;
 
    /**
     * Initializes the controller class.
+    * @param url
+    * @param rb
     */
    @Override
    public void initialize(URL url, ResourceBundle rb) {
-      // TODO
+      location = url;
+      resources = rb;
+      locale = new SimpleObjectProperty<>(Locale.getDefault());
+      locale.addListener((observable, oldValue, newValue) -> Locale.setDefault(newValue));
    }
 
    public IAtmService getAtmService() {
       if (atmService == null) {
          atmService = new FakeAtmService();
       }
-
       return atmService;
    }
 
-   public void setLanguageId(String langId) {
-      languageId = langId;
+   public void setLanguageId(String langId, String country) {
+      Locale value = new Locale(langId, country);
+      resources = ResourceBundle.getBundle("virtualatm/ui/resources/uitext", value);
+      locale.set(value);
    }
 
-   public String getLanguageId() {
-      return languageId;
+   public String getTranslatedText(final String key, final Object... args) {
+      return MessageFormat.format(resources.getString(key), args);
    }
 
-   void showError(String message) {
+   public StringBinding createTranslatedTextBinding(final String key, Object... args) {
+      return Bindings.createStringBinding(() -> getTranslatedText(key, args), locale);
+   }
+
+   public void showError(String message) {
       Alert msgbox = new Alert(Alert.AlertType.ERROR, message);
       msgbox.setHeaderText("ERROR OCCURED");
       msgbox.showAndWait();
    }
 
-   void showMainPage() {
+   public void showMainPage() {
       showPage(MAINPAGEKEY);
    }
 
-   void showLoginPage() {
+   public void showLoginPage() {
       showPage(LOGINPAGEKEY);
    }
 
-   void showDepositPage() {
+   public void showDepositPage() {
       showPage(DEPOSITPAGEKEY);
    }
 
-   void showHistoryPage() {
+   public void showHistoryPage() {
       showPage(HISTORYPAGEKEY);
    }
 
-   void showTransferPage() {
+   public void showTransferPage() {
       showPage(TRANSFERPAGEKEY);
    }
 
-   void showWithdrawPage() {
+   public void showWithdrawPage() {
       showPage(WITHDRAWPAGEKEY);
+   }
+
+   public static void setStage(Stage stage) {
+      primaryStage = stage;
    }
 
    private void showPage(String fxmlPath) {
       try {
-         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-         
+         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath), resources);
+
          Scene scene = new Scene(loader.load());
          primaryStage.setScene(scene);
          primaryStage.show();

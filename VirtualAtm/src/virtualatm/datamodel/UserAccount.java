@@ -1,4 +1,3 @@
-
 package virtualatm.datamodel;
 
 public class UserAccount {

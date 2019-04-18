@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.DepositPageController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.DepositPageController">
    <children>
-      <Button fx:id="logoutButton" layoutX="450.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleLogoutAction" prefHeight="45.0" prefWidth="142.0" text="LOGOUT">
+      <Button layoutX="450.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleLogoutAction" prefHeight="45.0" prefWidth="142.0" text="%logoutButtonText">
          <font>
             <Font size="18.0" />
          </font>
@@ -62,7 +62,7 @@
       <Label fx:id="depositAcountTypeLabel" layoutX="46.0" layoutY="135.0" text="Deposit to:" />
       <Label fx:id="enterAmountLabel" layoutX="46.0" layoutY="218.0" text="Enter Amount:" />
       <TextField fx:id="depositAmount" layoutX="189.0" layoutY="214.0" prefHeight="25.0" prefWidth="186.0" promptText="Enter Amount" />
-      <Button fx:id="returnButton" layoutX="14.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleReturnAction" prefHeight="45.0" prefWidth="142.0" text="RETURN">
+      <Button layoutX="14.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleReturnAction" prefHeight="45.0" prefWidth="142.0" text="%returnButtonText">
          <font>
             <Font size="18.0" />
          </font>
