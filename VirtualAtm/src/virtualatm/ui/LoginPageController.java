@@ -5,6 +5,7 @@ package virtualatm.ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -18,7 +19,10 @@ public class LoginPageController extends BaseAtmController {
 
    @FXML // fx:id="userPin"
    private TextField userPin; // Value injected by FXMLLoader
-
+ 
+   @FXML
+    private Button loginButton;
+   
    @FXML
    void handleDeutschAction(ActionEvent event) {
       //setLanguageId();
@@ -39,6 +43,7 @@ public class LoginPageController extends BaseAtmController {
       //setLanguageId();
    }
 
+   
    @FXML
    void handleLoginAction(ActionEvent event) {
       try {
@@ -48,10 +53,11 @@ public class LoginPageController extends BaseAtmController {
          }
          
          if (getAtmService().login(userName.getText(), userPin.getText()) == false) {
-            showError("Invalid username or pin enetered");
+             
+            showError("Invalid username or pin entered.");
             return;
          }
-         
+        
          super.showMainPage();
          
       } catch (Exception e) {
@@ -80,4 +86,5 @@ public class LoginPageController extends BaseAtmController {
       
       return true;
    }
+
 }

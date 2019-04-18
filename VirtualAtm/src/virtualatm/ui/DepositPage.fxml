@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.DepositPageController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.DepositPageController">
    <children>
       <Button fx:id="logoutButton" layoutX="450.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleLogoutAction" prefHeight="45.0" prefWidth="142.0" text="LOGOUT">
          <font>
@@ -53,7 +53,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="depositButton" layoutX="189.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleDepositAction" prefHeight="45.0" prefWidth="142.0" text="DEPOSIT">
+      <Button fx:id="depositButton" layoutX="229.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleDepositAction" prefHeight="45.0" prefWidth="142.0" text="DEPOSIT">
          <font>
             <Font size="18.0" />
          </font>
@@ -63,5 +63,10 @@
       <Button fx:id="checkingButton" layoutX="189.0" layoutY="131.0" mnemonicParsing="false" onAction="#handleCheckingSelectedAction" prefHeight="25.0" prefWidth="85.0" text="Checking" />
       <Button fx:id="SavingsButton" layoutX="286.0" layoutY="131.0" mnemonicParsing="false" onAction="#handleSavingsSelectedAction" prefHeight="25.0" prefWidth="85.0" text="Savings" />
       <TextField fx:id="depositAmount" layoutX="189.0" layoutY="214.0" prefHeight="25.0" prefWidth="186.0" promptText="Enter Amount" />
+      <Button fx:id="returnButton" layoutX="14.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleReturnAction" prefHeight="45.0" prefWidth="142.0" text="RETURN">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

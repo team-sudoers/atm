@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import virtualatm.datamodel.BankAccount;
@@ -66,10 +67,21 @@ public class WithdrawPageController extends BaseAtmController {
    private Label otherLabel; // Value injected by FXMLLoader
    private String selectedAccountType;
    private double withdrawAmount;
+   
+   @FXML
+    private Button returnButton;
+   
+   @FXML
+    private ComboBox<String> fromAccount;
+   
+   @FXML
+    private ComboBox<String> selectAmount;
 
    @Override
    public void initialize(URL url, ResourceBundle rb) {
       super.initialize(url, rb); //To change body of generated methods, choose Tools | Templates.
+      fromAccount.getItems().addAll("checking", "savings");
+      selectAmount.getItems().addAll("20", "40", "60", "80", "100", "200");
       refresh();
    }
 
@@ -92,7 +104,7 @@ public class WithdrawPageController extends BaseAtmController {
             showLoginPage();
             return;
          }
-
+         
          BankAccount ba = null;
          if (selectedAccountType.equals("checking")) {
             ba = getAtmService().getCheckingAccount();
@@ -198,17 +210,20 @@ public class WithdrawPageController extends BaseAtmController {
       return tempAmount > 0;
    }
 
-   private long parseWithdrawalAmount(String text) {
+   private double parseWithdrawalAmount(String text) {
 
       if (text.length() <= 0) {
-         return 0;
+         return 0.0;
       }
 
       if (text.startsWith("$")) {
          text = text.substring(1);
       }
 
-      return Long.parseLong(text);
+      return Double.parseDouble(text);
    }
-
+@FXML
+    void handleReturnAction(ActionEvent event) {
+        showMainPage();
+    }
 }

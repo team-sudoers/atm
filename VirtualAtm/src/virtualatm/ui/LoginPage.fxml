@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.LoginPageController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.LoginPageController">
    <children>
-      <Button layoutX="187.0" layoutY="216.0" mnemonicParsing="false" onAction="#handleLoginAction" prefHeight="41.0" prefWidth="192.0" text="Login" />
+      <Button fx:id="loginButton" layoutX="187.0" layoutY="216.0" mnemonicParsing="false" onAction="#handleLoginAction" prefHeight="41.0" prefWidth="192.0" text="Login" />
       <Button layoutX="45.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleEnglishAction" text="English" />
       <Button layoutX="125.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleSpanishAction" text="Español" />
       <Button layoutX="201.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleFrenchAction" text="Français" />

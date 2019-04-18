@@ -82,7 +82,7 @@ public class BaseAtmController implements Initializable {
 
    void showError(String message) {
       Alert msgbox = new Alert(Alert.AlertType.ERROR, message);
-      msgbox.setHeaderText("Add Error");
+      msgbox.setHeaderText("ERROR OCCURED");
       msgbox.showAndWait();
    }
 

@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import virtualatm.datamodel.BankAccount;
@@ -70,23 +71,22 @@ public class TransferPageController extends BaseAtmController {
 
    @FXML // fx:id="toSavingsButton"
    private Button toSavingsButton; // Value injected by FXMLLoader
-   private String sourceAccountType;
-   private String destinationAccountType;
+   
+   @FXML
+    private ComboBox<String> fromAccount;
+
+    @FXML
+    private ComboBox<String> destinationAccount;
+   
+   @FXML
+    private Button returnButton;
 
    @Override
    public void initialize(URL url, ResourceBundle rb) {
       super.initialize(url, rb); //To change body of generated methods, choose Tools | Templates.
+     fromAccount.getItems().addAll("checking", "savings");
+     destinationAccount.getItems().addAll("checking", "savings");
       refresh();
-   }
-
-   @FXML
-   void handleFromCheckingSelectedAction(ActionEvent event) {
-      sourceAccountType = "checking";
-   }
-
-   @FXML
-   void handleFromSavingsSelectedAction(ActionEvent event) {
-      sourceAccountType = "savings";
    }
 
    @FXML
@@ -97,16 +97,6 @@ public class TransferPageController extends BaseAtmController {
       } catch (Exception ex) {
          Logger.getLogger(TransferPageController.class.getName()).log(Level.SEVERE, null, ex);
       }
-   }
-
-   @FXML
-   void handleToCheckingSelectedAction(ActionEvent event) {
-      destinationAccountType = "checking";
-   }
-
-   @FXML
-   void handleToSavingsSelectedAction(ActionEvent event) {
-      destinationAccountType = "savings";
    }
 
    @FXML
@@ -125,14 +115,14 @@ public class TransferPageController extends BaseAtmController {
          }
 
          BankAccount source = null;
-         if (sourceAccountType.equals("checking")) {
+         if (fromAccount.getValue().equals("checking")) {
             source = getAtmService().getCheckingAccount();
          } else {
             source = getAtmService().getSavingsAccount();
          }
          
          BankAccount destination = null;
-         if (destinationAccountType.equals("checking")) {
+         if (destinationAccount.getValue().equals("checking")) {
             destination = getAtmService().getCheckingAccount();
          } else {
             destination = getAtmService().getSavingsAccount();
@@ -148,11 +138,11 @@ public class TransferPageController extends BaseAtmController {
    }
 
    private boolean validateUserInput() {
-      if (sourceAccountType.length() <= 0) {
+      if (fromAccount.getValue() == null) {
          return false;
       }
 
-      if (destinationAccountType.length() <= 0) {
+      if (destinationAccount.getValue() == null) {
          return false;
       }
 
@@ -161,6 +151,7 @@ public class TransferPageController extends BaseAtmController {
 
    private void refresh() {
       try {
+         
          String pattern = "MM/dd/yyyy";
          SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
          topLabel.setText(String.format("%s", simpleDateFormat.format(new Date())));
@@ -186,17 +177,20 @@ public class TransferPageController extends BaseAtmController {
       }
    }
 
-   private long parseWithdrawalAmount(String text) {
+   private double parseWithdrawalAmount(String text) {
 
       if (text.length() <= 0) {
-         return 0;
+         return 0.0;
       }
 
       if (text.startsWith("$")) {
          text = text.substring(1);
       }
 
-      return Long.parseLong(text);
+      return Double.parseDouble(text);
    }
-
+@FXML
+    void handleReturnAction(ActionEvent event) {
+        showMainPage();
+    }
 }
