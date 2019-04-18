@@ -139,37 +139,22 @@ public class WithdrawPageController extends BaseAtmController {
    void handleSavingsSelectedAction(ActionEvent event) {
       selectedAccountType = "savings";
    }
+   
+    @FXML
+    void handleSelectAccountChange(ActionEvent event) {
+        String accountType = fromAccount.getValue();
+        if (accountType != null){
+            selectedAccountType = accountType;
+        }
+    }
 
-   @FXML
-   void handleWithdrawEightyAction(ActionEvent event) {
-      withdrawAmount = 80.00;
-   }
-
-   @FXML
-   void handleWithdrawFortyAction(ActionEvent event) {
-      withdrawAmount = 40.00;
-   }
-
-   @FXML
-   void handleWithdrawOneHundredAction(ActionEvent event) {
-      withdrawAmount = 100.00;
-   }
-
-   @FXML
-   void handleWithdrawSixtyAction(ActionEvent event) {
-      withdrawAmount = 60.00;
-   }
-
-   @FXML
-   void handleWithdrawTwentyAction(ActionEvent event) {
-      withdrawAmount = 20.00;
-   }
-
-   @FXML
-   void handleWithdrawTwoHundredAction(ActionEvent event) {
-      withdrawAmount = 200.00;
-   }
-
+    @FXML
+    void handleSelectionAmountChanged(ActionEvent event) {
+        String value = selectAmount.getValue();
+        if (value != null){
+            withdrawAmount = Double.valueOf(value);
+        }
+    }
    private void refresh() {
       try {
          String pattern = "MM/dd/yyyy";
