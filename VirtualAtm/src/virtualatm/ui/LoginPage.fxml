@@ -7,21 +7,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.LoginPageController">
+<AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.LoginPageController">
    <children>
-      <Button fx:id="loginButton" layoutX="187.0" layoutY="216.0" mnemonicParsing="false" onAction="#handleLoginAction" prefHeight="41.0" prefWidth="192.0" text="Login" />
-      <Button layoutX="31.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleEnglishAction" prefHeight="34.0" prefWidth="76.0" text="English" />
-      <Button layoutX="125.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleSpanishAction" prefHeight="34.0" prefWidth="76.0" text="Español" />
-      <Button layoutX="217.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleFrenchAction" prefHeight="34.0" prefWidth="76.0" text="Français" />
-      <Button layoutX="309.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleDeutschAction" prefHeight="34.0" prefWidth="76.0" text="Deutsch" />
-      <Button layoutX="402.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleSimplifiedChineseAction" prefHeight="34.0" prefWidth="76.0" text="中文" />
-      <Button layoutX="496.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleKoreanAction" prefHeight="34.0" prefWidth="76.0" text="한국어" />
-      <Label fx:id="welcomeText" layoutX="31.0" layoutY="29.0" prefHeight="106.0" prefWidth="541.0" text="Welcome! Please enter your credentials to sign in." textAlignment="CENTER" wrapText="true">
+      <Button fx:id="loginButton" layoutX="251.0" layoutY="213.0" mnemonicParsing="false" onAction="#handleLoginAction" prefHeight="41.0" prefWidth="192.0" text="Login" />
+      <Button layoutX="14.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleEnglishAction" prefHeight="34.0" prefWidth="85.0" text="English" />
+      <Button layoutX="126.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleSpanishAction" prefHeight="34.0" prefWidth="85.0" text="Español" />
+      <Button layoutX="250.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleFrenchAction" prefHeight="34.0" prefWidth="85.0" text="Français" />
+      <Button layoutX="375.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleDeutschAction" prefHeight="34.0" prefWidth="85.0" text="Deutsch" />
+      <Button layoutX="492.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleSimplifiedChineseAction" prefHeight="34.0" prefWidth="85.0" text="中文" />
+      <Button layoutX="601.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleKoreanAction" prefHeight="34.0" prefWidth="85.0" text="한국어" />
+      <Label fx:id="welcomeText" layoutX="80.0" layoutY="14.0" prefHeight="106.0" prefWidth="541.0" text="Welcome! Please enter your credentials to sign in." textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="userName" layoutX="113.0" layoutY="152.0" promptText="Username" />
-      <PasswordField fx:id="userPin" layoutX="305.0" layoutY="152.0" promptText="Pin" />
+      <TextField fx:id="userName" layoutX="143.0" layoutY="152.0" promptText="Username" />
+      <PasswordField fx:id="userPin" layoutX="385.0" layoutY="152.0" promptText="Pin" />
    </children>
 </AnchorPane>

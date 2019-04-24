@@ -64,7 +64,7 @@ public class WithdrawPageController extends BaseAtmController {
    @Override
    public void initialize(URL url, ResourceBundle rb) {
       super.initialize(url, rb); //To change body of generated methods, choose Tools | Templates.
-      fromAccount.getItems().addAll("checking", "savings");
+      fromAccount.getItems().addAll(getTranslatedText("checking"), getTranslatedText("savings"));
       selectAmount.getItems().addAll("20", "40", "60", "80", "100", "200");
       refresh();
    }
@@ -85,7 +85,7 @@ public class WithdrawPageController extends BaseAtmController {
          }
 
          BankAccount ba = null;
-         if (selectedAccountType.equals("checking")) {
+         if (selectedAccountType.equals(getTranslatedText("checking"))) {
             ba = getAtmService().getCheckingAccount();
          } else {
             ba = getAtmService().getSavingsAccount();

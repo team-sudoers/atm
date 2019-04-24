@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.HistoryPageController">
+<AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.HistoryPageController">
    <children>
-      <Button layoutX="28.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleReturnAction" prefHeight="45.0" prefWidth="142.0" text="%returnButtonText">
+      <Button layoutX="28.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleReturnAction" prefHeight="45.0" prefWidth="186.0" text="%returnButtonText">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Button layoutX="432.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleLogoutAction" prefHeight="45.0" prefWidth="142.0" text="%logoutButtonText">
+      <Button layoutX="500.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleLogoutAction" prefHeight="45.0" prefWidth="186.0" text="%logoutButtonText">
          <font>
             <Font size="18.0" />
          </font>
@@ -23,47 +23,47 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="accountBalancesLabel" layoutX="432.0" layoutY="36.0" text="Account Balances">
+      <Label fx:id="accountBalancesLabel" layoutX="500.0" layoutY="36.0" text="%accountBalanceLabel">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="checkingLabel" layoutX="432.0" layoutY="75.0" text="Checking">
+      <Label fx:id="checkingLabel" layoutX="500.0" layoutY="75.0" text="%checkingBalanceLabel">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="checkingAmountLabel" layoutX="432.0" layoutY="99.0" text="Label">
+      <Label fx:id="checkingAmountLabel" layoutX="500.0" layoutY="99.0" text="Label">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="savingsLabel" layoutX="432.0" layoutY="131.0" text="Savings">
+      <Label fx:id="savingsLabel" layoutX="500.0" layoutY="131.0" text="%savingsBalanceLabel">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="savingsAmountLabel" layoutX="432.0" layoutY="162.0" text="Label">
+      <Label fx:id="savingsAmountLabel" layoutX="500.0" layoutY="162.0" text="Label">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lastTransactionLabel" layoutX="432.0" layoutY="262.0" text="Last Transaction">
+      <Label fx:id="lastTransactionLabel" layoutX="500.0" layoutY="262.0" text="%lastTransactionLabel">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lastTransactionDateLabel" layoutX="432.0" layoutY="287.0" text="Label">
+      <Label fx:id="lastTransactionDateLabel" layoutX="500.0" layoutY="287.0" text="Label">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="accountHistoryLabel" layoutX="28.0" layoutY="91.0" text="Account History" />
-      <TableView fx:id="historyTableView" layoutX="28.0" layoutY="119.0" prefHeight="200.0" prefWidth="362.0">
+      <Label fx:id="accountHistoryLabel" layoutX="28.0" layoutY="91.0" text="%accountHistoryLabel" />
+      <TableView fx:id="historyTableView" layoutX="28.0" layoutY="119.0" prefHeight="200.0" prefWidth="392.0">
         <columns>
-          <TableColumn fx:id="dateColumn" editable="false" prefWidth="104.0" text="Date" />
-          <TableColumn fx:id="typeColumn" editable="false" prefWidth="114.0" text="Type" />
-            <TableColumn fx:id="amountColumn" editable="false" prefWidth="142.0" text="Amount" />
+          <TableColumn fx:id="dateColumn" editable="false" prefWidth="130.0" text="%dateHistoryTable" />
+          <TableColumn fx:id="typeColumn" editable="false" prefWidth="127.0" text="%typeHistoryTable" />
+            <TableColumn fx:id="amountColumn" editable="false" prefWidth="134.0" text="%amountHistoryTable" />
         </columns>
       </TableView>
    </children>
