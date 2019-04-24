@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class LoginPageController extends BaseAtmController {
@@ -17,7 +18,7 @@ public class LoginPageController extends BaseAtmController {
    private TextField userName; // Value injected by FXMLLoader
 
    @FXML // fx:id="userPin"
-   private TextField userPin; // Value injected by FXMLLoader
+   private PasswordField userPin; // Value injected by FXMLLoader
  
    @FXML // fx:id="loginButton"
     private Button loginButton; // Value injected by FXMLLoader

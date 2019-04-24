@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -21,6 +22,6 @@
          </font>
       </Label>
       <TextField fx:id="userName" layoutX="113.0" layoutY="152.0" promptText="Username" />
-      <TextField fx:id="userPin" layoutX="305.0" layoutY="152.0" promptText="Pin" />
+      <PasswordField fx:id="userPin" layoutX="305.0" layoutY="152.0" promptText="Pin" />
    </children>
 </AnchorPane>
