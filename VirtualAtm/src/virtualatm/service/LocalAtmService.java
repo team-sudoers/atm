@@ -14,6 +14,9 @@ import virtualatm.utils.Security;
 
 public class LocalAtmService implements IAtmService {
 
+   private final int MAX_FAILED_LOGINS = 3;
+   private final int LOCKOUT_SECONDS = 30;
+
    private static final String XML_FILE_PATH = "datastore.xml";
    private final IAtmDataAccess dataAccessLayer;
    private UserAccount currentUser;
@@ -105,7 +108,7 @@ public class LocalAtmService implements IAtmService {
       if (destination.getUserId() != currentUser.getId()) {
          throw new Exception("This bank account doesn't belong to you!");
       }
-      
+
       BankAccount foundAccount = dataAccessLayer.findBankAccount(destination.getAccountNumber());
       if (foundAccount == null) {
          throw new Exception("Please select a valid account");
@@ -121,7 +124,7 @@ public class LocalAtmService implements IAtmService {
       transaction.setBankAccountId(destination.getAccountNumber());
       transaction.setDate(new Date());
       dataAccessLayer.addTransaction(transaction);
-      
+
       dataAccessLayer.Save(true);
    }
 
@@ -131,7 +134,7 @@ public class LocalAtmService implements IAtmService {
       List<Transaction> allTransactions = dataAccessLayer.getTransactionsForUser(currentUser);
       List<Transaction> retVal = new ArrayList<>();
       Date date = Date.from(Instant.now().minus(Duration.ofDays(7)));
-      
+
       for (Transaction transaction : allTransactions) {
          if (transaction.getDate().after(date)) {
             retVal.add(transaction);
@@ -159,11 +162,22 @@ public class LocalAtmService implements IAtmService {
       if (foundAccount == null) {
          return false;
       }
-      
+
+      if (foundAccount.getFailedLoginCount() >= MAX_FAILED_LOGINS) {
+         long unlockTime = foundAccount.getLastFailedLogin().getTime() + LOCKOUT_SECONDS * 1000;
+         if (System.currentTimeMillis() < unlockTime) {
+            throw new Exception("Sorry this account is locked out");
+         }
+      }
+
       if (Security.compareHash(foundAccount.getPin(), pin) == false) {
+         foundAccount.setFailedLoginCount(foundAccount.getFailedLoginCount() + 1);
+         foundAccount.setLastFailedLogin(new Date());
          return false;
       }
 
+      // successful login
+      foundAccount.setFailedLoginCount(0);
       currentUser = foundAccount;
       return true;
    }
@@ -221,5 +235,4 @@ public class LocalAtmService implements IAtmService {
 
       return retVal;
    }
-
 }

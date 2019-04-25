@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,9 +22,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import virtualatm.service.FakeAtmService;
 import virtualatm.service.IAtmService;
+import virtualatm.service.LocalAtmService;
 
 /**
  *
@@ -52,6 +54,7 @@ public class BaseAtmController implements Initializable {
 
    /**
     * Initializes the controller class.
+    *
     * @param url
     * @param rb
     */
@@ -65,7 +68,7 @@ public class BaseAtmController implements Initializable {
 
    public IAtmService getAtmService() {
       if (atmService == null) {
-         atmService = new FakeAtmService();
+         atmService = new LocalAtmService();
       }
       return atmService;
    }
@@ -88,6 +91,14 @@ public class BaseAtmController implements Initializable {
       Alert msgbox = new Alert(Alert.AlertType.ERROR, message);
       msgbox.setHeaderText("ERROR OCCURED");
       msgbox.showAndWait();
+   }
+
+   public boolean askYesNoQuestion(String title, String question) {
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION, question, ButtonType.YES, ButtonType.NO);
+      alert.setTitle(title);
+      alert.setHeaderText(null);
+      Optional<ButtonType> result = alert.showAndWait();
+      return result.get() == ButtonType.YES;
    }
 
    public void showMainPage() {

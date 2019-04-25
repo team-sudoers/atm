@@ -16,26 +16,27 @@ import virtualatm.datamodel.Transaction;
 import virtualatm.datamodel.UserAccount;
 
 public class XmlDataAccess implements IAtmDataAccess {
+
    private final String filePath;
    private boolean dirty;
    private AtmData dataCache;
-   
+
    public XmlDataAccess(String xmlPath) {
       filePath = xmlPath;
       dirty = true;
       dataCache = new AtmData();
    }
-   
+
    public Boolean Save(Boolean force) {
       return Save(filePath, force);
    }
-   
+
    public Boolean Save(String path, Boolean force) {
       try {
          if (force == true) {
             dirty = true;
          }
-         
+
          WriteFile(path, dataCache);
          return true;
       } catch (FileNotFoundException | JAXBException ex) {
@@ -43,7 +44,7 @@ public class XmlDataAccess implements IAtmDataAccess {
          return false;
       }
    }
-   
+
    public Boolean Load() {
       try {
          ReadFile(filePath);
@@ -53,8 +54,7 @@ public class XmlDataAccess implements IAtmDataAccess {
          return false;
       }
    }
-   
-   
+
    @Override
    public List<UserAccount> getAllUserAccounts() {
       try {
@@ -64,13 +64,13 @@ public class XmlDataAccess implements IAtmDataAccess {
       }
       return dataCache.getUserAccounts();
    }
-   
+
    @Override
    public List<BankAccount> findAllBankAccounts(UserAccount account) {
       List<BankAccount> bankAccounts = new ArrayList<>();
       try {
          ReadFile(filePath);
-         
+
          for (BankAccount bankAccount : dataCache.getBankAccounts()) {
             if (bankAccount.getUserId() == account.getId()) {
                bankAccounts.add(bankAccount);
@@ -79,17 +79,17 @@ public class XmlDataAccess implements IAtmDataAccess {
       } catch (Exception e) {
          Logger.getLogger(XmlDataAccess.class.getName()).log(Level.SEVERE, null, e);
       }
-      
+
       return bankAccounts;
    }
-   
+
    @Override
    public UserAccount findUserAccount(String userName) {
       UserAccount retValue = null;
-      
+
       try {
          ReadFile(filePath);
-         
+
          for (UserAccount userAccount : dataCache.getUserAccounts()) {
             if (userAccount.getUserName() == null ? userName == null : userAccount.getUserName().equals(userName)) {
                retValue = userAccount;
@@ -99,7 +99,7 @@ public class XmlDataAccess implements IAtmDataAccess {
       } catch (Exception e) {
          Logger.getLogger(XmlDataAccess.class.getName()).log(Level.SEVERE, null, e);
       }
-      
+
       return retValue;
    }
 
@@ -132,7 +132,7 @@ public class XmlDataAccess implements IAtmDataAccess {
          dirty = false;
       }
    }
-   
+
    private synchronized void WriteFile(String path, AtmData data) throws JAXBException, FileNotFoundException {
       if (dirty == true) {
          JAXBContext context = JAXBContext.newInstance(AtmData.class);
@@ -146,9 +146,9 @@ public class XmlDataAccess implements IAtmDataAccess {
    @Override
    public List<Transaction> getTransactionsForUser(UserAccount user) {
       List<Transaction> transactions = new ArrayList<>();
-      
+
       try {
-         
+
          ReadFile(filePath);
          for (Transaction transaction : dataCache.getTransactions()) {
             // todo
@@ -156,17 +156,34 @@ public class XmlDataAccess implements IAtmDataAccess {
       } catch (Exception e) {
          Logger.getLogger(XmlDataAccess.class.getName()).log(Level.SEVERE, null, e);
       }
-      
+
+      return transactions;
+   }
+
+   @Override
+   public List<Transaction> getAllTransactions() {
+      List<Transaction> transactions = new ArrayList<>();
+
+      try {
+
+         ReadFile(filePath);
+
+         transactions = dataCache.getTransactions();
+
+      } catch (Exception e) {
+         Logger.getLogger(XmlDataAccess.class.getName()).log(Level.SEVERE, null, e);
+      }
+
       return transactions;
    }
 
    @Override
    public BankAccount findBankAccount(long accountNumber) {
-      
+
       BankAccount retVal = null;
       try {
          ReadFile(filePath);
-         
+
          for (BankAccount bankAccount : dataCache.getBankAccounts()) {
             if (bankAccount.getAccountNumber() == accountNumber) {
                retVal = bankAccount;
@@ -176,7 +193,7 @@ public class XmlDataAccess implements IAtmDataAccess {
       } catch (Exception e) {
          Logger.getLogger(XmlDataAccess.class.getName()).log(Level.SEVERE, null, e);
       }
-      
+
       return retVal;
    }
 }

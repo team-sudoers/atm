@@ -12,14 +12,17 @@ import virtualatm.utils.Security;
 
 public class FakeAtmService implements IAtmService {
 
+   private final int MAX_FAILED_LOGINS = 3;
+   private final int LOCKOUT_SECONDS = 30;
+
    private final List<UserAccount> userAccounts;
    private final List<Transaction> transactions;
    private final BankAccount checkingAccount;
    private final BankAccount savingsAccount;
-
    private UserAccount currentUser;
 
    public FakeAtmService() {
+
       userAccounts = new ArrayList<>();
       transactions = new ArrayList<>();
 
@@ -203,10 +206,21 @@ public class FakeAtmService implements IAtmService {
          return false;
       }
 
+      if (foundAccount.getFailedLoginCount() >= MAX_FAILED_LOGINS) {
+         long unlockTime = foundAccount.getLastFailedLogin().getTime() + LOCKOUT_SECONDS * 1000;
+         if (System.currentTimeMillis() < unlockTime) {
+            throw new Exception("Sorry this account is locked out");
+         }
+      }
+
       if (Security.compareHash(foundAccount.getPin(), pin) == false) {
+         foundAccount.setFailedLoginCount(foundAccount.getFailedLoginCount() + 1);
+         foundAccount.setLastFailedLogin(new Date());
          return false;
       }
 
+      // successful login
+      foundAccount.setFailedLoginCount(0);
       currentUser = foundAccount;
       return true;
    }
@@ -257,5 +271,4 @@ public class FakeAtmService implements IAtmService {
 
       return retVal;
    }
-
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AtmData>
+    <BankAccountList>
+        <BankAccount>
+            <accountBalance>250.0</accountBalance>
+            <accountNumber>111111111</accountNumber>
+            <accountType></accountType>
+            <userId>7</userId>
+        </BankAccount>
+        <BankAccount>
+            <accountBalance>5000.0</accountBalance>
+            <accountNumber>222222222</accountNumber>
+            <accountType></accountType>
+            <userId>7</userId>
+        </BankAccount>
+    </BankAccountList>
+    <TransactionList>
+        <Transaction>
+            <activityType>Deposit</activityType>
+            <amount>250.0</amount>
+            <bankAccountId>111111111</bankAccountId>
+            <date>2019-04-24T21:18:49.621-04:00</date>
+            <id>9</id>
+        </Transaction>
+        <Transaction>
+            <activityType>Deposit</activityType>
+            <amount>5000.0</amount>
+            <bankAccountId>222222222</bankAccountId>
+            <date>2019-04-24T21:18:49.621-04:00</date>
+            <id>10</id>
+        </Transaction>
+    </TransactionList>
+    <UserAccountList>
+        <UserAccount>
+            <cellNumber>410-555-1212</cellNumber>
+            <email>sc@northpole.com</email>
+            <failedLogins>0</failedLogins>
+            <firstName>santa</firstName>
+            <id>7</id>
+            <lastFailedLoginAttempt/>
+            <lastName>claus</lastName>
+            <pin>1^10000^YBV-PweunJsLV9LiKyk0eSC4G5A7n3xrm856xdV1TvVWFu4jau5pDHIHfP2BVTAXdWBKv4GaFVwrDATVTrIrBw</pin>
+            <userName>sc</userName>
+        </UserAccount>
+    </UserAccountList>
+</AtmData>

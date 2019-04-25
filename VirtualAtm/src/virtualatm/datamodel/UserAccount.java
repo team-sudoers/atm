@@ -1,6 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package virtualatm.datamodel;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 public class UserAccount {
+
    private long id;
    private String firstName;
    private String lastName;
@@ -8,11 +17,21 @@ public class UserAccount {
    private String email;
    private String userName;
    private String pin;
-   private String checkingAccountNumber;
-   private String checkingAccountBalance;
-   private String savingsAccountNumber;
-   private String savingsAccountBalance;
- 
+   private int failedLoginCount;
+   private Date lastFailedLogin;
+
+   public UserAccount() {
+      id = -1;
+      firstName = "";
+      lastName = "";
+      cellNumber = "";
+      email = "";
+      userName = "";
+      pin = "";
+      failedLoginCount = 0;
+      lastFailedLogin = new Timestamp(System.currentTimeMillis());
+   }
+
    /**
     * @return the firstName
     */
@@ -98,62 +117,6 @@ public class UserAccount {
    }
 
    /**
-    * @return the checkingAccountNumber
-    */
-   public String getCheckingAccountNumber() {
-      return checkingAccountNumber;
-   }
-
-   /**
-    * @param checkingAccountNumber the checkingAccountNumber to set
-    */
-   public void setCheckingAccountNumber(String checkingAccountNumber) {
-      this.checkingAccountNumber = checkingAccountNumber;
-   }
-
-   /**
-    * @return the checkingAccountBalance
-    */
-   public String getCheckingAccountBalance() {
-      return checkingAccountBalance;
-   }
-
-   /**
-    * @param checkingAccountBalance the checkingAccountBalance to set
-    */
-   public void setCheckingAccountBalance(String checkingAccountBalance) {
-      this.checkingAccountBalance = checkingAccountBalance;
-   }
-
-   /**
-    * @return the savingsAccountNumber
-    */
-   public String getSavingsAccountNumber() {
-      return savingsAccountNumber;
-   }
-
-   /**
-    * @param savingsAccountNumber the savingsAccountNumber to set
-    */
-   public void setSavingsAccountNumber(String savingsAccountNumber) {
-      this.savingsAccountNumber = savingsAccountNumber;
-   }
-
-   /**
-    * @return the savingsAccountBalance
-    */
-   public String getSavingsAccountBalance() {
-      return savingsAccountBalance;
-   }
-
-   /**
-    * @param savingsAccountBalance the savingsAccountBalance to set
-    */
-   public void setSavingsAccountBalance(String savingsAccountBalance) {
-      this.savingsAccountBalance = savingsAccountBalance;
-   }
-
-   /**
     * @return the id
     */
    public long getId() {
@@ -165,5 +128,33 @@ public class UserAccount {
     */
    public void setId(long id) {
       this.id = id;
+   }
+
+   /**
+    * @return the failedLoginCount
+    */
+   public int getFailedLoginCount() {
+      return failedLoginCount;
+   }
+
+   /**
+    * @param failedLoginCount the failedLoginCount to set
+    */
+   public void setFailedLoginCount(int failedLoginCount) {
+      this.failedLoginCount = failedLoginCount;
+   }
+
+   /**
+    * @return the lastFailedLogin
+    */
+   public Date getLastFailedLogin() {
+      return lastFailedLogin;
+   }
+
+   /**
+    * @param value the failedLoginCount to set
+    */
+   public void setLastFailedLogin(Date value) {
+      lastFailedLogin = value;
    }
 }
