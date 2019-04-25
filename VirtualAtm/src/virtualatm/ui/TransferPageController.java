@@ -62,8 +62,8 @@ public class TransferPageController extends BaseAtmController {
    @Override
    public void initialize(URL url, ResourceBundle rb) {
       super.initialize(url, rb); //To change body of generated methods, choose Tools | Templates.
-      fromAccount.getItems().addAll("checking", "savings");
-      destinationAccount.getItems().addAll("checking", "savings");
+      fromAccount.getItems().addAll(getTranslatedText("checking"), getTranslatedText("savings"));
+      destinationAccount.getItems().addAll(getTranslatedText("checking"), getTranslatedText("savings"));
       refresh();
    }
 
@@ -93,14 +93,14 @@ public class TransferPageController extends BaseAtmController {
          }
 
          BankAccount source = null;
-         if (fromAccount.getValue().equals("checking")) {
+         if (fromAccount.getValue().equals(getTranslatedText("checking"))) {
             source = getAtmService().getCheckingAccount();
          } else {
             source = getAtmService().getSavingsAccount();
          }
 
          BankAccount destination = null;
-         if (destinationAccount.getValue().equals("checking")) {
+         if (destinationAccount.getValue().equals(getTranslatedText("checking"))) {
             destination = getAtmService().getCheckingAccount();
          } else {
             destination = getAtmService().getSavingsAccount();
@@ -158,22 +158,22 @@ public class TransferPageController extends BaseAtmController {
    @FXML
    void handleToAccount(ActionEvent event) {
       String accountType = destinationAccount.getValue();
-      if (accountType.equals("checking")) {
-         fromAccount.setValue("savings");
+      if (accountType.equals(getTranslatedText("checking"))) {
+         fromAccount.setValue(getTranslatedText("savings"));
       }
-      if (accountType.equals("savings")) {
-         fromAccount.setValue("checking");
+      if (accountType.equals(getTranslatedText("savings"))) {
+         fromAccount.setValue(getTranslatedText("checking"));
       }
    }
 
    @FXML
    void handleFromAccount(ActionEvent event) {
       String accountType = fromAccount.getValue();
-      if (accountType.equals("checking")) {
-         destinationAccount.setValue("savings");
+      if (accountType.equals(getTranslatedText("checking"))) {
+         destinationAccount.setValue(getTranslatedText("savings"));
       }
-      if (accountType.equals("savings")) {
-         destinationAccount.setValue("checking");
+      if (accountType.equals(getTranslatedText("savings"))) {
+         destinationAccount.setValue(getTranslatedText("checking"));
       }
    }
 

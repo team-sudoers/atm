@@ -17,9 +17,9 @@ import virtualatm.datamodel.Transaction;
 import virtualatm.datamodel.UserAccount;
 
 public class DepositPageController extends BaseAtmController {
-
-   @FXML // fx:id="topLabel"
-   private Label topLabel; // Value injected by FXMLLoader
+        
+    @FXML
+    private Label topLabel;//didn't remove because it's linked to the date. 
 
    @FXML // fx:id="accountBalancesLabel"
    private Label accountBalancesLabel; // Value injected by FXMLLoader
@@ -53,6 +53,7 @@ public class DepositPageController extends BaseAtmController {
 
    @FXML // fx:id="depositAmount"
    private TextField depositAmount; // Value injected by FXMLLoader
+   
    private String selectedAccountType;
 
    @FXML
@@ -61,7 +62,7 @@ public class DepositPageController extends BaseAtmController {
    @Override
    public void initialize(URL url, ResourceBundle rb) {
       super.initialize(url, rb);
-      fromAccount.getItems().addAll("checking", "savings");
+      fromAccount.getItems().addAll(getTranslatedText("checking"), getTranslatedText("savings"));
       refresh();
    }
 
@@ -116,7 +117,7 @@ public class DepositPageController extends BaseAtmController {
          }
 
          BankAccount ba = null;
-         if (selectedAccountType.equals("checking")) {
+         if (selectedAccountType.equals(getTranslatedText("checking"))) {
             ba = getAtmService().getCheckingAccount();
          } else {
             ba = getAtmService().getSavingsAccount();

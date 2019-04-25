@@ -68,7 +68,12 @@ public class HistoryPageController extends BaseAtmController {
 
    @FXML
    void handleLogoutAction(ActionEvent event) {
-
+       try {
+         getAtmService().logout();
+         showLoginPage();
+      } catch (Exception ex) {
+         Logger.getLogger(MainPageController.class.getName()).log(Level.SEVERE, null, ex);
+      }
    }
 
    @FXML
