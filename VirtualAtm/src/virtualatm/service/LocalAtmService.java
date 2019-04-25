@@ -131,11 +131,10 @@ public class LocalAtmService implements IAtmService {
    @Override
    public List<Transaction> getAccountHistory() throws Exception {
 
-      List<Transaction> allTransactions = dataAccessLayer.getTransactionsForUser(currentUser);
       List<Transaction> retVal = new ArrayList<>();
       Date date = Date.from(Instant.now().minus(Duration.ofDays(7)));
 
-      for (Transaction transaction : allTransactions) {
+      for (Transaction transaction : dataAccessLayer.getTransactionsForUser(currentUser)) {
          if (transaction.getDate().after(date)) {
             retVal.add(transaction);
          }
@@ -197,12 +196,12 @@ public class LocalAtmService implements IAtmService {
 
       List<BankAccount> accounts = dataAccessLayer.findAllBankAccounts(currentUser);
       for (BankAccount account : accounts) {
-         if (account.getAccountType().equals("checking")) {
+         if (account.getAccountType().toLowerCase().equals("checking")) {
             return account;
          }
       }
 
-      throw new Exception("Account not found!");
+      return new BankAccount();
    }
 
    @Override
@@ -210,12 +209,12 @@ public class LocalAtmService implements IAtmService {
 
       List<BankAccount> accounts = dataAccessLayer.findAllBankAccounts(currentUser);
       for (BankAccount account : accounts) {
-         if (account.getAccountType().equals("savings")) {
+         if (account.getAccountType().toLowerCase().equals("savings")) {
             return account;
          }
       }
 
-      throw new Exception("Account not found!");
+      return new BankAccount();
 
    }
 

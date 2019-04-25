@@ -5,8 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -72,7 +70,7 @@ public class HistoryPageController extends BaseAtmController {
          getAtmService().logout();
          showLoginPage();
       } catch (Exception ex) {
-         Logger.getLogger(MainPageController.class.getName()).log(Level.SEVERE, null, ex);
+         super.showError(ex.getMessage());
       }
    }
 
@@ -113,7 +111,7 @@ public class HistoryPageController extends BaseAtmController {
           ObservableList<Transaction> data = FXCollections.observableArrayList(history);
           historyTableView.setItems(data);
        } catch (Exception ex) {
-          Logger.getLogger(HistoryPageController.class.getName()).log(Level.SEVERE, null, ex);
+          super.showError(ex.getMessage());
        }
 
    }

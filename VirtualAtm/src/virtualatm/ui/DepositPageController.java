@@ -4,8 +4,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -88,8 +86,8 @@ public class DepositPageController extends BaseAtmController {
          if (lastTransaction != null) {
             lastTransactionDateLabel.setText(String.format("%s", simpleDateFormat.format(lastTransaction.getDate())));
          }
-      } catch (Exception ex) {
-         Logger.getLogger(DepositPageController.class.getName()).log(Level.SEVERE, null, ex);
+      } catch (Exception e) {
+         super.showError(e.getMessage());
       }
    }
 
@@ -137,8 +135,8 @@ public class DepositPageController extends BaseAtmController {
       try {
          getAtmService().logout();
          showLoginPage();
-      } catch (Exception ex) {
-         Logger.getLogger(DepositPageController.class.getName()).log(Level.SEVERE, null, ex);
+      } catch (Exception e) {
+         super.showError(e.getMessage());
       }
    }
 

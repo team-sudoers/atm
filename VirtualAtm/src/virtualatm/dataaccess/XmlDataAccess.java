@@ -146,12 +146,17 @@ public class XmlDataAccess implements IAtmDataAccess {
    @Override
    public List<Transaction> getTransactionsForUser(UserAccount user) {
       List<Transaction> transactions = new ArrayList<>();
-
+      List<Long> userBankAccountNumbers = new ArrayList<>();
+      
+      findAllBankAccounts(user).forEach((account) -> userBankAccountNumbers.add(account.getAccountNumber()));
+      
       try {
 
          ReadFile(filePath);
          for (Transaction transaction : dataCache.getTransactions()) {
-            // todo
+            if (userBankAccountNumbers.contains(transaction.getBankAccountId())) {
+               transactions.add(transaction);
+            }
          }
       } catch (Exception e) {
          Logger.getLogger(XmlDataAccess.class.getName()).log(Level.SEVERE, null, e);

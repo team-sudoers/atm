@@ -4,8 +4,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -73,7 +71,7 @@ public class TransferPageController extends BaseAtmController {
          getAtmService().logout();
          showLoginPage();
       } catch (Exception ex) {
-         Logger.getLogger(TransferPageController.class.getName()).log(Level.SEVERE, null, ex);
+         super.showError(ex.getMessage());
       }
    }
 
@@ -151,7 +149,7 @@ public class TransferPageController extends BaseAtmController {
             lastTransactionDateLabel.setText(String.format("%s", simpleDateFormat.format(lastTransaction.getDate())));
          }
       } catch (Exception ex) {
-         Logger.getLogger(TransferPageController.class.getName()).log(Level.SEVERE, null, ex);
+         super.showError(ex.getMessage());
       }
    }
 
