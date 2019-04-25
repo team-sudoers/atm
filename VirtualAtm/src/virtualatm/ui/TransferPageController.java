@@ -18,38 +18,17 @@ public class TransferPageController extends BaseAtmController {
    @FXML // fx:id="topLabel"
    private Label topLabel; // Value injected by FXMLLoader
 
-   @FXML // fx:id="accountBalancesLabel"
-   private Label accountBalancesLabel; // Value injected by FXMLLoader
-
-   @FXML // fx:id="checkingLabel"
-   private Label checkingLabel; // Value injected by FXMLLoader
-
    @FXML // fx:id="checkingAmountLabel"
    private Label checkingAmountLabel; // Value injected by FXMLLoader
-
-   @FXML // fx:id="savingsLabel"
-   private Label savingsLabel; // Value injected by FXMLLoader
 
    @FXML // fx:id="savingsAmountLabel"
    private Label savingsAmountLabel; // Value injected by FXMLLoader
 
-   @FXML // fx:id="lastTransactionLabel"
-   private Label lastTransactionLabel; // Value injected by FXMLLoader
-
    @FXML // fx:id="lastTransactionDateLabel"
    private Label lastTransactionDateLabel; // Value injected by FXMLLoader
 
-   @FXML // fx:id="sourceAcountTypeLabel"
-   private Label sourceAcountTypeLabel; // Value injected by FXMLLoader
-
-   @FXML // fx:id="selectAmountLabel"
-   private Label selectAmountLabel; // Value injected by FXMLLoader
-
    @FXML // fx:id="transferAmount"
    private TextField transferAmount; // Value injected by FXMLLoader
-
-   @FXML // fx:id="sourceAcountTypeLabel1"
-   private Label sourceAcountTypeLabel1; // Value injected by FXMLLoader
 
    @FXML
    private ComboBox<String> fromAccount;

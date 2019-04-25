@@ -18,38 +18,18 @@ public class WithdrawPageController extends BaseAtmController {
    @FXML // fx:id="topLabel"
    private Label topLabel; // Value injected by FXMLLoader
 
-   @FXML // fx:id="accountBalancesLabel"
-   private Label accountBalancesLabel; // Value injected by FXMLLoader
-
-   @FXML // fx:id="checkingLabel"
-   private Label checkingLabel; // Value injected by FXMLLoader
-
    @FXML // fx:id="checkingAmountLabel"
    private Label checkingAmountLabel; // Value injected by FXMLLoader
-
-   @FXML // fx:id="savingsLabel"
-   private Label savingsLabel; // Value injected by FXMLLoader
 
    @FXML // fx:id="savingsAmountLabel"
    private Label savingsAmountLabel; // Value injected by FXMLLoader
 
-   @FXML // fx:id="lastTransactionLabel"
-   private Label lastTransactionLabel; // Value injected by FXMLLoader
-
    @FXML // fx:id="lastTransactionDateLabel"
    private Label lastTransactionDateLabel; // Value injected by FXMLLoader
-
-   @FXML // fx:id="withdrawAcountTypeLabel"
-   private Label withdrawAcountTypeLabel; // Value injected by FXMLLoader
-
-   @FXML // fx:id="selectAmountLabel"
-   private Label selectAmountLabel; // Value injected by FXMLLoader
 
    @FXML // fx:id="otherDepositAmount"
    private TextField otherDepositAmount; // Value injected by FXMLLoader
 
-   @FXML // fx:id="otherLabel"
-   private Label otherLabel; // Value injected by FXMLLoader
    private String selectedAccountType;
    private double withdrawAmount;
 

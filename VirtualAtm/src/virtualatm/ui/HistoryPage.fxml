@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.HistoryPageController">
+<AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.HistoryPageController">
    <children>
       <Button layoutX="28.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleReturnAction" prefHeight="45.0" prefWidth="186.0" text="%returnButtonText">
          <font>
@@ -23,12 +23,12 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="accountBalancesLabel" layoutX="500.0" layoutY="36.0" text="%accountBalanceLabel">
+      <Label layoutX="500.0" layoutY="36.0" text="%accountBalanceLabel">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="checkingLabel" layoutX="500.0" layoutY="75.0" text="%checkingBalanceLabel">
+      <Label layoutX="500.0" layoutY="75.0" text="%checkingBalanceLabel">
          <font>
             <Font size="14.0" />
          </font>
@@ -38,7 +38,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="savingsLabel" layoutX="500.0" layoutY="131.0" text="%savingsBalanceLabel">
+      <Label layoutX="500.0" layoutY="131.0" text="%savingsBalanceLabel">
          <font>
             <Font size="14.0" />
          </font>
@@ -48,7 +48,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lastTransactionLabel" layoutX="500.0" layoutY="262.0" text="%lastTransactionLabel">
+      <Label layoutX="500.0" layoutY="262.0" text="%lastTransactionLabel">
          <font>
             <Font size="14.0" />
          </font>
@@ -58,7 +58,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="accountHistoryLabel" layoutX="28.0" layoutY="91.0" text="%accountHistoryLabel" />
+      <Label layoutX="28.0" layoutY="91.0" text="%accountHistoryLabel" />
       <TableView fx:id="historyTableView" layoutX="28.0" layoutY="119.0" prefHeight="200.0" prefWidth="392.0">
         <columns>
           <TableColumn fx:id="dateColumn" editable="false" prefWidth="130.0" text="%dateHistoryTable" />

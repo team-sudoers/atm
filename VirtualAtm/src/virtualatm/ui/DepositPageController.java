@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -15,43 +14,22 @@ import virtualatm.datamodel.Transaction;
 import virtualatm.datamodel.UserAccount;
 
 public class DepositPageController extends BaseAtmController {
-        
-    @FXML
-    private Label topLabel;//didn't remove because it's linked to the date. 
 
-   @FXML // fx:id="accountBalancesLabel"
-   private Label accountBalancesLabel; // Value injected by FXMLLoader
-
-   @FXML // fx:id="checkingLabel"
-   private Label checkingLabel; // Value injected by FXMLLoader
+   @FXML
+   private Label topLabel;//didn't remove because it's linked to the date. 
 
    @FXML // fx:id="checkingAmountLabel"
    private Label checkingAmountLabel; // Value injected by FXMLLoader
 
-   @FXML // fx:id="savingsLabel"
-   private Label savingsLabel; // Value injected by FXMLLoader
-
    @FXML // fx:id="savingsAmountLabel"
    private Label savingsAmountLabel; // Value injected by FXMLLoader
-
-   @FXML // fx:id="lastTransactionLabel"
-   private Label lastTransactionLabel; // Value injected by FXMLLoader
 
    @FXML // fx:id="lastTransactionDateLabel"
    private Label lastTransactionDateLabel; // Value injected by FXMLLoader
 
-   @FXML // fx:id="depositButton"
-   private Button depositButton; // Value injected by FXMLLoader
-
-   @FXML // fx:id="depositAcountTypeLabel"
-   private Label depositAcountTypeLabel; // Value injected by FXMLLoader
-
-   @FXML // fx:id="enterAmountLabel"
-   private Label enterAmountLabel; // Value injected by FXMLLoader
-
    @FXML // fx:id="depositAmount"
    private TextField depositAmount; // Value injected by FXMLLoader
-   
+
    private String selectedAccountType;
 
    @FXML

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.TransferPageController">
+<AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.TransferPageController">
    <children>
       <Button layoutX="257.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleTransferAction" prefHeight="45.0" prefWidth="186.0" text="%transferButtonText">
          <font>
@@ -23,12 +23,12 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="accountBalancesLabel" layoutX="500.0" layoutY="25.0" text="%accountBalanceLabel">
+      <Label layoutX="500.0" layoutY="25.0" text="%accountBalanceLabel">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="checkingLabel" layoutX="500.0" layoutY="60.0" text="%checkingBalanceLabel">
+      <Label layoutX="500.0" layoutY="60.0" text="%checkingBalanceLabel">
          <font>
             <Font size="14.0" />
          </font>
@@ -38,7 +38,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="savingsLabel" layoutX="500.0" layoutY="121.0" text="%savingsBalanceLabel">
+      <Label layoutX="500.0" layoutY="121.0" text="%savingsBalanceLabel">
          <font>
             <Font size="14.0" />
          </font>
@@ -48,7 +48,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lastTransactionLabel" layoutX="500.0" layoutY="251.0" text="%lastTransactionLabel">
+      <Label layoutX="500.0" layoutY="251.0" text="%lastTransactionLabel">
          <font>
             <Font size="14.0" />
          </font>
@@ -58,10 +58,10 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="sourceAcountTypeLabel" layoutX="26.0" layoutY="122.0" text="%transferFromLabelText" />
-      <Label fx:id="selectAmountLabel" layoutX="28.0" layoutY="230.0" text="%selectAmountLabelText" />
+      <Label layoutX="26.0" layoutY="122.0" text="%transferFromLabelText" />
+      <Label layoutX="28.0" layoutY="230.0" text="%selectAmountLabelText" />
       <TextField fx:id="transferAmount" layoutX="154.0" layoutY="226.0" prefHeight="25.0" prefWidth="186.0" promptText="%enterAmountPrompt" />
-      <Label fx:id="sourceAcountTypeLabel1" layoutX="26.0" layoutY="184.0" text="%transferToLabelText" />
+      <Label layoutX="26.0" layoutY="184.0" text="%transferToLabelText" />
       <Button layoutX="14.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleReturnAction" prefHeight="45.0" prefWidth="186.0" text="%returnButtonText">
          <font>
             <Font size="18.0" />

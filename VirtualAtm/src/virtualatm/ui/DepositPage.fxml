@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.DepositPageController">
+<AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.DepositPageController">
    <children>
       <Button layoutX="500.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleLogoutAction" prefHeight="45.0" prefWidth="186.0" text="%logoutButtonText">
          <font>
@@ -19,12 +19,12 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="accountBalancesLabel" layoutX="500.0" layoutY="38.0" text="%accountBalanceLabel">
+      <Label layoutX="500.0" layoutY="38.0" text="%accountBalanceLabel">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="checkingLabel" layoutX="500.0" layoutY="77.0" text="%checkingBalanceLabel">
+      <Label layoutX="500.0" layoutY="77.0" text="%checkingBalanceLabel">
          <font>
             <Font size="14.0" />
          </font>
@@ -34,7 +34,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="savingsLabel" layoutX="500.0" layoutY="133.0" text="%savingsBalanceLabel">
+      <Label layoutX="500.0" layoutY="133.0" text="%savingsBalanceLabel">
          <font>
             <Font size="14.0" />
          </font>
@@ -44,7 +44,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lastTransactionLabel" layoutX="500.0" layoutY="264.0" text="%lastTransactionLabel">
+      <Label layoutX="500.0" layoutY="264.0" text="%lastTransactionLabel">
          <font>
             <Font size="14.0" />
          </font>
@@ -59,8 +59,8 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Label fx:id="depositAcountTypeLabel" layoutX="14.0" layoutY="135.0" text="%depositToLabelText" />
-      <Label fx:id="enterAmountLabel" layoutX="14.0" layoutY="218.0" text="%enterAmountLabelText" />
+      <Label layoutX="14.0" layoutY="135.0" text="%depositToLabelText" />
+      <Label layoutX="14.0" layoutY="218.0" text="%enterAmountLabelText" />
       <TextField fx:id="depositAmount" layoutX="174.0" layoutY="214.0" prefHeight="25.0" prefWidth="186.0" promptText="%enterAmountPrompt" />
       <Button layoutX="14.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleReturnAction" prefHeight="45.0" prefWidth="186.0" text="%returnButtonText">
          <font>

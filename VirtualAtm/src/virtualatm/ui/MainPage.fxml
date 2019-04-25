@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.MainPageController">
+<AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.MainPageController">
    <children>
       <Button layoutX="36.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleWithdrawAction" prefHeight="99.0" prefWidth="142.0" text="%withdrawButtonText" textAlignment="CENTER" wrapText="true">
          <font>
@@ -32,12 +32,12 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="accountBalancesLabel" layoutX="500.0" layoutY="28.0" text="Account Balances">
+      <Label layoutX="500.0" layoutY="28.0" text="%accountBalanceLabel">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="checkingLabel" layoutX="500.0" layoutY="67.0" text="Checking">
+      <Label layoutX="500.0" layoutY="67.0" text="%checkingBalanceLabel">
          <font>
             <Font size="14.0" />
          </font>
@@ -47,7 +47,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="savingsLabel" layoutX="500.0" layoutY="123.0" text="Savings">
+      <Label layoutX="500.0" layoutY="123.0" text="%savingsBalanceLabel">
          <font>
             <Font size="14.0" />
          </font>
@@ -57,7 +57,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lastTransactionLabel" layoutX="500.0" layoutY="254.0" text="Last Transaction">
+      <Label layoutX="500.0" layoutY="254.0" text="%lastTransactionLabel">
          <font>
             <Font size="14.0" />
          </font>
