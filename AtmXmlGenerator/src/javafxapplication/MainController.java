@@ -5,10 +5,6 @@
  */
 package javafxapplication;
 
-import atm.datamodel.BankAccount;
-import atm.datamodel.Transaction;
-import atm.datamodel.UserAccount;
-import atm.datamodel.XmlDataAccess;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -23,12 +19,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import virtualatm.dataaccess.XmlDataAccess;
+import virtualatm.datamodel.BankAccount;
+import virtualatm.datamodel.Transaction;
+import virtualatm.datamodel.UserAccount;
+import virtualatm.utils.Security;
 
-/**
- * FXML Controller class
- *
- * @author Matt
- */
 public class MainController implements Initializable {
 
    @FXML
@@ -43,8 +39,6 @@ public class MainController implements Initializable {
    private TextField userName;
    @FXML
    private TextField password;
-   @FXML
-   private TextField ssn;
    @FXML
    private TextField checkingAccountNumber;
    @FXML
@@ -63,7 +57,6 @@ public class MainController implements Initializable {
    public void initialize(URL url, ResourceBundle rb) {
       // TODO
       dataAccess = new XmlDataAccess("sampledata.xml");
-
    }
 
    @FXML
@@ -81,13 +74,14 @@ public class MainController implements Initializable {
 
          dataAccess.Load();
          long nextUserId = dataAccess.getAllUserAccounts().size() + 1;
+         long nextTransactionId = dataAccess.getAllTransactions().size() + 1;
 
          String strFirstName = firstName.getText();
          String strLastName = lastName.getText();
          String strCellNumber = cellNumber.getText();
          String strEmail = email.getText();
          String strUserName = userName.getText();
-         String strPassword = hashPassword("SHA-256", password.getText());
+         String strPassword = Security.createHash(password.getText());
          String strCheckingAccount = checkingAccountNumber.getText();
          String strSavingsAccount = savingsAccountNumber.getText();
          String strCheckingBalance = checkingAccountBalance.getText();
@@ -114,6 +108,7 @@ public class MainController implements Initializable {
          
          if (checkingBalance > 0) {
             Transaction checkingTransaction = new Transaction();
+            checkingTransaction.setId(nextTransactionId++);
             checkingTransaction.setActivityType("Deposit");
             checkingTransaction.setAmount(checkingAccount.getAccountBalance());
             checkingTransaction.setBankAccountId(checkingAccount.getAccountNumber());
@@ -131,6 +126,7 @@ public class MainController implements Initializable {
          
          if (savingsBalance > 0) {
             Transaction savingsTransaction = new Transaction();
+            savingsTransaction.setId(nextTransactionId++);
             savingsTransaction.setActivityType("Deposit");
             savingsTransaction.setAmount(savingsBalance);
             savingsTransaction.setBankAccountId(savingsAccount.getAccountNumber());
@@ -191,14 +187,14 @@ public class MainController implements Initializable {
          error.append("Password cannot be empty!");
          return false;
       }
-
-      if (ssn.getText().isEmpty()) {
-         error.append("Last four of SSN cannot be empty!");
-         return false;
-      }
-
+      
       if (checkingAccountNumber.getText().isEmpty()) {
          error.append("Checking account number cannot be empty!");
+         return false;
+      }
+      
+      if (dataAccess.findBankAccount(Long.parseLong(checkingAccountNumber.getText())) != null) {
+         error.append("Checking account number already exists!");
          return false;
       }
 
@@ -209,6 +205,11 @@ public class MainController implements Initializable {
 
       if (savingsAccountNumber.getText().isEmpty()) {
          error.append("Savings account number cannot be empty!");
+         return false;
+      }
+      
+      if (dataAccess.findBankAccount(Long.parseLong(savingsAccountNumber.getText())) != null) {
+         error.append("Savings account number already exists!");
          return false;
       }
 

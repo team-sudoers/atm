@@ -3,17 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package atm.datamodel;
+package virtualatm.datamodel;
 
-/**
- *
- * @author Matt
- */
 public class BankAccount {
+
    private long userId;
    private String accountType;
    private long accountNumber;
    private double accountBalance;
+
+   public BankAccount() {
+      userId = -1;
+      accountType = "";
+      accountNumber = -1;
+      accountBalance = 0.0;
+   }
 
    /**
     * @return the accountNumber

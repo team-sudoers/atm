@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="416.0" prefWidth="626.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication.MainController">
+<AnchorPane id="AnchorPane" prefHeight="416.0" prefWidth="391.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication.MainController">
    <children>
       <TextField id="firstName" fx:id="firstName" layoutX="33.0" layoutY="41.0" />
       <TextField id="lastName" fx:id="lastName" layoutX="198.0" layoutY="40.0" />
@@ -28,6 +28,5 @@
       <Label layoutX="199.0" layoutY="234.0" text="Checking Account Balance" />
       <Label layoutX="34.0" layoutY="291.0" text="Savings Account #" />
       <Label layoutX="200.0" layoutY="291.0" text="Savings Account Balance" />
-      <Button layoutX="430.0" layoutY="40.0" mnemonicParsing="false" />
    </children>
 </AnchorPane>

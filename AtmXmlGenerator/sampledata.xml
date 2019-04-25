@@ -2,170 +2,45 @@
 <AtmData>
     <BankAccountList>
         <BankAccount>
-            <accountBalance>500.0</accountBalance>
-            <accountNumber>12345678</accountNumber>
-            <userId>1</userId>
+            <accountBalance>250.0</accountBalance>
+            <accountNumber>111111111</accountNumber>
+            <accountType></accountType>
+            <userId>7</userId>
         </BankAccount>
         <BankAccount>
-            <accountBalance>0.0</accountBalance>
-            <accountNumber>11223344</accountNumber>
-            <userId>1</userId>
-        </BankAccount>
-        <BankAccount>
-            <accountBalance>0.0</accountBalance>
-            <accountNumber>12121212</accountNumber>
-            <userId>2</userId>
-        </BankAccount>
-        <BankAccount>
-            <accountBalance>8000.0</accountBalance>
-            <accountNumber>99880044</accountNumber>
-            <userId>2</userId>
-        </BankAccount>
-        <BankAccount>
-            <accountBalance>0.0</accountBalance>
-            <accountNumber>64321879</accountNumber>
-            <userId>3</userId>
-        </BankAccount>
-        <BankAccount>
-            <accountBalance>0.0</accountBalance>
-            <accountNumber>74561856</accountNumber>
-            <userId>3</userId>
-        </BankAccount>
-        <BankAccount>
-            <accountBalance>50000.0</accountBalance>
-            <accountNumber>64876231</accountNumber>
-            <userId>4</userId>
-        </BankAccount>
-        <BankAccount>
-            <accountBalance>1000000.0</accountBalance>
-            <accountNumber>26489154</accountNumber>
-            <userId>4</userId>
-        </BankAccount>
-        <BankAccount>
-            <accountBalance>88642.0</accountBalance>
-            <accountNumber>46523424</accountNumber>
-            <userId>5</userId>
-        </BankAccount>
-        <BankAccount>
-            <accountBalance>0.5</accountBalance>
-            <accountNumber>1856126</accountNumber>
-            <userId>5</userId>
-        </BankAccount>
-        <BankAccount>
-            <accountBalance>0.5</accountBalance>
-            <accountNumber>12457898</accountNumber>
-            <userId>6</userId>
-        </BankAccount>
-        <BankAccount>
-            <accountBalance>0.84</accountBalance>
-            <accountNumber>87451245</accountNumber>
-            <userId>6</userId>
+            <accountBalance>5000.0</accountBalance>
+            <accountNumber>222222222</accountNumber>
+            <accountType></accountType>
+            <userId>7</userId>
         </BankAccount>
     </BankAccountList>
     <TransactionList>
         <Transaction>
             <activityType>Deposit</activityType>
-            <amount>500.0</amount>
-            <bankAccountId>12345678</bankAccountId>
-            <date>2019-04-04T00:01:07.181-04:00</date>
+            <amount>250.0</amount>
+            <bankAccountId>111111111</bankAccountId>
+            <date>2019-04-24T21:18:49.621-04:00</date>
+            <id>9</id>
         </Transaction>
         <Transaction>
             <activityType>Deposit</activityType>
-            <amount>8000.0</amount>
-            <bankAccountId>99880044</bankAccountId>
-            <date>2019-04-04T00:06:57.506-04:00</date>
-        </Transaction>
-        <Transaction>
-            <activityType>Deposit</activityType>
-            <amount>50000.0</amount>
-            <bankAccountId>64876231</bankAccountId>
-            <date>2019-04-04T00:10:28.598-04:00</date>
-        </Transaction>
-        <Transaction>
-            <activityType>Deposit</activityType>
-            <amount>1000000.0</amount>
-            <bankAccountId>26489154</bankAccountId>
-            <date>2019-04-04T00:10:28.598-04:00</date>
-        </Transaction>
-        <Transaction>
-            <activityType>Deposit</activityType>
-            <amount>88642.0</amount>
-            <bankAccountId>46523424</bankAccountId>
-            <date>2019-04-04T00:11:57.976-04:00</date>
-        </Transaction>
-        <Transaction>
-            <activityType>Deposit</activityType>
-            <amount>0.5</amount>
-            <bankAccountId>1856126</bankAccountId>
-            <date>2019-04-04T00:11:57.976-04:00</date>
-        </Transaction>
-        <Transaction>
-            <activityType>Deposit</activityType>
-            <amount>0.5</amount>
-            <bankAccountId>12457898</bankAccountId>
-            <date>2019-04-04T00:13:13.981-04:00</date>
-        </Transaction>
-        <Transaction>
-            <activityType>Deposit</activityType>
-            <amount>0.84</amount>
-            <bankAccountId>87451245</bankAccountId>
-            <date>2019-04-04T00:13:13.981-04:00</date>
+            <amount>5000.0</amount>
+            <bankAccountId>222222222</bankAccountId>
+            <date>2019-04-24T21:18:49.621-04:00</date>
+            <id>10</id>
         </Transaction>
     </TransactionList>
     <UserAccountList>
         <UserAccount>
-            <cellNumber>301-300-3000</cellNumber>
-            <email>rjd123@umuc.edu</email>
-            <firstName>Raysean</firstName>
-            <id>1</id>
-            <lastName>Jones</lastName>
-            <pin>A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ=</pin>
-            <userName>rjd123</userName>
-        </UserAccount>
-        <UserAccount>
-            <cellNumber>301-330-0111</cellNumber>
-            <email>tam112@umuc.edu</email>
-            <firstName>Tonye</firstName>
-            <id>2</id>
-            <lastName>Martial</lastName>
-            <pin>VpZeKhqZXHTaUACIlHrxHfonlRzDUNC5fQYzB1lpwxs=</pin>
-            <userName>tam112</userName>
-        </UserAccount>
-        <UserAccount>
-            <cellNumber>301-564-7178</cellNumber>
-            <email>mmm761@umuc.edu</email>
-            <firstName>Matt</firstName>
-            <id>3</id>
-            <lastName>Mitchell</lastName>
-            <pin>MO7s6wKUFGnvaTUtHHvrBm4r3fLvrdJcTVuuSd5rZl8=</pin>
-            <userName>mmm761</userName>
-        </UserAccount>
-        <UserAccount>
-            <cellNumber>240-546-5555</cellNumber>
-            <email>kd8@umuc.edu</email>
-            <firstName>Kristine</firstName>
-            <id>4</id>
-            <lastName>Dudley</lastName>
-            <pin>Uv2OPxdqzfp01c5gh0lFZQ73KpvEkB/O/nOICZZgul8=</pin>
-            <userName>kd8</userName>
-        </UserAccount>
-        <UserAccount>
-            <cellNumber>240-735-8845</cellNumber>
-            <email>chw005@umuc.edu</email>
-            <firstName>Woo</firstName>
-            <id>5</id>
-            <lastName>Choi</lastName>
-            <pin>KhPOgoDtvCBWxgoCYp7VpZSANG+rXEO+RQWaic9WT8Q=</pin>
-            <userName>chw005</userName>
-        </UserAccount>
-        <UserAccount>
-            <cellNumber>301-232-9012</cellNumber>
-            <email>jdk09@umuc.edu</email>
-            <firstName>Justin</firstName>
-            <id>6</id>
-            <lastName>Kim</lastName>
-            <pin>zO+GxwmYNXJ2Jsz66e83XAK8KpbN1wGBlvMNhiLEcOk=</pin>
-            <userName>jdk09</userName>
+            <cellNumber>410-555-1212</cellNumber>
+            <email>sc@northpole.com</email>
+            <failedLogins>0</failedLogins>
+            <firstName>santa</firstName>
+            <id>7</id>
+            <lastFailedLoginAttempt/>
+            <lastName>claus</lastName>
+            <pin>1^10000^YBV-PweunJsLV9LiKyk0eSC4G5A7n3xrm856xdV1TvVWFu4jau5pDHIHfP2BVTAXdWBKv4GaFVwrDATVTrIrBw</pin>
+            <userName>sc</userName>
         </UserAccount>
     </UserAccountList>
 </AtmData>
