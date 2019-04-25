@@ -101,6 +101,7 @@ public class MainController implements Initializable {
          // setup checking account
          double checkingBalance = Double.valueOf(strCheckingBalance);
          BankAccount checkingAccount = new BankAccount();
+         checkingAccount.setAccountType("checking");
          checkingAccount.setUserId(nextUserId);
          checkingAccount.setAccountNumber(Long.parseLong(strCheckingAccount));
          checkingAccount.setAccountBalance(checkingBalance);
@@ -119,6 +120,7 @@ public class MainController implements Initializable {
          // setup savings account
          double savingsBalance = Double.valueOf(strSavingsBalance);
          BankAccount savingsAccount = new BankAccount();
+         savingsAccount.setAccountType("savings");
          savingsAccount.setUserId(nextUserId);
          savingsAccount.setAccountNumber(Long.parseLong(strSavingsAccount));
          savingsAccount.setAccountBalance(Double.valueOf(strSavingsBalance));

@@ -4,13 +4,13 @@
         <BankAccount>
             <accountBalance>250.0</accountBalance>
             <accountNumber>111111111</accountNumber>
-            <accountType></accountType>
+            <accountType>checking</accountType>
             <userId>7</userId>
         </BankAccount>
         <BankAccount>
             <accountBalance>5000.0</accountBalance>
             <accountNumber>222222222</accountNumber>
-            <accountType></accountType>
+            <accountType>savings</accountType>
             <userId>7</userId>
         </BankAccount>
     </BankAccountList>
