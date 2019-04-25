@@ -51,13 +51,13 @@ public class Security {
       int iterations = Integer.parseInt(parts[1]);
       byte[] blob = Base64.getUrlDecoder().decode(parts[2]);
       byte[] salt = Arrays.copyOfRange(blob, 0, DEFAULT_SALT_LENGTH);
-      byte[] check = deriveKey(alg, value.toCharArray(), salt, iterations);
+      byte[] hashedValue = deriveKey(alg, value.toCharArray(), salt, iterations);
 
-      int zero = 0;
-      for (int idx = 0; idx < check.length; ++idx) {
-         zero |= blob[salt.length + idx] ^ check[idx];
+      int accumulator = 0;
+      for (int i = 0; i < hashedValue.length; i++) {
+         accumulator |= blob[salt.length + i] ^ hashedValue[i];
       }
-      return zero == 0;
+      return (accumulator == 0);
    }
 
    private static byte[] deriveKey(AlgorithmTypes alg, char[] value, byte[] salt, int iterations) throws InvalidKeySpecException, NoSuchAlgorithmException {

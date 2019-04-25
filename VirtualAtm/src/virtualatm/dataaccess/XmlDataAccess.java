@@ -27,6 +27,7 @@ public class XmlDataAccess implements IAtmDataAccess {
       dataCache = new AtmData();
    }
 
+   @Override
    public Boolean Save(Boolean force) {
       return Save(filePath, force);
    }
@@ -107,21 +108,18 @@ public class XmlDataAccess implements IAtmDataAccess {
    public void addBankAccount(BankAccount account) {
       dataCache.getBankAccounts().add(account);
       dirty = true;
-      //WriteFile(filePath, dataCache);
    }
 
    @Override
    public void addTransaction(Transaction transaction) {
       dataCache.getTransactions().add(transaction);
       dirty = true;
-      //WriteFile(filePath, dataCache);
    }
 
    @Override
    public void addUserAccount(UserAccount account) {
       dataCache.getUserAccounts().add(account);
       dirty = true;
-      //WriteFile(filePath, dataCache);
    }
 
    private synchronized void ReadFile(String path) throws JAXBException, FileNotFoundException {
