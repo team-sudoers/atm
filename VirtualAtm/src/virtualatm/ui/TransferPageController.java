@@ -93,15 +93,22 @@ public class TransferPageController extends BaseAtmController {
    }
 
    private boolean validateUserInput() {
-      if (fromAccount.getValue() == null) {
-         return false;
-      }
+      double value = -1;
+      try {
 
-      if (destinationAccount.getValue() == null) {
-         return false;
-      }
+         if (fromAccount.getValue() == null) {
+            return false;
+         }
 
-      return parseWithdrawalAmount(transferAmount.getText()) >= 0;
+         if (destinationAccount.getValue() == null) {
+            return false;
+         }
+
+         value = parseWithdrawalAmount(transferAmount.getText());
+      } catch (Exception e) {
+         value = -1;
+      }
+      return value >= 0;
    }
 
    private void refresh() {

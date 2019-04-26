@@ -138,10 +138,14 @@ public class WithdrawPageController extends BaseAtmController {
    private boolean validateUserInput() {
 
       double tempAmount = withdrawAmount;
-      if (tempAmount <= 0) {
-         tempAmount = parseWithdrawalAmount(otherDepositAmount.getText());
-      }
+      try {
 
+         if (tempAmount <= 0) {
+            tempAmount = parseWithdrawalAmount(otherDepositAmount.getText());
+         }
+      } catch (Exception e) {
+         tempAmount = -1;
+      }
       return tempAmount > 0;
    }
 
