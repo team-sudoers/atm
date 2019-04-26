@@ -84,8 +84,6 @@ public class DepositPageController extends BaseAtmController {
       try {
 
          if (validateUserInput() == false) {
-            String message = getTranslatedText("INVALID_DOLLAR_AMOUNT");
-            showError(message);
             return;
          }
 
@@ -123,7 +121,9 @@ public class DepositPageController extends BaseAtmController {
       double value = -1;
       try {
 
-         if (selectedAccountType.length() <= 0) {
+         if ((selectedAccountType == null) || (selectedAccountType.length() <= 0)) {
+            String message = getTranslatedText("DESTINATION_ACCOUNT_NOT_FOUND");
+            showError(message);
             return false;
          }
 
@@ -132,7 +132,13 @@ public class DepositPageController extends BaseAtmController {
       } catch (Exception e) {
          value = -1;
       }
-      return value >= 0;
+
+      if (value <= 0) {
+         String message = getTranslatedText("INVALID_DOLLAR_AMOUNT");
+         showError(message);
+      }
+      
+      return value > 0;
    }
 
    private double parseDepositAmount(String text) {

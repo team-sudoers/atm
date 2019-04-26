@@ -90,7 +90,7 @@ public class BaseAtmController implements Initializable {
 
    public void showError(String message) {
       Alert msgbox = new Alert(Alert.AlertType.ERROR, message);
-      msgbox.setHeaderText("ERROR OCCURED");
+      msgbox.setHeaderText(getTranslatedText("ERROR_TITLE"));
       msgbox.showAndWait();
    }
 
@@ -98,7 +98,7 @@ public class BaseAtmController implements Initializable {
       String message = getTranslatedText(error.toString());
       if (message != null) {
          Alert msgbox = new Alert(Alert.AlertType.ERROR, message);
-         msgbox.setHeaderText("ERROR OCCURED");
+         msgbox.setHeaderText(getTranslatedText("ERROR_TITLE"));
          msgbox.showAndWait();
       }
    }

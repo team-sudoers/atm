@@ -107,30 +107,25 @@ public class FakeAtmService implements IAtmService {
    public AtmServiceError transfer(double amount, BankAccount source, BankAccount destination) {
 
       if (source.getUserId() != currentUser.getId()) {
-//         throw new Exception("This source bank account doesn't belong to you!");
          return AtmServiceError.SOURCE_BANK_ACCOUNT_NOT_OWNED;
       }
 
       if (destination.getUserId() != currentUser.getId()) {
-//         throw new Exception("This destination bank account doesn't belong to you!");
          return AtmServiceError.DESTINATION_BANK_ACCOUNT_NOT_OWNED;
       }
 
       if (source.getAccountNumber() != checkingAccount.getAccountNumber()
               && source.getAccountNumber() != savingsAccount.getAccountNumber()) {
-//         throw new Exception("Please select a valid source account.");
          return AtmServiceError.SOURCE_ACCOUNT_NOT_FOUND;
       }
 
       if (destination.getAccountNumber() != checkingAccount.getAccountNumber()
               && destination.getAccountNumber() != savingsAccount.getAccountNumber()) {
-//         throw new Exception("Please select a valid destination account.");
          return AtmServiceError.DESTINATION_ACCOUNT_NOT_FOUND;
       }
 
       double sourceBalance = source.getAccountBalance();
       if (sourceBalance < amount) {
-//         throw new Exception("Insufficient Funds: Please select a lesser amount.");
          return AtmServiceError.INSUFFICIENT_FUNDS;
       }
       sourceBalance -= amount;
@@ -160,13 +155,11 @@ public class FakeAtmService implements IAtmService {
 
       if (destination.getUserId() != currentUser.getId()) {
          return AtmServiceError.ACCOUNT_NOT_OWNED;
-//         throw new Exception("This bank account doesn't belong to you!");
       }
 
       if (destination.getAccountNumber() != checkingAccount.getAccountNumber()
               && destination.getAccountNumber() != savingsAccount.getAccountNumber()) {
          return AtmServiceError.USER_ACCOUNT_NOT_FOUND;
-//         throw new Exception("Please select a valid account.");
       }
 
       double balance = destination.getAccountBalance();
@@ -224,7 +217,6 @@ public class FakeAtmService implements IAtmService {
       if (foundAccount.getFailedLoginCount() >= MAX_FAILED_LOGINS) {
          long unlockTime = foundAccount.getLastFailedLogin().getTime() + LOCKOUT_SECONDS * 1000;
          if (System.currentTimeMillis() < unlockTime) {
-//            throw new Exception("Sorry this account is locked out.");
             return AtmServiceError.USER_ACCOUNT_LOCKED;
          }
       }

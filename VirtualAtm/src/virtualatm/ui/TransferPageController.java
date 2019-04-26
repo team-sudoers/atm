@@ -59,8 +59,6 @@ public class TransferPageController extends BaseAtmController {
    void handleTransferAction(ActionEvent event) {
       try {
          if (validateUserInput() == false) {
-            String message = getTranslatedText("INVALID_DOLLAR_AMOUNT");
-            showError(message);
             return;
          }
 
@@ -97,10 +95,14 @@ public class TransferPageController extends BaseAtmController {
       try {
 
          if (fromAccount.getValue() == null) {
+            String message = getTranslatedText("SOURCE_ACCOUNT_NOT_FOUND");
+            showError(message);
             return false;
          }
 
          if (destinationAccount.getValue() == null) {
+            String message = getTranslatedText("DESTINATION_ACCOUNT_NOT_FOUND");
+            showError(message);
             return false;
          }
 
@@ -108,7 +110,13 @@ public class TransferPageController extends BaseAtmController {
       } catch (Exception e) {
          value = -1;
       }
-      return value >= 0;
+      
+      if (value <= 0) {
+         String message = getTranslatedText("INVALID_DOLLAR_AMOUNT");
+         showError(message);
+      }
+
+      return value > 0;
    }
 
    private void refresh() {

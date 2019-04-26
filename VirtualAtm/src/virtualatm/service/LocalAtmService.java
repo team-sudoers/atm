@@ -29,19 +29,16 @@ public class LocalAtmService implements IAtmService {
    public AtmServiceError withdraw(final double amount, final BankAccount account) {
 
       if (account.getUserId() != currentUser.getId()) {
-//         throw new Exception("This bank account doesn't belong to you!");
          return AtmServiceError.ACCOUNT_NOT_OWNED;
       }
 
       BankAccount fromAccount = dataAccessLayer.findBankAccount(account.getAccountNumber());
       if (fromAccount == null) {
-//         throw new Exception("Please select a valid account.");
          return AtmServiceError.BANK_ACCOUNT_NOT_FOUND;
       }
 
       double currentBalance = fromAccount.getAccountBalance();
       if (currentBalance < amount) {
-//         throw new Exception("Insufficient Funds: Please select a lesser amount.");
          return AtmServiceError.INSUFFICIENT_FUNDS;
       }
 
@@ -64,30 +61,25 @@ public class LocalAtmService implements IAtmService {
    public AtmServiceError transfer(final double amount, final BankAccount source, final BankAccount destination) {
 
       if (source.getUserId() != currentUser.getId()) {
-//         throw new Exception("This source bank account doesn't belong to you!");
          return AtmServiceError.SOURCE_BANK_ACCOUNT_NOT_OWNED;
       }
 
       if (destination.getUserId() != currentUser.getId()) {
-//         throw new Exception("This destination bank account doesn't belong to you!");
          return AtmServiceError.DESTINATION_BANK_ACCOUNT_NOT_OWNED;
       }
 
       BankAccount sourceAccount = dataAccessLayer.findBankAccount(source.getAccountNumber());
       if (sourceAccount == null) {
-//         throw new Exception("Please select a valid source account.");
          return AtmServiceError.SOURCE_ACCOUNT_NOT_FOUND;
       }
 
       BankAccount destAccount = dataAccessLayer.findBankAccount(destination.getAccountNumber());
       if (destAccount == null) {
-//         throw new Exception("Please select a valid destination account.");
          return AtmServiceError.DESTINATION_ACCOUNT_NOT_FOUND;
       }
 
       double sourceBalance = sourceAccount.getAccountBalance();
       if (sourceBalance < amount) {
-//         throw new Exception("Insufficient Funds: Please select a lesser amount.");
          return AtmServiceError.INSUFFICIENT_FUNDS;
       }
       sourceBalance -= amount;
@@ -118,13 +110,11 @@ public class LocalAtmService implements IAtmService {
    public AtmServiceError deposit(double amount, BankAccount destination) {
 
       if (destination.getUserId() != currentUser.getId()) {
-//         throw new Exception("This bank account doesn't belong to you!");
          return AtmServiceError.ACCOUNT_NOT_OWNED;
       }
 
       BankAccount foundAccount = dataAccessLayer.findBankAccount(destination.getAccountNumber());
       if (foundAccount == null) {
-//         throw new Exception("Please select a valid account.");
          return AtmServiceError.USER_ACCOUNT_NOT_FOUND;
       }
 
@@ -163,7 +153,6 @@ public class LocalAtmService implements IAtmService {
    public AtmServiceError login(String username, String pin) {
 
       if (currentUser != null) {
-//         throw new Exception("Please log out first!");
          return AtmServiceError.LOGOUT_REMINDER;
       }
 
@@ -182,7 +171,6 @@ public class LocalAtmService implements IAtmService {
       if (foundAccount.getFailedLoginCount() >= MAX_FAILED_LOGINS) {
          long unlockTime = foundAccount.getLastFailedLogin().getTime() + LOCKOUT_SECONDS * 1000;
          if (System.currentTimeMillis() < unlockTime) {
-//            throw new Exception("Sorry this account is locked out.");
             return AtmServiceError.USER_ACCOUNT_LOCKED;
          }
       }

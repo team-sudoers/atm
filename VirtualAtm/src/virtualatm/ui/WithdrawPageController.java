@@ -52,8 +52,6 @@ public class WithdrawPageController extends BaseAtmController {
    void handleConfirmAction(ActionEvent event) {
       try {
          if (validateUserInput() == false) {
-            String message = getTranslatedText("INVALID_DOLLAR_AMOUNT");
-            showError(message);
             return;
          }
 
@@ -137,6 +135,12 @@ public class WithdrawPageController extends BaseAtmController {
 
    private boolean validateUserInput() {
 
+      if ((selectedAccountType == null) || (selectedAccountType.length() <= 0)) {
+         String message = getTranslatedText("SOURCE_ACCOUNT_NOT_FOUND");
+         showError(message);
+         return false;
+      }
+      
       double tempAmount = withdrawAmount;
       try {
 
@@ -145,6 +149,11 @@ public class WithdrawPageController extends BaseAtmController {
          }
       } catch (Exception e) {
          tempAmount = -1;
+      }
+      
+      if (tempAmount <= 0) {
+         String message = getTranslatedText("INVALID_DOLLAR_AMOUNT");
+         showError(message);
       }
       return tempAmount > 0;
    }
