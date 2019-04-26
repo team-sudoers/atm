@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import virtualatm.datamodel.BankAccount;
 import virtualatm.datamodel.Transaction;
 import virtualatm.datamodel.UserAccount;
+import virtualatm.service.AtmServiceError;
 
 public class TransferPageController extends BaseAtmController {
 
@@ -58,14 +59,8 @@ public class TransferPageController extends BaseAtmController {
    void handleTransferAction(ActionEvent event) {
       try {
          if (validateUserInput() == false) {
-            showError("Please enter the required information");
-            return;
-         }
-
-         UserAccount user = getAtmService().getLoggedInUser();
-         if (user == null) {
-            showError("You must login to perform withdrawals");
-            showLoginPage();
+            String message = getTranslatedText("INVALID_DOLLAR_AMOUNT");
+            showError(message);
             return;
          }
 
@@ -84,8 +79,13 @@ public class TransferPageController extends BaseAtmController {
          }
 
          double amount = parseWithdrawalAmount(transferAmount.getText());
-         getAtmService().transfer(amount, source, destination);
-         refresh();
+         AtmServiceError error = getAtmService().transfer(amount, source, destination);
+         if (error != AtmServiceError.SUCCESS) {
+            refresh();
+            showError(error);
+         } else {
+            showMainPage();
+         }
 
       } catch (Exception e) {
          showError(e.getMessage());

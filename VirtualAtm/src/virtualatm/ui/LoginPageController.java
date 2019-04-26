@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import virtualatm.service.AtmServiceError;
 
 public class LoginPageController extends BaseAtmController {
 
@@ -19,20 +20,20 @@ public class LoginPageController extends BaseAtmController {
 
    @FXML // fx:id="userPin"
    private PasswordField userPin; // Value injected by FXMLLoader
- 
+
    @FXML // fx:id="loginButton"
-    private Button loginButton; // Value injected by FXMLLoader
-   
+   private Button loginButton; // Value injected by FXMLLoader
+
    @Override
    public void initialize(URL url, ResourceBundle rb) {
       super.initialize(url, rb);
-      
+
       welcomeText.textProperty().bind(createTranslatedTextBinding("welcomeLabelText"));
       userName.promptTextProperty().bind(createTranslatedTextBinding("userNameText"));
       userPin.promptTextProperty().bind(createTranslatedTextBinding("userPinText"));
       loginButton.textProperty().bind(createTranslatedTextBinding("loginButtonText"));
    }
-   
+
    @FXML
    void handleDeutschAction(ActionEvent event) {
       setLanguageId("de", "DE");
@@ -53,23 +54,22 @@ public class LoginPageController extends BaseAtmController {
       setLanguageId("ko", "KO");
    }
 
-   
    @FXML
    void handleLoginAction(ActionEvent event) {
       try {
          if (validateUserInput() == false) {
-            showError("Caution: Missing input-please enter all required fields.");
+            String message = getTranslatedText("MISSING_INPUT");
+            showError(message);
             return;
          }
-         
-         if (getAtmService().login(userName.getText(), userPin.getText()) == false) {
-             
-            showError("Invalid username or pin entered.");
-            return;
+
+         AtmServiceError error = getAtmService().login(userName.getText(), userPin.getText());
+         if (error != AtmServiceError.SUCCESS) {
+            showError(error);
+         } else {
+            super.showMainPage();
          }
-        
-         super.showMainPage();
-         
+
       } catch (Exception e) {
          super.showError(e.getMessage());
       }
@@ -89,11 +89,11 @@ public class LoginPageController extends BaseAtmController {
       if (userName.getText().length() <= 0) {
          return false;
       }
-      
+
       if (userPin.getText().length() <= 0) {
          return false;
       }
-      
+
       return true;
    }
 

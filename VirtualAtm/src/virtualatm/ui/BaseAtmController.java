@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import virtualatm.service.AtmServiceError;
 import virtualatm.service.IAtmService;
 import virtualatm.service.LocalAtmService;
 
@@ -91,6 +92,15 @@ public class BaseAtmController implements Initializable {
       Alert msgbox = new Alert(Alert.AlertType.ERROR, message);
       msgbox.setHeaderText("ERROR OCCURED");
       msgbox.showAndWait();
+   }
+
+   public void showError(AtmServiceError error) {
+      String message = getTranslatedText(error.toString());
+      if (message != null) {
+         Alert msgbox = new Alert(Alert.AlertType.ERROR, message);
+         msgbox.setHeaderText("ERROR OCCURED");
+         msgbox.showAndWait();
+      }
    }
 
    public boolean askYesNoQuestion(String title, String question) {

@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import virtualatm.datamodel.BankAccount;
 import virtualatm.datamodel.Transaction;
 import virtualatm.datamodel.UserAccount;
+import virtualatm.service.AtmServiceError;
 
 public class DepositPageController extends BaseAtmController {
 
@@ -81,30 +82,29 @@ public class DepositPageController extends BaseAtmController {
    void handleDepositAction(ActionEvent event) {
       try {
          if (validateUserInput() == false) {
-            showError("Please enter the require information");
+            String message = getTranslatedText("INVALID_DOLLAR_AMOUNT");
+            showError(message);
             return;
          }
-
-         UserAccount user = getAtmService().getLoggedInUser();
-         if (user == null) {
-            showError("You must login to perform deposits");
-            showLoginPage();
-            return;
-         }
-
-         BankAccount ba = null;
-         if (selectedAccountType.equals(getTranslatedText("checking"))) {
-            ba = getAtmService().getCheckingAccount();
-         } else {
-            ba = getAtmService().getSavingsAccount();
-         }
-
-         double amount = parseDepositAmount(depositAmount.getText());
-         getAtmService().deposit(amount, ba);
-         refresh();
-
       } catch (Exception e) {
-         showError(e.getMessage());
+         String message = getTranslatedText("INVALID_DOLLAR_AMOUNT");
+         showError(message);
+      }
+
+      BankAccount ba = null;
+      if (selectedAccountType.equals(getTranslatedText("checking"))) {
+         ba = getAtmService().getCheckingAccount();
+      } else {
+         ba = getAtmService().getSavingsAccount();
+      }
+
+      double amount = parseDepositAmount(depositAmount.getText());
+      AtmServiceError error = getAtmService().deposit(amount, ba);
+      if (error != AtmServiceError.SUCCESS) {
+         refresh();
+         showError(error);
+      } else {
+         showMainPage();
       }
    }
 

@@ -26,20 +26,23 @@ public class LocalAtmService implements IAtmService {
    }
 
    @Override
-   public void withdraw(final double amount, final BankAccount account) throws Exception {
+   public AtmServiceError withdraw(final double amount, final BankAccount account) {
 
       if (account.getUserId() != currentUser.getId()) {
-         throw new Exception("This bank account doesn't belong to you!");
+//         throw new Exception("This bank account doesn't belong to you!");
+         return AtmServiceError.ACCOUNT_NOT_OWNED;
       }
 
       BankAccount fromAccount = dataAccessLayer.findBankAccount(account.getAccountNumber());
       if (fromAccount == null) {
-         throw new Exception("Please select a valid account.");
+//         throw new Exception("Please select a valid account.");
+         return AtmServiceError.BANK_ACCOUNT_NOT_FOUND;
       }
 
       double currentBalance = fromAccount.getAccountBalance();
       if (currentBalance < amount) {
-         throw new Exception("Insufficient Funds: Please select a lesser amount.");
+//         throw new Exception("Insufficient Funds: Please select a lesser amount.");
+         return AtmServiceError.INSUFFICIENT_FUNDS;
       }
 
       double balance = fromAccount.getAccountBalance();
@@ -53,32 +56,39 @@ public class LocalAtmService implements IAtmService {
       withdrawTransaction.setDate(new Date());
       dataAccessLayer.addTransaction(withdrawTransaction);
       dataAccessLayer.Save(true);
+
+      return AtmServiceError.SUCCESS;
    }
 
    @Override
-   public void transfer(final double amount, final BankAccount source, final BankAccount destination) throws Exception {
+   public AtmServiceError transfer(final double amount, final BankAccount source, final BankAccount destination) {
 
       if (source.getUserId() != currentUser.getId()) {
-         throw new Exception("This source bank account doesn't belong to you!");
+//         throw new Exception("This source bank account doesn't belong to you!");
+         return AtmServiceError.SOURCE_BANK_ACCOUNT_NOT_OWNED;
       }
 
       if (destination.getUserId() != currentUser.getId()) {
-         throw new Exception("This destination bank account doesn't belong to you!");
+//         throw new Exception("This destination bank account doesn't belong to you!");
+         return AtmServiceError.DESTINATION_BANK_ACCOUNT_NOT_OWNED;
       }
 
       BankAccount sourceAccount = dataAccessLayer.findBankAccount(source.getAccountNumber());
       if (sourceAccount == null) {
-         throw new Exception("Please select a valid source account.");
+//         throw new Exception("Please select a valid source account.");
+         return AtmServiceError.SOURCE_ACCOUNT_NOT_FOUND;
       }
 
       BankAccount destAccount = dataAccessLayer.findBankAccount(destination.getAccountNumber());
       if (destAccount == null) {
-         throw new Exception("Please select a valid destination account.");
+//         throw new Exception("Please select a valid destination account.");
+         return AtmServiceError.DESTINATION_ACCOUNT_NOT_FOUND;
       }
 
       double sourceBalance = sourceAccount.getAccountBalance();
       if (sourceBalance < amount) {
-         throw new Exception("Insufficient Funds: Please select a lesser amount.");
+//         throw new Exception("Insufficient Funds: Please select a lesser amount.");
+         return AtmServiceError.INSUFFICIENT_FUNDS;
       }
       sourceBalance -= amount;
       sourceAccount.setAccountBalance(sourceBalance);
@@ -100,18 +110,22 @@ public class LocalAtmService implements IAtmService {
       dataAccessLayer.addTransaction(depositTransaction);
 
       dataAccessLayer.Save(true);
+      
+      return AtmServiceError.SUCCESS;
    }
 
    @Override
-   public void deposit(double amount, BankAccount destination) throws Exception {
+   public AtmServiceError deposit(double amount, BankAccount destination) {
 
       if (destination.getUserId() != currentUser.getId()) {
-         throw new Exception("This bank account doesn't belong to you!");
+//         throw new Exception("This bank account doesn't belong to you!");
+         return AtmServiceError.ACCOUNT_NOT_OWNED;
       }
 
       BankAccount foundAccount = dataAccessLayer.findBankAccount(destination.getAccountNumber());
       if (foundAccount == null) {
-         throw new Exception("Please select a valid account.");
+//         throw new Exception("Please select a valid account.");
+         return AtmServiceError.USER_ACCOUNT_NOT_FOUND;
       }
 
       double balance = foundAccount.getAccountBalance();
@@ -126,10 +140,12 @@ public class LocalAtmService implements IAtmService {
       dataAccessLayer.addTransaction(transaction);
 
       dataAccessLayer.Save(true);
+
+      return AtmServiceError.SUCCESS;
    }
 
    @Override
-   public List<Transaction> getAccountHistory() throws Exception {
+   public List<Transaction> getAccountHistory() {
 
       List<Transaction> retVal = new ArrayList<>();
       Date date = Date.from(Instant.now().minus(Duration.ofDays(7)));
@@ -144,10 +160,11 @@ public class LocalAtmService implements IAtmService {
    }
 
    @Override
-   public boolean login(String username, String pin) throws Exception {
+   public AtmServiceError login(String username, String pin) {
 
       if (currentUser != null) {
-         throw new Exception("Please log out first!");
+//         throw new Exception("Please log out first!");
+         return AtmServiceError.LOGOUT_REMINDER;
       }
 
       UserAccount foundAccount = null;
@@ -159,40 +176,46 @@ public class LocalAtmService implements IAtmService {
       }
 
       if (foundAccount == null) {
-         return false;
+         return AtmServiceError.USER_ACCOUNT_NOT_FOUND;
       }
 
       if (foundAccount.getFailedLoginCount() >= MAX_FAILED_LOGINS) {
          long unlockTime = foundAccount.getLastFailedLogin().getTime() + LOCKOUT_SECONDS * 1000;
          if (System.currentTimeMillis() < unlockTime) {
-            throw new Exception("Sorry this account is locked out.");
+//            throw new Exception("Sorry this account is locked out.");
+            return AtmServiceError.USER_ACCOUNT_LOCKED;
          }
       }
 
-      if (Security.compareHash(foundAccount.getPin(), pin) == false) {
-         foundAccount.setFailedLoginCount(foundAccount.getFailedLoginCount() + 1);
-         foundAccount.setLastFailedLogin(new Date());
-         return false;
+      try {
+         if (Security.compareHash(foundAccount.getPin(), pin) == false) {
+            foundAccount.setFailedLoginCount(foundAccount.getFailedLoginCount() + 1);
+            foundAccount.setLastFailedLogin(new Date());
+            return AtmServiceError.INVALID_USER_CREDENTIALS;
+         }
+      } catch (Exception ex) {
+         return AtmServiceError.INVALID_USER_CREDENTIALS;
       }
 
       // successful login
       foundAccount.setFailedLoginCount(0);
       currentUser = foundAccount;
-      return true;
+      return AtmServiceError.SUCCESS;
    }
 
    @Override
-   public void logout() throws Exception {
+   public AtmServiceError logout() {
       currentUser = null;
+      return AtmServiceError.SUCCESS;
    }
 
    @Override
-   public UserAccount getLoggedInUser() throws Exception {
+   public UserAccount getLoggedInUser() {
       return currentUser;
    }
 
    @Override
-   public BankAccount getCheckingAccount() throws Exception {
+   public BankAccount getCheckingAccount() {
 
       List<BankAccount> accounts = dataAccessLayer.findAllBankAccounts(currentUser);
       for (BankAccount account : accounts) {
@@ -205,7 +228,7 @@ public class LocalAtmService implements IAtmService {
    }
 
    @Override
-   public BankAccount getSavingsAccount() throws Exception {
+   public BankAccount getSavingsAccount() {
 
       List<BankAccount> accounts = dataAccessLayer.findAllBankAccounts(currentUser);
       for (BankAccount account : accounts) {
@@ -219,7 +242,7 @@ public class LocalAtmService implements IAtmService {
    }
 
    @Override
-   public Transaction getLastTransaction() throws Exception {
+   public Transaction getLastTransaction() {
 
       Transaction retVal = new Transaction();
       retVal.setDate(new Date(Long.MIN_VALUE));
