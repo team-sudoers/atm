@@ -80,31 +80,32 @@ public class DepositPageController extends BaseAtmController {
 
    @FXML
    void handleDepositAction(ActionEvent event) {
+
       try {
+
          if (validateUserInput() == false) {
             String message = getTranslatedText("INVALID_DOLLAR_AMOUNT");
             showError(message);
             return;
          }
+
+         BankAccount ba = null;
+         if (selectedAccountType.equals(getTranslatedText("checking"))) {
+            ba = getAtmService().getCheckingAccount();
+         } else {
+            ba = getAtmService().getSavingsAccount();
+         }
+
+         double amount = parseDepositAmount(depositAmount.getText());
+         AtmServiceError error = getAtmService().deposit(amount, ba);
+         if (error != AtmServiceError.SUCCESS) {
+            refresh();
+            showError(error);
+         } else {
+            showMainPage();
+         }
       } catch (Exception e) {
-         String message = getTranslatedText("INVALID_DOLLAR_AMOUNT");
-         showError(message);
-      }
-
-      BankAccount ba = null;
-      if (selectedAccountType.equals(getTranslatedText("checking"))) {
-         ba = getAtmService().getCheckingAccount();
-      } else {
-         ba = getAtmService().getSavingsAccount();
-      }
-
-      double amount = parseDepositAmount(depositAmount.getText());
-      AtmServiceError error = getAtmService().deposit(amount, ba);
-      if (error != AtmServiceError.SUCCESS) {
-         refresh();
-         showError(error);
-      } else {
-         showMainPage();
+         showError(e.getMessage());
       }
    }
 
@@ -119,11 +120,19 @@ public class DepositPageController extends BaseAtmController {
    }
 
    private boolean validateUserInput() {
-      if (selectedAccountType.length() <= 0) {
-         return false;
-      }
+      double value = -1;
+      try {
 
-      return parseDepositAmount(depositAmount.getText()) >= 0;
+         if (selectedAccountType.length() <= 0) {
+            return false;
+         }
+
+         value = parseDepositAmount(depositAmount.getText());
+
+      } catch (Exception e) {
+         value = -1;
+      }
+      return value >= 0;
    }
 
    private double parseDepositAmount(String text) {
