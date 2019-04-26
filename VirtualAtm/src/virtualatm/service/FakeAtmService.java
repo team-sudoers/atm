@@ -78,7 +78,7 @@ public class FakeAtmService implements IAtmService {
 
       if (account.getAccountNumber() != checkingAccount.getAccountNumber()
               && account.getAccountNumber() != savingsAccount.getAccountNumber()) {
-         throw new Exception("Please select a valid account");
+         throw new Exception("Please select a valid account.");
       }
 
       double currentBalance = account.getAccountBalance();
@@ -111,12 +111,12 @@ public class FakeAtmService implements IAtmService {
 
       if (source.getAccountNumber() != checkingAccount.getAccountNumber()
               && source.getAccountNumber() != savingsAccount.getAccountNumber()) {
-         throw new Exception("Please select a valid account");
+         throw new Exception("Please select a valid account.");
       }
 
       if (destination.getAccountNumber() != checkingAccount.getAccountNumber()
               && destination.getAccountNumber() != savingsAccount.getAccountNumber()) {
-         throw new Exception("Please select a valid account");
+         throw new Exception("Please select a valid account.");
       }
 
       double sourceBalance = source.getAccountBalance();
@@ -153,7 +153,7 @@ public class FakeAtmService implements IAtmService {
 
       if (destination.getAccountNumber() != checkingAccount.getAccountNumber()
               && destination.getAccountNumber() != savingsAccount.getAccountNumber()) {
-         throw new Exception("Please select a valid account");
+         throw new Exception("Please select a valid account.");
       }
 
       double balance = destination.getAccountBalance();
@@ -209,7 +209,7 @@ public class FakeAtmService implements IAtmService {
       if (foundAccount.getFailedLoginCount() >= MAX_FAILED_LOGINS) {
          long unlockTime = foundAccount.getLastFailedLogin().getTime() + LOCKOUT_SECONDS * 1000;
          if (System.currentTimeMillis() < unlockTime) {
-            throw new Exception("Sorry this account is locked out");
+            throw new Exception("Sorry this account is locked out.");
          }
       }
 

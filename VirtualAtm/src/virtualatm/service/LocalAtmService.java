@@ -34,7 +34,7 @@ public class LocalAtmService implements IAtmService {
 
       BankAccount fromAccount = dataAccessLayer.findBankAccount(account.getAccountNumber());
       if (fromAccount == null) {
-         throw new Exception("Please select a valid account");
+         throw new Exception("Please select a valid account.");
       }
 
       double currentBalance = fromAccount.getAccountBalance();
@@ -68,12 +68,12 @@ public class LocalAtmService implements IAtmService {
 
       BankAccount sourceAccount = dataAccessLayer.findBankAccount(source.getAccountNumber());
       if (sourceAccount == null) {
-         throw new Exception("Please select a valid source account");
+         throw new Exception("Please select a valid source account.");
       }
 
       BankAccount destAccount = dataAccessLayer.findBankAccount(destination.getAccountNumber());
       if (destAccount == null) {
-         throw new Exception("Please select a valid destination account");
+         throw new Exception("Please select a valid destination account.");
       }
 
       double sourceBalance = sourceAccount.getAccountBalance();
@@ -111,7 +111,7 @@ public class LocalAtmService implements IAtmService {
 
       BankAccount foundAccount = dataAccessLayer.findBankAccount(destination.getAccountNumber());
       if (foundAccount == null) {
-         throw new Exception("Please select a valid account");
+         throw new Exception("Please select a valid account.");
       }
 
       double balance = foundAccount.getAccountBalance();
@@ -165,7 +165,7 @@ public class LocalAtmService implements IAtmService {
       if (foundAccount.getFailedLoginCount() >= MAX_FAILED_LOGINS) {
          long unlockTime = foundAccount.getLastFailedLogin().getTime() + LOCKOUT_SECONDS * 1000;
          if (System.currentTimeMillis() < unlockTime) {
-            throw new Exception("Sorry this account is locked out");
+            throw new Exception("Sorry this account is locked out.");
          }
       }
 
