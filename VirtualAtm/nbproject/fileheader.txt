@@ -1,0 +1,11 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}File:    ${nameAndExt}
+${licensePrefix}Date:    ${date?date?string("MM/dd/yyyy")}
+${licensePrefix}Authors: Raysean Jones-Dent, Tonye Andre Martial, Matt Mitchell, Kristine Dudley, Woo Choi, Justin Kim
+${licensePrefix}Project: ${project.displayName}
+${licensePrefix}Course:  UMUC CMSC 495-7982
+<#if licenseLast??>
+${licenseLast}
+</#if>

@@ -1,3 +1,10 @@
+/* 
+ * File:    VirtualAtm.java
+ * Date:    04/27/2019
+ * Authors: Raysean Jones-Dent, Tonye Andre Martial, Matt Mitchell, Kristine Dudley, Woo Choi, Justin Kim
+ * Project: VirtualAtm
+ * Course:  UMUC CMSC 495-7982
+ */
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;

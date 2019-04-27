@@ -1,3 +1,10 @@
+/* 
+ * File:    IAtmDataAccess.java
+ * Date:    04/27/2019
+ * Authors: Raysean Jones-Dent, Tonye Andre Martial, Matt Mitchell, Kristine Dudley, Woo Choi, Justin Kim
+ * Project: VirtualAtm
+ * Course:  UMUC CMSC 495-7982
+ */
 package virtualatm.dataaccess;
 
 import java.util.List;
@@ -7,8 +14,6 @@ import virtualatm.datamodel.UserAccount;
 
 public interface IAtmDataAccess {
 
-   Boolean Save(Boolean force);
-
    List<UserAccount> getAllUserAccounts();
 
    UserAccount findUserAccount(String userName);
@@ -17,13 +22,18 @@ public interface IAtmDataAccess {
 
    BankAccount findBankAccount(long accountNumber);
 
-   void addUserAccount(UserAccount account);
-
-   void addBankAccount(BankAccount account);
-
-   void addTransaction(Transaction transaction);
-
    List<Transaction> getAllTransactions();
 
    List<Transaction> getTransactionsForUser(UserAccount user);
+
+   boolean addUserAccount(UserAccount account);
+
+   boolean addBankAccount(BankAccount account);
+
+   boolean updateBankAccount(BankAccount account);
+
+   boolean addTransaction(Transaction transaction);
+
+   boolean deleteTransaction(Transaction transaction);
+
 }

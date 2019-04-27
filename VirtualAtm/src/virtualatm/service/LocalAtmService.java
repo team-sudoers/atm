@@ -1,3 +1,10 @@
+/* 
+ * File:    LocalAtmService.java
+ * Date:    04/27/2019
+ * Authors: Raysean Jones-Dent, Tonye Andre Martial, Matt Mitchell, Kristine Dudley, Woo Choi, Justin Kim
+ * Project: VirtualAtm
+ * Course:  UMUC CMSC 495-7982
+ */
 package virtualatm.service;
 
 import java.time.Duration;
@@ -17,12 +24,11 @@ public class LocalAtmService implements IAtmService {
    private final int MAX_FAILED_LOGINS = 3;
    private final int LOCKOUT_SECONDS = 30;
 
-   private static final String XML_FILE_PATH = "datastore.xml";
    private final IAtmDataAccess dataAccessLayer;
    private UserAccount currentUser;
 
    public LocalAtmService() {
-      dataAccessLayer = new XmlDataAccess(XML_FILE_PATH);
+      dataAccessLayer = new XmlDataAccess();
    }
 
    @Override
@@ -51,10 +57,8 @@ public class LocalAtmService implements IAtmService {
       withdrawTransaction.setAmount(amount);
       withdrawTransaction.setBankAccountId(account.getAccountNumber());
       withdrawTransaction.setDate(new Date());
-      dataAccessLayer.addTransaction(withdrawTransaction);
-      dataAccessLayer.Save(true);
 
-      return AtmServiceError.SUCCESS;
+      return completeTransaction(account, withdrawTransaction);
    }
 
    @Override
@@ -89,7 +93,9 @@ public class LocalAtmService implements IAtmService {
       withdrawTransaction.setAmount(amount);
       withdrawTransaction.setBankAccountId(sourceAccount.getAccountNumber());
       withdrawTransaction.setDate(new Date());
-      dataAccessLayer.addTransaction(withdrawTransaction);
+      if (completeTransaction(sourceAccount, withdrawTransaction) != AtmServiceError.SUCCESS) {
+         return AtmServiceError.FAILURE_SAVING_TRANSACTION;
+      }
 
       double destinationBalance = destination.getAccountBalance();
       destinationBalance += amount;
@@ -99,11 +105,8 @@ public class LocalAtmService implements IAtmService {
       depositTransaction.setAmount(amount);
       depositTransaction.setBankAccountId(destination.getAccountNumber());
       depositTransaction.setDate(new Date());
-      dataAccessLayer.addTransaction(depositTransaction);
-
-      dataAccessLayer.Save(true);
       
-      return AtmServiceError.SUCCESS;
+      return completeTransaction(destAccount, depositTransaction);
    }
 
    @Override
@@ -127,16 +130,14 @@ public class LocalAtmService implements IAtmService {
       transaction.setAmount(amount);
       transaction.setBankAccountId(destination.getAccountNumber());
       transaction.setDate(new Date());
-      dataAccessLayer.addTransaction(transaction);
-
-      dataAccessLayer.Save(true);
-
-      return AtmServiceError.SUCCESS;
+      
+      return completeTransaction(foundAccount, transaction);
    }
 
    @Override
    public List<Transaction> getAccountHistory() {
 
+      // we have a hard coded 7 days of history right now
       List<Transaction> retVal = new ArrayList<>();
       Date date = Date.from(Instant.now().minus(Duration.ofDays(7)));
 
@@ -244,5 +245,19 @@ public class LocalAtmService implements IAtmService {
       }
 
       return retVal;
+   }
+   
+      
+   private AtmServiceError completeTransaction(BankAccount ba, Transaction transaction) {
+      if (dataAccessLayer.addTransaction(transaction) == false) {
+         return AtmServiceError.FAILURE_SAVING_TRANSACTION;
+      }
+      
+      if (dataAccessLayer.updateBankAccount(ba) == false) {
+         dataAccessLayer.deleteTransaction(transaction);
+         return AtmServiceError.FAILURE_SAVING_TRANSACTION;
+      }
+      
+      return AtmServiceError.SUCCESS;
    }
 }
