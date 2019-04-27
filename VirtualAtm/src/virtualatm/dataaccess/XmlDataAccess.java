@@ -229,7 +229,7 @@ public class XmlDataAccess implements IAtmDataAccess {
       long retVal = 0;
       List<Transaction> transactions = getAllTransactions();
       for (Transaction transaction : transactions) {
-         if (transaction.getId() > retVal) {
+         if (transaction.getId() >= retVal) {
             retVal = transaction.getId() + 1;
          }
       }
