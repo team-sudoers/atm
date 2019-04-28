@@ -1,26 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * File:    AtmXmlGenerator.java
+ * Date:    04/27/2019
+ * Authors: Raysean Jones-Dent, Tonye Andre Martial, Matt Mitchell, Kristine Dudley, Woo Choi, Justin Kim
+ * Project: AtmXmlGenerator
+ * Course:  UMUC CMSC 495-7982
  */
-package javafxapplication;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Matt
- */
-public class JavaFXApplication extends Application {
+
+public class AtmXmlGenerator extends Application {
    
    @Override
    public void start(Stage stage) {
       try {
-         Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+         Parent root = FXMLLoader.load(getClass().getResource("virtualatm/ui/Main.fxml"));
 
          Scene scene = new Scene(root);
 

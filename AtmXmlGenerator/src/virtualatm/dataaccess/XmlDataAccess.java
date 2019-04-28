@@ -1,3 +1,10 @@
+/* 
+ * File:    XmlDataAccess.java
+ * Date:    04/27/2019
+ * Authors: Raysean Jones-Dent, Tonye Andre Martial, Matt Mitchell, Kristine Dudley, Woo Choi, Justin Kim
+ * Project: AtmXmlGenerator
+ * Course:  UMUC CMSC 495-7982
+ */
 package virtualatm.dataaccess;
 
 import java.io.File;
@@ -17,9 +24,14 @@ import virtualatm.datamodel.UserAccount;
 
 public class XmlDataAccess implements IAtmDataAccess {
 
+   private static final String XML_FILE_PATH = "datastore.xml";
    private final String filePath;
    private boolean dirty;
    private AtmData dataCache;
+   
+   public XmlDataAccess() {
+      this(XML_FILE_PATH);
+   }
 
    public XmlDataAccess(String xmlPath) {
       filePath = xmlPath;
@@ -104,24 +116,35 @@ public class XmlDataAccess implements IAtmDataAccess {
    }
 
    @Override
-   public void addBankAccount(BankAccount account) {
+   public boolean addBankAccount(BankAccount account) {
       dataCache.getBankAccounts().add(account);
-      dirty = true;
-      //WriteFile(filePath, dataCache);
+      return Save(true);
    }
 
    @Override
-   public void addTransaction(Transaction transaction) {
+   public boolean updateBankAccount(BankAccount account) {
+      BankAccount ba = findBankAccount(account.getAccountNumber());
+      ba.setAccountBalance(account.getAccountBalance());
+      return Save(true);
+   }
+
+   @Override
+   public boolean addTransaction(Transaction transaction) {
+      transaction.setId(getNextTransactionId());
       dataCache.getTransactions().add(transaction);
-      dirty = true;
-      //WriteFile(filePath, dataCache);
+      return Save(true);
+   }
+   
+   @Override
+   public boolean deleteTransaction(Transaction transaction) {
+      dataCache.getTransactions().removeIf(t -> t.getId() == transaction.getId());
+      return Save(true);
    }
 
    @Override
-   public void addUserAccount(UserAccount account) {
+   public boolean addUserAccount(UserAccount account) {
       dataCache.getUserAccounts().add(account);
-      dirty = true;
-      //WriteFile(filePath, dataCache);
+      return Save(true);
    }
 
    private synchronized void ReadFile(String path) throws JAXBException, FileNotFoundException {
@@ -146,14 +169,19 @@ public class XmlDataAccess implements IAtmDataAccess {
    @Override
    public List<Transaction> getTransactionsForUser(UserAccount user) {
       List<Transaction> transactions = new ArrayList<>();
+      List<Long> userBankAccountNumbers = new ArrayList<>();
+
+      findAllBankAccounts(user).forEach((account) -> userBankAccountNumbers.add(account.getAccountNumber()));
 
       try {
 
          ReadFile(filePath);
          for (Transaction transaction : dataCache.getTransactions()) {
-            // todo
+            if (userBankAccountNumbers.contains(transaction.getBankAccountId())) {
+               transactions.add(transaction);
+            }
          }
-      } catch (Exception e) {
+      } catch (FileNotFoundException | JAXBException e) {
          Logger.getLogger(XmlDataAccess.class.getName()).log(Level.SEVERE, null, e);
       }
 
@@ -170,7 +198,7 @@ public class XmlDataAccess implements IAtmDataAccess {
 
          transactions = dataCache.getTransactions();
 
-      } catch (Exception e) {
+      } catch (FileNotFoundException | JAXBException e) {
          Logger.getLogger(XmlDataAccess.class.getName()).log(Level.SEVERE, null, e);
       }
 
@@ -179,7 +207,7 @@ public class XmlDataAccess implements IAtmDataAccess {
 
    @Override
    public BankAccount findBankAccount(long accountNumber) {
-      
+
       BankAccount retVal = null;
       try {
          ReadFile(filePath);
@@ -194,6 +222,17 @@ public class XmlDataAccess implements IAtmDataAccess {
          Logger.getLogger(XmlDataAccess.class.getName()).log(Level.SEVERE, null, e);
       }
 
+      return retVal;
+   }
+   
+   private long getNextTransactionId() {
+      long retVal = 0;
+      List<Transaction> transactions = getAllTransactions();
+      for (Transaction transaction : transactions) {
+         if (transaction.getId() >= retVal) {
+            retVal = transaction.getId() + 1;
+         }
+      }
       return retVal;
    }
 }
