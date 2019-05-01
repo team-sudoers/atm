@@ -23,6 +23,7 @@ public class LocalAtmService implements IAtmService {
 
    private final int MAX_FAILED_LOGINS = 3;
    private final int LOCKOUT_SECONDS = 30;
+   private final double MAX_DAILY_WITHDRAW_LIMIT = 600.00;
 
    private final IAtmDataAccess dataAccessLayer;
    private UserAccount currentUser;
@@ -41,6 +42,24 @@ public class LocalAtmService implements IAtmService {
       BankAccount fromAccount = dataAccessLayer.findBankAccount(account.getAccountNumber());
       if (fromAccount == null) {
          return AtmServiceError.BANK_ACCOUNT_NOT_FOUND;
+      }
+
+      if (amount > MAX_DAILY_WITHDRAW_LIMIT) {
+         return AtmServiceError.WITHDRAWAL_AMOUNT_EXCEEDS_LIMIT;
+      }
+
+      Date date = Date.from(Instant.now().minus(Duration.ofDays(1)));
+      double totalTransAmount = amount;
+      for (Transaction t : dataAccessLayer.getTransactionsForUser(currentUser)) {
+         if ((t.getDate().after(date)) 
+                 && (t.getBankAccountId() == fromAccount.getAccountNumber())
+                 && (t.getActivityType().equalsIgnoreCase("Withdraw"))) {
+            totalTransAmount += t.getAmount();
+         }
+      }
+      
+      if (totalTransAmount > MAX_DAILY_WITHDRAW_LIMIT) {
+         return AtmServiceError.DAILY_WITHDRAWAL_LIMIT_EXCEEDED;
       }
 
       double currentBalance = fromAccount.getAccountBalance();
@@ -105,7 +124,7 @@ public class LocalAtmService implements IAtmService {
       depositTransaction.setAmount(amount);
       depositTransaction.setBankAccountId(destination.getAccountNumber());
       depositTransaction.setDate(new Date());
-      
+
       return completeTransaction(destAccount, depositTransaction);
    }
 
@@ -130,7 +149,7 @@ public class LocalAtmService implements IAtmService {
       transaction.setAmount(amount);
       transaction.setBankAccountId(destination.getAccountNumber());
       transaction.setDate(new Date());
-      
+
       return completeTransaction(foundAccount, transaction);
    }
 
@@ -246,23 +265,22 @@ public class LocalAtmService implements IAtmService {
 
       return retVal;
    }
-   
-      
+
    private AtmServiceError completeTransaction(BankAccount ba, Transaction transaction) {
       if (dataAccessLayer.addTransaction(transaction) == false) {
          return AtmServiceError.FAILURE_SAVING_TRANSACTION;
       }
-      
+
       if (dataAccessLayer.updateBankAccount(ba) == false) {
          dataAccessLayer.deleteTransaction(transaction);
          return AtmServiceError.FAILURE_SAVING_TRANSACTION;
       }
-      
+
       return AtmServiceError.SUCCESS;
    }
 
-    @Override
-    public BankAccount getBankAccount(long countId) {
-        return dataAccessLayer.findBankAccount(countId);
-    }
+   @Override
+   public BankAccount getBankAccount(long accountId) {
+      return dataAccessLayer.findBankAccount(accountId);
+   }
 }

@@ -22,7 +22,6 @@ import javafx.beans.binding.StringBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -41,149 +40,153 @@ import virtualatm.service.LocalAtmService;
  */
 public class BaseAtmController implements Initializable {
 
-    private static final String DEPOSITPAGEKEY = "DepositPage.fxml";
-    private static final String HISTORYPAGEKEY = "HistoryPage.fxml";
-    private static final String LOGINPAGEKEY = "LoginPage.fxml";
-    private static final String MAINPAGEKEY = "MainPage.fxml";
-    private static final String TRANSFERPAGEKEY = "TransferPage.fxml";
-    private static final String WITHDRAWPAGEKEY = "WithdrawPage.fxml";
+   private static final String DEPOSITPAGEKEY = "DepositPage.fxml";
+   private static final String HISTORYPAGEKEY = "HistoryPage.fxml";
+   private static final String LOGINPAGEKEY = "LoginPage.fxml";
+   private static final String MAINPAGEKEY = "MainPage.fxml";
+   private static final String TRANSFERPAGEKEY = "TransferPage.fxml";
+   private static final String WITHDRAWPAGEKEY = "WithdrawPage.fxml";
 
-    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10000),
-            ae -> handleTimer(ae)));
+   Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10000),
+           ae -> handleTimer(ae)));
 
-    @FXML // ResourceBundle that was given to the FXMLLoader
-    private ResourceBundle resources;
+   @FXML // ResourceBundle that was given to the FXMLLoader
+   private ResourceBundle resources;
 
-    @FXML // URL location of the FXML file that was given to the FXMLLoader
-    private URL location;
+   @FXML // URL location of the FXML file that was given to the FXMLLoader
+   private URL location;
 
-    private ObjectProperty<Locale> locale;
+   private ObjectProperty<Locale> locale;
 
-    private static IAtmService atmService;
+   private static IAtmService atmService;
 
-    private static Stage primaryStage;
+   private static Stage primaryStage;
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        location = url;
-        resources = rb;
-        locale = new SimpleObjectProperty<>(Locale.getDefault());
-        locale.addListener((observable, oldValue, newValue) -> Locale.setDefault(newValue));
-        resetTimer();
-    }
+   /**
+    * Initializes the controller class.
+    *
+    * @param url
+    * @param rb
+    */
+   @Override
+   public void initialize(URL url, ResourceBundle rb) {
+      location = url;
+      resources = rb;
+      locale = new SimpleObjectProperty<>(Locale.getDefault());
+      locale.addListener((observable, oldValue, newValue) -> Locale.setDefault(newValue));
+      resetTimer();
+   }
 
-    public IAtmService getAtmService() {
-        if (atmService == null) {
-            atmService = new LocalAtmService();
-        }
-        return atmService;
-    }
+   public IAtmService getAtmService() {
+      if (atmService == null) {
+         atmService = new LocalAtmService();
+      }
+      return atmService;
+   }
 
-    public void setLanguageId(String langId, String country) {
-        Locale value = new Locale(langId, country);
-        resources = ResourceBundle.getBundle("virtualatm/ui/resources/uitext", value);
-        locale.set(value);
-    }
+   public void setLanguageId(String langId, String country) {
+      Locale value = new Locale(langId, country);
+      resources = ResourceBundle.getBundle("virtualatm/ui/resources/uitext", value);
+      locale.set(value);
+   }
 
-    public String getTranslatedText(final String key, final Object... args) {
-        return MessageFormat.format(resources.getString(key), args);
-    }
+   public String getTranslatedText(final String key, final Object... args) {
+      return MessageFormat.format(resources.getString(key), args);
+   }
 
-    public StringBinding createTranslatedTextBinding(final String key, Object... args) {
-        return Bindings.createStringBinding(() -> getTranslatedText(key, args), locale);
-    }
+   public StringBinding createTranslatedTextBinding(final String key, Object... args) {
+      return Bindings.createStringBinding(() -> getTranslatedText(key, args), locale);
+   }
 
-    public void showError(String message) {
-        Alert msgbox = new Alert(Alert.AlertType.ERROR, message);
-        msgbox.setHeaderText(getTranslatedText("ERROR_TITLE"));
-        msgbox.showAndWait();
-    }
+   public void showError(String message) {
+      stopTimer();
+      Alert msgbox = new Alert(Alert.AlertType.ERROR, message);
+      msgbox.setHeaderText(getTranslatedText("ERROR_TITLE"));
+      msgbox.showAndWait();
+      resetTimer();
+   }
 
-    public void showError(AtmServiceError error) {
-        String message = getTranslatedText(error.toString());
-        if (message != null) {
-            Alert msgbox = new Alert(Alert.AlertType.ERROR, message);
-            msgbox.setHeaderText(getTranslatedText("ERROR_TITLE"));
-            msgbox.showAndWait();
-        }
-    }
-    
-    public void showTimerError(String message) {
-        Alert msgbox = new Alert(Alert.AlertType.ERROR, message);
-        msgbox.setHeaderText(getTranslatedText("ERROR_TITLE"));
-        msgbox.show();
-    }
+   public void showError(AtmServiceError error) {
+      stopTimer();
+      String message = getTranslatedText(error.toString());
+      if (message != null) {
+         Alert msgbox = new Alert(Alert.AlertType.ERROR, message);
+         msgbox.setHeaderText(getTranslatedText("ERROR_TITLE"));
+         msgbox.showAndWait();
+      }
+      resetTimer();
+   }
 
-    public boolean askYesNoQuestion(String title, String question) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, question, ButtonType.YES, ButtonType.NO);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        Optional<ButtonType> result = alert.showAndWait();
-        return result.get() == ButtonType.YES;
-    }
+   public void showTimerError(String message) {
+      Alert msgbox = new Alert(Alert.AlertType.ERROR, message);
+      msgbox.setHeaderText(getTranslatedText("ERROR_TITLE"));
+      msgbox.show();
+   }
 
-    public void handleTimer(ActionEvent event) {
-        timeline.stop();
-        showLoginPage();
-        showTimerError("Timed out due to inactivity: Please log in");
-        getAtmService().logout();
+   public boolean askYesNoQuestion(String title, String question) {
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION, question, ButtonType.YES, ButtonType.NO);
+      alert.setTitle(title);
+      alert.setHeaderText(null);
+      Optional<ButtonType> result = alert.showAndWait();
+      return result.get() == ButtonType.YES;
+   }
 
-    }
+   public void handleTimer(ActionEvent event) {
+      timeline.stop();
+      showLoginPage();
+      showTimerError("Timed out due to inactivity: Please log in");
+      getAtmService().logout();
 
-    public void resetTimer() {
-        timeline.stop();
-        timeline.play();
-    }
+   }
 
-    public void stopTimer() {
-        timeline.stop();
-    }
+   public void resetTimer() {
+      timeline.stop();
+      timeline.play();
+   }
 
-    public void showMainPage() {
-        showPage(MAINPAGEKEY);
-    }
+   public void stopTimer() {
+      timeline.stop();
+   }
 
-    public void showLoginPage() {
-        showPage(LOGINPAGEKEY);
-        stopTimer();
-    }
+   public void showMainPage() {
+      showPage(MAINPAGEKEY);
+   }
 
-    public void showDepositPage() {
-        showPage(DEPOSITPAGEKEY);
-    }
+   public void showLoginPage() {
+      showPage(LOGINPAGEKEY);
+      stopTimer();
+   }
 
-    public void showHistoryPage() {
-        showPage(HISTORYPAGEKEY);
-    }
+   public void showDepositPage() {
+      showPage(DEPOSITPAGEKEY);
+   }
 
-    public void showTransferPage() {
-        showPage(TRANSFERPAGEKEY);
-    }
+   public void showHistoryPage() {
+      showPage(HISTORYPAGEKEY);
+   }
 
-    public void showWithdrawPage() {
-        showPage(WITHDRAWPAGEKEY);
-    }
+   public void showTransferPage() {
+      showPage(TRANSFERPAGEKEY);
+   }
 
-    public static void setStage(Stage stage) {
-        primaryStage = stage;
-    }
+   public void showWithdrawPage() {
+      showPage(WITHDRAWPAGEKEY);
+   }
 
-    private void showPage(String fxmlPath) {
-        try {
-            stopTimer();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath), resources);
+   public static void setStage(Stage stage) {
+      primaryStage = stage;
+   }
 
-            Scene scene = new Scene(loader.load());
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(BaseAtmController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+   private void showPage(String fxmlPath) {
+      try {
+         stopTimer();
+         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath), resources);
+
+         Scene scene = new Scene(loader.load());
+         primaryStage.setScene(scene);
+         primaryStage.show();
+      } catch (IOException ex) {
+         Logger.getLogger(BaseAtmController.class.getName()).log(Level.SEVERE, null, ex);
+      }
+   }
 }

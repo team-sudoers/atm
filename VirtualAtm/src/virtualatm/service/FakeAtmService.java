@@ -7,6 +7,8 @@
  */
 package virtualatm.service;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +23,7 @@ public class FakeAtmService implements IAtmService {
 
    private final int MAX_FAILED_LOGINS = 3;
    private final int LOCKOUT_SECONDS = 30;
+   private final double MAX_DAILY_WITHDRAW_LIMIT = 600.00;
 
    private final List<UserAccount> userAccounts;
    private final List<Transaction> transactions;
@@ -80,19 +83,34 @@ public class FakeAtmService implements IAtmService {
    public AtmServiceError withdraw(double amount, BankAccount account) {
 
       if (account.getUserId() != currentUser.getId()) {
-         //throw new Exception("This bank account doesn't belong to you!");
          return AtmServiceError.ACCOUNT_NOT_OWNED;
       }
 
       if (account.getAccountNumber() != checkingAccount.getAccountNumber()
               && account.getAccountNumber() != savingsAccount.getAccountNumber()) {
-//         throw new Exception("Please select a valid account.");
          return AtmServiceError.ACCOUNT_NOT_OWNED;
+      }
+      
+      if (amount > MAX_DAILY_WITHDRAW_LIMIT) {
+         return AtmServiceError.WITHDRAWAL_AMOUNT_EXCEEDS_LIMIT;
+      }
+
+      Date date = Date.from(Instant.now().minus(Duration.ofDays(1)));
+      double totalTransAmount = amount;
+      for (Transaction t : transactions) {
+         if ((t.getDate().after(date)) 
+                 && (t.getBankAccountId() == account.getAccountNumber())
+                 && (t.getActivityType().equalsIgnoreCase("Withdraw"))) {
+            totalTransAmount += t.getAmount();
+         }
+      }
+      
+      if (totalTransAmount > MAX_DAILY_WITHDRAW_LIMIT) {
+         return AtmServiceError.DAILY_WITHDRAWAL_LIMIT_EXCEEDED;
       }
 
       double currentBalance = account.getAccountBalance();
       if (currentBalance < amount) {
-         //throw new Exception("Insufficient Funds: Please select a lesser amount.");
          return AtmServiceError.INSUFFICIENT_FUNDS;
       }
 
@@ -235,7 +253,7 @@ public class FakeAtmService implements IAtmService {
             return AtmServiceError.INVALID_USER_CREDENTIALS;
          }
       } catch (Exception ex) {
-            return AtmServiceError.INVALID_USER_CREDENTIALS;
+         return AtmServiceError.INVALID_USER_CREDENTIALS;
       }
 
       // successful login
@@ -292,8 +310,12 @@ public class FakeAtmService implements IAtmService {
       return retVal;
    }
 
-    @Override
-    public BankAccount getBankAccount(long countId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   @Override
+   public BankAccount getBankAccount(long accountId) {
+      if (savingsAccount.getAccountNumber() != accountId) {
+         return savingsAccount;
+      }
+
+      return checkingAccount;
+   }
 }

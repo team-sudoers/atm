@@ -30,7 +30,7 @@ public interface IAtmService {
 
    BankAccount getSavingsAccount();
    
-   BankAccount getBankAccount(long countId);
+   BankAccount getBankAccount(long accountId);
 
    List<Transaction> getAccountHistory();
 
