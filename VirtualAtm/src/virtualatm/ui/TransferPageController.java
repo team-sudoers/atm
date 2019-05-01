@@ -65,6 +65,7 @@ public class TransferPageController extends BaseAtmController {
    @FXML
    void handleTransferAction(ActionEvent event) {
       try {
+          resetTimer();
          if (validateUserInput() == false) {
             return;
          }
@@ -156,6 +157,7 @@ public class TransferPageController extends BaseAtmController {
 
    @FXML
    void handleToAccount(ActionEvent event) {
+       resetTimer();
       String accountType = destinationAccount.getValue();
       if (accountType.equals(getTranslatedText("checking"))) {
          fromAccount.setValue(getTranslatedText("savings"));
@@ -167,6 +169,7 @@ public class TransferPageController extends BaseAtmController {
 
    @FXML
    void handleFromAccount(ActionEvent event) {
+       resetTimer();
       String accountType = fromAccount.getValue();
       if (accountType.equals(getTranslatedText("checking"))) {
          destinationAccount.setValue(getTranslatedText("savings"));

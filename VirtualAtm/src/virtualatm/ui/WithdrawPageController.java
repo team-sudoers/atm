@@ -58,6 +58,7 @@ public class WithdrawPageController extends BaseAtmController {
    @FXML
    void handleConfirmAction(ActionEvent event) {
       try {
+          resetTimer();
          if (validateUserInput() == false) {
             return;
          }
@@ -99,6 +100,7 @@ public class WithdrawPageController extends BaseAtmController {
 
    @FXML
    void handleSelectAccountChange(ActionEvent event) {
+       resetTimer();
       String accountType = fromAccount.getValue();
       if (accountType != null) {
          selectedAccountType = accountType;
@@ -107,6 +109,7 @@ public class WithdrawPageController extends BaseAtmController {
 
    @FXML
    void handleSelectionAmountChanged(ActionEvent event) {
+       resetTimer();
       String value = selectAmount.getValue();
       if (value != null) {
          withdrawAmount = Double.valueOf(value);

@@ -35,6 +35,7 @@ public class LoginPageController extends BaseAtmController {
    public void initialize(URL url, ResourceBundle rb) {
       super.initialize(url, rb);
 
+      stopTimer();
       welcomeText.textProperty().bind(createTranslatedTextBinding("welcomeLabelText"));
       userName.promptTextProperty().bind(createTranslatedTextBinding("userNameText"));
       userPin.promptTextProperty().bind(createTranslatedTextBinding("userPinText"));

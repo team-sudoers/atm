@@ -66,6 +66,7 @@ public class MainPageController extends BaseAtmController {
    @FXML
    void handleAccountHistoryAction(ActionEvent event) {
       showHistoryPage();
+     
    }
 
    @FXML
