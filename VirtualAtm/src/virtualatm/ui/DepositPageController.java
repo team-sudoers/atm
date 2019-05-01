@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import virtualatm.datamodel.BankAccount;
 import virtualatm.datamodel.Transaction;
 import virtualatm.datamodel.UserAccount;
@@ -125,6 +126,11 @@ public class DepositPageController extends BaseAtmController {
         } catch (Exception e) {
             super.showError(e.getMessage());
         }
+    }
+
+    @FXML
+    void handleKeyPressed(KeyEvent event) {
+        resetTimer();
     }
 
     private boolean validateUserInput() {

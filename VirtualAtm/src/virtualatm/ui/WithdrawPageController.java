@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import virtualatm.datamodel.BankAccount;
 import virtualatm.datamodel.Transaction;
 import virtualatm.datamodel.UserAccount;
@@ -23,166 +24,171 @@ import virtualatm.service.AtmServiceError;
 
 public class WithdrawPageController extends BaseAtmController {
 
-   @FXML // fx:id="topLabel"
-   private Label topLabel; // Value injected by FXMLLoader
+    @FXML // fx:id="topLabel"
+    private Label topLabel; // Value injected by FXMLLoader
 
-   @FXML // fx:id="checkingAmountLabel"
-   private Label checkingAmountLabel; // Value injected by FXMLLoader
+    @FXML // fx:id="checkingAmountLabel"
+    private Label checkingAmountLabel; // Value injected by FXMLLoader
 
-   @FXML // fx:id="savingsAmountLabel"
-   private Label savingsAmountLabel; // Value injected by FXMLLoader
+    @FXML // fx:id="savingsAmountLabel"
+    private Label savingsAmountLabel; // Value injected by FXMLLoader
 
-   @FXML // fx:id="lastTransactionDateLabel"
-   private Label lastTransactionDateLabel; // Value injected by FXMLLoader
+    @FXML // fx:id="lastTransactionDateLabel"
+    private Label lastTransactionDateLabel; // Value injected by FXMLLoader
 
-   @FXML // fx:id="otherDepositAmount"
-   private TextField otherDepositAmount; // Value injected by FXMLLoader
+    @FXML // fx:id="otherDepositAmount"
+    private TextField otherDepositAmount; // Value injected by FXMLLoader
 
-   private String selectedAccountType;
-   private double withdrawAmount;
+    private String selectedAccountType;
+    private double withdrawAmount;
 
-   @FXML
-   private ComboBox<String> fromAccount;
+    @FXML
+    private ComboBox<String> fromAccount;
 
-   @FXML
-   private ComboBox<String> selectAmount;
+    @FXML
+    private ComboBox<String> selectAmount;
 
-   @Override
-   public void initialize(URL url, ResourceBundle rb) {
-      super.initialize(url, rb); //To change body of generated methods, choose Tools | Templates.
-      fromAccount.getItems().addAll(getTranslatedText("checking"), getTranslatedText("savings"));
-      selectAmount.getItems().addAll("20", "40", "60", "80", "100", "200");
-      refresh();
-   }
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        super.initialize(url, rb); //To change body of generated methods, choose Tools | Templates.
+        fromAccount.getItems().addAll(getTranslatedText("checking"), getTranslatedText("savings"));
+        selectAmount.getItems().addAll("20", "40", "60", "80", "100", "200");
+        refresh();
+    }
 
-   @FXML
-   void handleConfirmAction(ActionEvent event) {
-      try {
-          resetTimer();
-         if (validateUserInput() == false) {
-            return;
-         }
+    @FXML
+    void handleConfirmAction(ActionEvent event) {
+        try {
+            resetTimer();
+            if (validateUserInput() == false) {
+                return;
+            }
 
-         BankAccount ba = null;
-         if (selectedAccountType.equals(getTranslatedText("checking"))) {
-            ba = getAtmService().getCheckingAccount();
-         } else {
-            ba = getAtmService().getSavingsAccount();
-         }
+            BankAccount ba = null;
+            if (selectedAccountType.equals(getTranslatedText("checking"))) {
+                ba = getAtmService().getCheckingAccount();
+            } else {
+                ba = getAtmService().getSavingsAccount();
+            }
 
-         double amount = withdrawAmount;
-         if (amount <= 0) {
-            amount = parseWithdrawalAmount(otherDepositAmount.getText());
-         }
+            double amount = withdrawAmount;
+            if (amount <= 0) {
+                amount = parseWithdrawalAmount(otherDepositAmount.getText());
+            }
 
-         AtmServiceError error = getAtmService().withdraw(amount, ba);
-         if (error != AtmServiceError.SUCCESS) {
-            refresh();
-            showError(error);
-         } else {
-            showMainPage();
-         }
+            AtmServiceError error = getAtmService().withdraw(amount, ba);
+            if (error != AtmServiceError.SUCCESS) {
+                refresh();
+                showError(error);
+            } else {
+                showMainPage();
+            }
 
-      } catch (Exception e) {
-         showError(e.getMessage());
-      }
-   }
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
+    }
 
-   @FXML
-   void handleLogoutAction(ActionEvent event) {
-      try {
-         getAtmService().logout();
-         showLoginPage();
-      } catch (Exception ex) {
-         super.showError(ex.getMessage());
-      }
-   }
+    @FXML
+    void handleLogoutAction(ActionEvent event) {
+        try {
+            getAtmService().logout();
+            showLoginPage();
+        } catch (Exception ex) {
+            super.showError(ex.getMessage());
+        }
+    }
 
-   @FXML
-   void handleSelectAccountChange(ActionEvent event) {
-       resetTimer();
-      String accountType = fromAccount.getValue();
-      if (accountType != null) {
-         selectedAccountType = accountType;
-      }
-   }
+    @FXML
+    void handleSelectAccountChange(ActionEvent event) {
+        resetTimer();
+        String accountType = fromAccount.getValue();
+        if (accountType != null) {
+            selectedAccountType = accountType;
+        }
+    }
 
-   @FXML
-   void handleSelectionAmountChanged(ActionEvent event) {
-       resetTimer();
-      String value = selectAmount.getValue();
-      if (value != null) {
-         withdrawAmount = Double.valueOf(value);
-      }
-   }
+    @FXML
+    void handleSelectionAmountChanged(ActionEvent event) {
+        resetTimer();
+        String value = selectAmount.getValue();
+        if (value != null) {
+            withdrawAmount = Double.valueOf(value);
+        }
+    }
 
-   private void refresh() {
-      try {
-         String pattern = "MM/dd/yyyy";
-         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-         topLabel.setText(String.format("%s", simpleDateFormat.format(new Date())));
+    @FXML
+    void handleKeyPressed(KeyEvent event) {
+        resetTimer();
+    }
 
-         UserAccount user = getAtmService().getLoggedInUser();
-         BankAccount ca = getAtmService().getCheckingAccount();
-         BankAccount sa = getAtmService().getSavingsAccount();
-         Transaction lastTransaction = getAtmService().getLastTransaction();
+    private void refresh() {
+        try {
+            String pattern = "MM/dd/yyyy";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            topLabel.setText(String.format("%s", simpleDateFormat.format(new Date())));
 
-         if (ca != null) {
-            checkingAmountLabel.setText(String.format("$%.2f", ca.getAccountBalance()));
-         }
+            UserAccount user = getAtmService().getLoggedInUser();
+            BankAccount ca = getAtmService().getCheckingAccount();
+            BankAccount sa = getAtmService().getSavingsAccount();
+            Transaction lastTransaction = getAtmService().getLastTransaction();
 
-         if (sa != null) {
-            savingsAmountLabel.setText(String.format("$%.2f", sa.getAccountBalance()));
-         }
+            if (ca != null) {
+                checkingAmountLabel.setText(String.format("$%.2f", ca.getAccountBalance()));
+            }
 
-         if (lastTransaction != null) {
-            lastTransactionDateLabel.setText(String.format("%s", simpleDateFormat.format(lastTransaction.getDate())));
-         }
-      } catch (Exception ex) {
-         super.showError(ex.getMessage());
-      }
-   }
+            if (sa != null) {
+                savingsAmountLabel.setText(String.format("$%.2f", sa.getAccountBalance()));
+            }
 
-   private boolean validateUserInput() {
+            if (lastTransaction != null) {
+                lastTransactionDateLabel.setText(String.format("%s", simpleDateFormat.format(lastTransaction.getDate())));
+            }
+        } catch (Exception ex) {
+            super.showError(ex.getMessage());
+        }
+    }
 
-      if ((selectedAccountType == null) || (selectedAccountType.length() <= 0)) {
-         String message = getTranslatedText("SOURCE_ACCOUNT_NOT_FOUND");
-         showError(message);
-         return false;
-      }
-      
-      double tempAmount = withdrawAmount;
-      try {
+    private boolean validateUserInput() {
 
-         if (tempAmount <= 0) {
-            tempAmount = parseWithdrawalAmount(otherDepositAmount.getText());
-         }
-      } catch (Exception e) {
-         tempAmount = -1;
-      }
-      
-      if (tempAmount <= 0) {
-         String message = getTranslatedText("INVALID_DOLLAR_AMOUNT");
-         showError(message);
-      }
-      return tempAmount > 0;
-   }
+        if ((selectedAccountType == null) || (selectedAccountType.length() <= 0)) {
+            String message = getTranslatedText("SOURCE_ACCOUNT_NOT_FOUND");
+            showError(message);
+            return false;
+        }
 
-   private double parseWithdrawalAmount(String text) {
+        double tempAmount = withdrawAmount;
+        try {
 
-      if (text.length() <= 0) {
-         return 0.0;
-      }
+            if (tempAmount <= 0) {
+                tempAmount = parseWithdrawalAmount(otherDepositAmount.getText());
+            }
+        } catch (Exception e) {
+            tempAmount = -1;
+        }
 
-      if (text.startsWith("$")) {
-         text = text.substring(1);
-      }
+        if (tempAmount <= 0) {
+            String message = getTranslatedText("INVALID_DOLLAR_AMOUNT");
+            showError(message);
+        }
+        return tempAmount > 0;
+    }
 
-      return Double.parseDouble(text);
-   }
+    private double parseWithdrawalAmount(String text) {
 
-   @FXML
-   void handleReturnAction(ActionEvent event) {
-      showMainPage();
-   }
+        if (text.length() <= 0) {
+            return 0.0;
+        }
+
+        if (text.startsWith("$")) {
+            text = text.substring(1);
+        }
+
+        return Double.parseDouble(text);
+    }
+
+    @FXML
+    void handleReturnAction(ActionEvent event) {
+        showMainPage();
+    }
 }

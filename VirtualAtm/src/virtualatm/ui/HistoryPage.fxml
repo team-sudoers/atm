@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
 File:    HistoryPage.fxml
 Date:    04/27/2019
@@ -14,7 +15,7 @@ Course:  UMUC CMSC 495-7982
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.HistoryPageController">
+<AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virtualatm.ui.HistoryPageController">
    <children>
       <Button layoutX="28.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleReturnAction" prefHeight="45.0" prefWidth="186.0" text="%returnButtonText">
          <font>
@@ -25,7 +26,7 @@ Course:  UMUC CMSC 495-7982
             <Font size="18.0" />
          </font>
       </Button>
-      <Label fx:id="topLabel" layoutX="28.0" layoutY="36.0" prefHeight="45.0" prefWidth="337.0" text="Label">
+      <Label fx:id="topLabel" layoutX="14.0" layoutY="13.0" prefHeight="45.0" prefWidth="337.0" text="Label">
          <font>
             <Font size="14.0" />
          </font>
@@ -66,11 +67,11 @@ Course:  UMUC CMSC 495-7982
          </font>
       </Label>
       <Label layoutX="28.0" layoutY="91.0" text="%accountHistoryLabel" />
-      <TableView fx:id="historyTableView" layoutX="28.0" layoutY="119.0" prefHeight="200.0" prefWidth="392.0">
+      <TableView fx:id="historyTableView" layoutX="28.0" layoutY="119.0" onMouseClicked="#handleMouseAction" onScroll="#handleScrollAction" onSort="#handleSortAction" prefHeight="200.0" prefWidth="441.0">
         <columns>
-          <TableColumn fx:id="dateColumn" editable="false" prefWidth="130.0" text="%dateHistoryTable" />
-          <TableColumn fx:id="typeColumn" editable="false" prefWidth="127.0" text="%typeHistoryTable" />
-            <TableColumn fx:id="amountColumn" editable="false" prefWidth="134.0" text="%amountHistoryTable" />
+          <TableColumn fx:id="dateColumn" editable="false" prefWidth="132.22638130187988" text="%dateHistoryTable" />
+          <TableColumn fx:id="typeColumn" editable="false" prefWidth="153.0565643310547" text="%typeHistoryTable" />
+            <TableColumn fx:id="amountColumn" editable="false" prefWidth="157.58489990234375" text="%amountHistoryTable" />
         </columns>
       </TableView>
    </children>

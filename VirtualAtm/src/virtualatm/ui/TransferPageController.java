@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import virtualatm.datamodel.BankAccount;
 import virtualatm.datamodel.Transaction;
 import virtualatm.datamodel.UserAccount;
@@ -23,177 +24,182 @@ import virtualatm.service.AtmServiceError;
 
 public class TransferPageController extends BaseAtmController {
 
-   @FXML // fx:id="topLabel"
-   private Label topLabel; // Value injected by FXMLLoader
+    @FXML // fx:id="topLabel"
+    private Label topLabel; // Value injected by FXMLLoader
 
-   @FXML // fx:id="checkingAmountLabel"
-   private Label checkingAmountLabel; // Value injected by FXMLLoader
+    @FXML // fx:id="checkingAmountLabel"
+    private Label checkingAmountLabel; // Value injected by FXMLLoader
 
-   @FXML // fx:id="savingsAmountLabel"
-   private Label savingsAmountLabel; // Value injected by FXMLLoader
+    @FXML // fx:id="savingsAmountLabel"
+    private Label savingsAmountLabel; // Value injected by FXMLLoader
 
-   @FXML // fx:id="lastTransactionDateLabel"
-   private Label lastTransactionDateLabel; // Value injected by FXMLLoader
+    @FXML // fx:id="lastTransactionDateLabel"
+    private Label lastTransactionDateLabel; // Value injected by FXMLLoader
 
-   @FXML // fx:id="transferAmount"
-   private TextField transferAmount; // Value injected by FXMLLoader
+    @FXML // fx:id="transferAmount"
+    private TextField transferAmount; // Value injected by FXMLLoader
 
-   @FXML
-   private ComboBox<String> fromAccount;
+    @FXML
+    private ComboBox<String> fromAccount;
 
-   @FXML
-   private ComboBox<String> destinationAccount;
+    @FXML
+    private ComboBox<String> destinationAccount;
 
-   @Override
-   public void initialize(URL url, ResourceBundle rb) {
-      super.initialize(url, rb); //To change body of generated methods, choose Tools | Templates.
-      fromAccount.getItems().addAll(getTranslatedText("checking"), getTranslatedText("savings"));
-      destinationAccount.getItems().addAll(getTranslatedText("checking"), getTranslatedText("savings"));
-      refresh();
-   }
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        super.initialize(url, rb); //To change body of generated methods, choose Tools | Templates.
+        fromAccount.getItems().addAll(getTranslatedText("checking"), getTranslatedText("savings"));
+        destinationAccount.getItems().addAll(getTranslatedText("checking"), getTranslatedText("savings"));
+        refresh();
+    }
 
-   @FXML
-   void handleLogoutAction(ActionEvent event) {
-      try {
-         getAtmService().logout();
-         showLoginPage();
-      } catch (Exception ex) {
-         super.showError(ex.getMessage());
-      }
-   }
+    @FXML
+    void handleLogoutAction(ActionEvent event) {
+        try {
+            getAtmService().logout();
+            showLoginPage();
+        } catch (Exception ex) {
+            super.showError(ex.getMessage());
+        }
+    }
 
-   @FXML
-   void handleTransferAction(ActionEvent event) {
-      try {
-          resetTimer();
-         if (validateUserInput() == false) {
-            return;
-         }
+    @FXML
+    void handleKeyPressed(KeyEvent event) {
+        resetTimer();
+    }
 
-         BankAccount source = null;
-         if (fromAccount.getValue().equals(getTranslatedText("checking"))) {
-            source = getAtmService().getCheckingAccount();
-         } else {
-            source = getAtmService().getSavingsAccount();
-         }
+    @FXML
+    void handleTransferAction(ActionEvent event) {
+        try {
+            resetTimer();
+            if (validateUserInput() == false) {
+                return;
+            }
 
-         BankAccount destination = null;
-         if (destinationAccount.getValue().equals(getTranslatedText("checking"))) {
-            destination = getAtmService().getCheckingAccount();
-         } else {
-            destination = getAtmService().getSavingsAccount();
-         }
+            BankAccount source = null;
+            if (fromAccount.getValue().equals(getTranslatedText("checking"))) {
+                source = getAtmService().getCheckingAccount();
+            } else {
+                source = getAtmService().getSavingsAccount();
+            }
 
-         double amount = parseWithdrawalAmount(transferAmount.getText());
-         AtmServiceError error = getAtmService().transfer(amount, source, destination);
-         if (error != AtmServiceError.SUCCESS) {
-            refresh();
-            showError(error);
-         } else {
-            showMainPage();
-         }
+            BankAccount destination = null;
+            if (destinationAccount.getValue().equals(getTranslatedText("checking"))) {
+                destination = getAtmService().getCheckingAccount();
+            } else {
+                destination = getAtmService().getSavingsAccount();
+            }
 
-      } catch (Exception e) {
-         showError(e.getMessage());
-      }
-   }
+            double amount = parseWithdrawalAmount(transferAmount.getText());
+            AtmServiceError error = getAtmService().transfer(amount, source, destination);
+            if (error != AtmServiceError.SUCCESS) {
+                refresh();
+                showError(error);
+            } else {
+                showMainPage();
+            }
 
-   private boolean validateUserInput() {
-      double value = -1;
-      try {
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
+    }
 
-         if (fromAccount.getValue() == null) {
-            String message = getTranslatedText("SOURCE_ACCOUNT_NOT_FOUND");
+    private boolean validateUserInput() {
+        double value = -1;
+        try {
+
+            if (fromAccount.getValue() == null) {
+                String message = getTranslatedText("SOURCE_ACCOUNT_NOT_FOUND");
+                showError(message);
+                return false;
+            }
+
+            if (destinationAccount.getValue() == null) {
+                String message = getTranslatedText("DESTINATION_ACCOUNT_NOT_FOUND");
+                showError(message);
+                return false;
+            }
+
+            value = parseWithdrawalAmount(transferAmount.getText());
+        } catch (Exception e) {
+            value = -1;
+        }
+
+        if (value <= 0) {
+            String message = getTranslatedText("INVALID_DOLLAR_AMOUNT");
             showError(message);
-            return false;
-         }
+        }
 
-         if (destinationAccount.getValue() == null) {
-            String message = getTranslatedText("DESTINATION_ACCOUNT_NOT_FOUND");
-            showError(message);
-            return false;
-         }
+        return value > 0;
+    }
 
-         value = parseWithdrawalAmount(transferAmount.getText());
-      } catch (Exception e) {
-         value = -1;
-      }
-      
-      if (value <= 0) {
-         String message = getTranslatedText("INVALID_DOLLAR_AMOUNT");
-         showError(message);
-      }
+    private void refresh() {
+        try {
 
-      return value > 0;
-   }
+            String pattern = "MM/dd/yyyy";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            topLabel.setText(String.format("%s", simpleDateFormat.format(new Date())));
 
-   private void refresh() {
-      try {
+            UserAccount user = getAtmService().getLoggedInUser();
+            BankAccount ca = getAtmService().getCheckingAccount();
+            BankAccount sa = getAtmService().getSavingsAccount();
+            Transaction lastTransaction = getAtmService().getLastTransaction();
 
-         String pattern = "MM/dd/yyyy";
-         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-         topLabel.setText(String.format("%s", simpleDateFormat.format(new Date())));
+            if (ca != null) {
+                checkingAmountLabel.setText(String.format("$%.2f", ca.getAccountBalance()));
+            }
 
-         UserAccount user = getAtmService().getLoggedInUser();
-         BankAccount ca = getAtmService().getCheckingAccount();
-         BankAccount sa = getAtmService().getSavingsAccount();
-         Transaction lastTransaction = getAtmService().getLastTransaction();
+            if (sa != null) {
+                savingsAmountLabel.setText(String.format("$%.2f", sa.getAccountBalance()));
+            }
 
-         if (ca != null) {
-            checkingAmountLabel.setText(String.format("$%.2f", ca.getAccountBalance()));
-         }
+            if (lastTransaction != null) {
+                lastTransactionDateLabel.setText(String.format("%s", simpleDateFormat.format(lastTransaction.getDate())));
+            }
+        } catch (Exception ex) {
+            super.showError(ex.getMessage());
+        }
+    }
 
-         if (sa != null) {
-            savingsAmountLabel.setText(String.format("$%.2f", sa.getAccountBalance()));
-         }
+    @FXML
+    void handleToAccount(ActionEvent event) {
+        resetTimer();
+        String accountType = destinationAccount.getValue();
+        if (accountType.equals(getTranslatedText("checking"))) {
+            fromAccount.setValue(getTranslatedText("savings"));
+        }
+        if (accountType.equals(getTranslatedText("savings"))) {
+            fromAccount.setValue(getTranslatedText("checking"));
+        }
+    }
 
-         if (lastTransaction != null) {
-            lastTransactionDateLabel.setText(String.format("%s", simpleDateFormat.format(lastTransaction.getDate())));
-         }
-      } catch (Exception ex) {
-         super.showError(ex.getMessage());
-      }
-   }
+    @FXML
+    void handleFromAccount(ActionEvent event) {
+        resetTimer();
+        String accountType = fromAccount.getValue();
+        if (accountType.equals(getTranslatedText("checking"))) {
+            destinationAccount.setValue(getTranslatedText("savings"));
+        }
+        if (accountType.equals(getTranslatedText("savings"))) {
+            destinationAccount.setValue(getTranslatedText("checking"));
+        }
+    }
 
-   @FXML
-   void handleToAccount(ActionEvent event) {
-       resetTimer();
-      String accountType = destinationAccount.getValue();
-      if (accountType.equals(getTranslatedText("checking"))) {
-         fromAccount.setValue(getTranslatedText("savings"));
-      }
-      if (accountType.equals(getTranslatedText("savings"))) {
-         fromAccount.setValue(getTranslatedText("checking"));
-      }
-   }
+    private double parseWithdrawalAmount(String text) {
 
-   @FXML
-   void handleFromAccount(ActionEvent event) {
-       resetTimer();
-      String accountType = fromAccount.getValue();
-      if (accountType.equals(getTranslatedText("checking"))) {
-         destinationAccount.setValue(getTranslatedText("savings"));
-      }
-      if (accountType.equals(getTranslatedText("savings"))) {
-         destinationAccount.setValue(getTranslatedText("checking"));
-      }
-   }
+        if (text.length() <= 0) {
+            return 0.0;
+        }
 
-   private double parseWithdrawalAmount(String text) {
+        if (text.startsWith("$")) {
+            text = text.substring(1);
+        }
 
-      if (text.length() <= 0) {
-         return 0.0;
-      }
+        return Double.parseDouble(text);
+    }
 
-      if (text.startsWith("$")) {
-         text = text.substring(1);
-      }
-
-      return Double.parseDouble(text);
-   }
-
-   @FXML
-   void handleReturnAction(ActionEvent event) {
-      showMainPage();
-   }
+    @FXML
+    void handleReturnAction(ActionEvent event) {
+        showMainPage();
+    }
 }

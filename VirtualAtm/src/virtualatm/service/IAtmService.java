@@ -29,6 +29,8 @@ public interface IAtmService {
    BankAccount getCheckingAccount();
 
    BankAccount getSavingsAccount();
+   
+   BankAccount getBankAccount(long countId);
 
    List<Transaction> getAccountHistory();
 

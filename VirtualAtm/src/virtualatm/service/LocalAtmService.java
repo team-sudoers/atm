@@ -260,4 +260,9 @@ public class LocalAtmService implements IAtmService {
       
       return AtmServiceError.SUCCESS;
    }
+
+    @Override
+    public BankAccount getBankAccount(long countId) {
+        return dataAccessLayer.findBankAccount(countId);
+    }
 }

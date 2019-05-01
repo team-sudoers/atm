@@ -291,4 +291,9 @@ public class FakeAtmService implements IAtmService {
 
       return retVal;
    }
+
+    @Override
+    public BankAccount getBankAccount(long countId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
