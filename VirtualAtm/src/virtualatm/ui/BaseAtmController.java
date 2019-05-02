@@ -122,6 +122,30 @@ public class BaseAtmController implements Initializable {
       msgbox.setHeaderText(getTranslatedText("ERROR_TITLE"));
       msgbox.show();
    }
+   
+    public void showConfirmationWithdrawal(String withdrawalMessage){
+        Alert confirmationAlert =  new Alert(Alert.AlertType.INFORMATION);
+        confirmationAlert.setTitle(getTranslatedText("confirmationTitle"));
+        confirmationAlert.setHeaderText(getTranslatedText("confirmationWithdrawalHeader"));
+        confirmationAlert.setContentText(getTranslatedText("confirmationContent"));
+        confirmationAlert.showAndWait();
+   }
+   
+    public void showConfirmationTransfer(String transferMessage){
+        Alert confirmationAlert = new Alert(Alert.AlertType.INFORMATION);
+        confirmationAlert.setTitle(getTranslatedText("confirmationTitle"));
+        confirmationAlert.setHeaderText(getTranslatedText("confirmationTransferHeader"));
+        confirmationAlert.setContentText(getTranslatedText("confirmationContent"));
+        confirmationAlert.showAndWait();
+   }
+    
+    public void showConfirmationDeposit(String depositMessage){
+        Alert confirmationAlert = new Alert(Alert.AlertType.INFORMATION);
+        confirmationAlert.setTitle(getTranslatedText("confirmationTitle"));
+        confirmationAlert.setHeaderText(getTranslatedText("confirmationDepositHeader"));
+        confirmationAlert.setContentText(getTranslatedText("confirmationContent"));
+        confirmationAlert.showAndWait();
+   }
 
    public boolean askYesNoQuestion(String title, String question) {
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION, question, ButtonType.YES, ButtonType.NO);

@@ -44,6 +44,8 @@ public class TransferPageController extends BaseAtmController {
 
     @FXML
     private ComboBox<String> destinationAccount;
+    
+    private String transferMessage;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -96,6 +98,7 @@ public class TransferPageController extends BaseAtmController {
                 refresh();
                 showError(error);
             } else {
+                showConfirmationTransfer(transferMessage);
                 showMainPage();
             }
 

@@ -110,6 +110,7 @@ public class DepositPageController extends BaseAtmController {
                 refresh();
                 showError(error);
             } else {
+                showConfirmationDeposit(selectedAccountType);
                 showMainPage();
             }
         } catch (Exception e) {

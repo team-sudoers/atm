@@ -81,6 +81,7 @@ public class WithdrawPageController extends BaseAtmController {
                 refresh();
                 showError(error);
             } else {
+                showConfirmationWithdrawal(selectedAccountType);
                 showMainPage();
             }
 
