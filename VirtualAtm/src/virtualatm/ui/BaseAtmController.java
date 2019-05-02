@@ -120,6 +120,7 @@ public class BaseAtmController implements Initializable {
    public void showTimerError(String message) {
       Alert msgbox = new Alert(Alert.AlertType.ERROR, message);
       msgbox.setHeaderText(getTranslatedText("ERROR_TITLE"));
+      msgbox.setContentText(getTranslatedText("sessionTimeoutContent"));
       msgbox.show();
    }
    
@@ -158,7 +159,7 @@ public class BaseAtmController implements Initializable {
    public void handleTimer(ActionEvent event) {
       timeline.stop();
       showLoginPage();
-      showTimerError("Timed out due to inactivity: Please log in");
+      showTimerError("");
       getAtmService().logout();
 
    }
