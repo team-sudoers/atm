@@ -2,13 +2,13 @@
 <AtmData>
     <BankAccountList>
         <BankAccount>
-            <accountBalance>257.0</accountBalance>
+            <accountBalance>207.0</accountBalance>
             <accountNumber>111111111</accountNumber>
             <accountType>checking</accountType>
             <userId>7</userId>
         </BankAccount>
         <BankAccount>
-            <accountBalance>17325.0</accountBalance>
+            <accountBalance>17375.0</accountBalance>
             <accountNumber>222222222</accountNumber>
             <accountType>savings</accountType>
             <userId>7</userId>
@@ -119,6 +119,76 @@
             <bankAccountId>222222222</bankAccountId>
             <date>2019-05-02T16:40:03.208-04:00</date>
             <id>23</id>
+        </Transaction>
+        <Transaction>
+            <activityType>Withdraw</activityType>
+            <amount>10.0</amount>
+            <bankAccountId>111111111</bankAccountId>
+            <date>2019-05-02T16:51:12.627-04:00</date>
+            <id>24</id>
+        </Transaction>
+        <Transaction>
+            <activityType>Deposit</activityType>
+            <amount>10.0</amount>
+            <bankAccountId>222222222</bankAccountId>
+            <date>2019-05-02T16:51:12.903-04:00</date>
+            <id>25</id>
+        </Transaction>
+        <Transaction>
+            <activityType>Withdraw</activityType>
+            <amount>20.0</amount>
+            <bankAccountId>222222222</bankAccountId>
+            <date>2019-05-02T16:51:53.083-04:00</date>
+            <id>26</id>
+        </Transaction>
+        <Transaction>
+            <activityType>Deposit</activityType>
+            <amount>20.0</amount>
+            <bankAccountId>111111111</bankAccountId>
+            <date>2019-05-02T16:51:53.362-04:00</date>
+            <id>27</id>
+        </Transaction>
+        <Transaction>
+            <activityType>Withdraw</activityType>
+            <amount>50.0</amount>
+            <bankAccountId>111111111</bankAccountId>
+            <date>2019-05-02T16:53:24.306-04:00</date>
+            <id>28</id>
+        </Transaction>
+        <Transaction>
+            <activityType>Deposit</activityType>
+            <amount>50.0</amount>
+            <bankAccountId>222222222</bankAccountId>
+            <date>2019-05-02T16:53:24.635-04:00</date>
+            <id>29</id>
+        </Transaction>
+        <Transaction>
+            <activityType>Withdraw</activityType>
+            <amount>10.0</amount>
+            <bankAccountId>222222222</bankAccountId>
+            <date>2019-05-02T16:54:29.882-04:00</date>
+            <id>30</id>
+        </Transaction>
+        <Transaction>
+            <activityType>Deposit</activityType>
+            <amount>10.0</amount>
+            <bankAccountId>111111111</bankAccountId>
+            <date>2019-05-02T16:54:30.234-04:00</date>
+            <id>31</id>
+        </Transaction>
+        <Transaction>
+            <activityType>Withdraw</activityType>
+            <amount>20.0</amount>
+            <bankAccountId>111111111</bankAccountId>
+            <date>2019-05-02T16:55:03.290-04:00</date>
+            <id>32</id>
+        </Transaction>
+        <Transaction>
+            <activityType>Deposit</activityType>
+            <amount>20.0</amount>
+            <bankAccountId>222222222</bankAccountId>
+            <date>2019-05-02T16:55:03.531-04:00</date>
+            <id>33</id>
         </Transaction>
     </TransactionList>
     <UserAccountList>
