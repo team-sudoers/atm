@@ -128,7 +128,7 @@ public class MainController implements Initializable {
       try {
 
          XmlDataAccess dataAccess = new XmlDataAccess("sampledata.xml");
-         dataAccess.Load();
+         dataAccess.load();
 
          StringBuilder error = new StringBuilder();
          if (validateUserInput(error, dataAccess) == false) {
@@ -202,7 +202,7 @@ public class MainController implements Initializable {
          }
 
          // save the xml file
-         if (dataAccess.Save(false) == true) {
+         if (dataAccess.save(false) == true) {
             Alert msgbox = new Alert(Alert.AlertType.INFORMATION, "Saved user information");
             msgbox.showAndWait();
          }
