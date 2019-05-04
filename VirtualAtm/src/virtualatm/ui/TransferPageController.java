@@ -1,6 +1,6 @@
 /* 
  * File:    TransferPageController.java
- * Date:    04/27/2019
+ * Date:    05/03/2019
  * Authors: Raysean Jones-Dent, Tonye Andre Martial, Matt Mitchell, Kristine Dudley, Woo Choi, Justin Kim
  * Project: VirtualAtm
  * Course:  UMUC CMSC 495-7982
@@ -44,6 +44,8 @@ public class TransferPageController extends BaseAtmController {
 
     @FXML
     private ComboBox<String> destinationAccount;
+    
+    private String transferMessage;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -96,6 +98,7 @@ public class TransferPageController extends BaseAtmController {
                 refresh();
                 showError(error);
             } else {
+                showConfirmationTransfer(transferMessage);
                 showMainPage();
             }
 
