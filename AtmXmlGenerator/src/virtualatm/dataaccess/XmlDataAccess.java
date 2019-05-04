@@ -39,11 +39,11 @@ public class XmlDataAccess implements IAtmDataAccess {
       dataCache = new AtmData();
    }
 
-   public Boolean Save(Boolean force) {
-      return Save(filePath, force);
+   public boolean save(Boolean force) {
+      return XmlDataAccess.this.save(filePath, force);
    }
 
-   public Boolean Save(String path, Boolean force) {
+   public boolean save(String path, Boolean force) {
       try {
          if (force == true) {
             dirty = true;
@@ -57,7 +57,7 @@ public class XmlDataAccess implements IAtmDataAccess {
       }
    }
 
-   public Boolean Load() {
+   public boolean load() {
       try {
          ReadFile(filePath);
          return true;
@@ -118,33 +118,33 @@ public class XmlDataAccess implements IAtmDataAccess {
    @Override
    public boolean addBankAccount(BankAccount account) {
       dataCache.getBankAccounts().add(account);
-      return Save(true);
+      return save(true);
    }
 
    @Override
    public boolean updateBankAccount(BankAccount account) {
       BankAccount ba = findBankAccount(account.getAccountNumber());
       ba.setAccountBalance(account.getAccountBalance());
-      return Save(true);
+      return save(true);
    }
 
    @Override
    public boolean addTransaction(Transaction transaction) {
       transaction.setId(getNextTransactionId());
       dataCache.getTransactions().add(transaction);
-      return Save(true);
+      return save(true);
    }
    
    @Override
    public boolean deleteTransaction(Transaction transaction) {
       dataCache.getTransactions().removeIf(t -> t.getId() == transaction.getId());
-      return Save(true);
+      return save(true);
    }
 
    @Override
    public boolean addUserAccount(UserAccount account) {
       dataCache.getUserAccounts().add(account);
-      return Save(true);
+      return save(true);
    }
 
    private synchronized void ReadFile(String path) throws JAXBException, FileNotFoundException {
