@@ -16,6 +16,9 @@ import virtualatm.datamodel.BankAccount;
 import virtualatm.datamodel.Transaction;
 import virtualatm.datamodel.UserAccount;
 
+/**
+ * Simple class used to serialize/de-serialize our XML based data access layer.
+ */
 @XmlRootElement(name = "AtmData")
 public class AtmData {
    
@@ -23,6 +26,9 @@ public class AtmData {
    private List<BankAccount> bankAccountsList;
    private List<Transaction> transactionsList;
 
+   /**
+    * Default constructor
+    */
    public AtmData() {
       userAccountsList = new ArrayList<>();
       bankAccountsList = new ArrayList<>();
