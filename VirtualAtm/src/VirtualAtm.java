@@ -15,8 +15,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import virtualatm.ui.BaseAtmController;
 
+/**
+ * The class storing the entrypoint to the application
+ */
 public class VirtualAtm extends Application {
 
+   /**
+    * Overridden JavaFX application start method used to initialize the application
+    * @param primaryStage The JavaFX stage used to display the application
+    */
    @Override
    public void start(Stage primaryStage) {
 
@@ -36,6 +43,7 @@ public class VirtualAtm extends Application {
    }
 
    /**
+    * The java entrypoint into the application.  Calls the JavaFX launch method.
     * @param args the command line arguments
     */
    public static void main(String[] args) {
