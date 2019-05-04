@@ -19,27 +19,58 @@ import virtualatm.datamodel.Transaction;
 import virtualatm.datamodel.UserAccount;
 import virtualatm.utils.Security;
 
+/**
+ * An ATM service implementation that maintains state in a local data store.
+ */
 public class LocalAtmService implements IAtmService {
 
+   /**
+    * Constant for the maximum failed login attempts allowed before a user account is locked
+    */
    private final int MAX_FAILED_LOGINS = 3;
+
+   /**
+    * Constant for the amount of time an account is locked
+    */
    private final int LOCKOUT_SECONDS = 30;
+
+   /**
+    * Constant for the per user maximum daily withdraw limit
+    */
    private final double MAX_DAILY_WITHDRAW_LIMIT = 600.00;
 
+   /**
+    * The object used to retrieve information from the data access layer
+    */
    private final IAtmDataAccess dataAccessLayer;
+
+   /**
+    * The active user of the service
+    */
    private UserAccount currentUser;
 
+   /**
+    * Default constructor
+    */
    public LocalAtmService() {
       dataAccessLayer = new XmlDataAccess();
    }
 
+   /**
+    * Attempts to withdraw the specified amount from a bank account
+    *
+    * @param amount The amount to withdraw
+    * @param source The account to withdraw from
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
-   public AtmServiceError withdraw(final double amount, final BankAccount account) {
+   public AtmServiceError withdraw(final double amount, final BankAccount source) {
 
-      if (account.getUserId() != currentUser.getId()) {
+      if (source.getUserId() != currentUser.getId()) {
          return AtmServiceError.ACCOUNT_NOT_OWNED;
       }
 
-      BankAccount fromAccount = dataAccessLayer.findBankAccount(account.getAccountNumber());
+      BankAccount fromAccount = dataAccessLayer.findBankAccount(source.getAccountNumber());
       if (fromAccount == null) {
          return AtmServiceError.BANK_ACCOUNT_NOT_FOUND;
       }
@@ -51,13 +82,13 @@ public class LocalAtmService implements IAtmService {
       Date date = Date.from(Instant.now().minus(Duration.ofDays(1)));
       double totalTransAmount = amount;
       for (Transaction t : dataAccessLayer.getTransactionsForUser(currentUser)) {
-         if ((t.getDate().after(date)) 
+         if ((t.getDate().after(date))
                  && (t.getBankAccountId() == fromAccount.getAccountNumber())
                  && (t.getActivityType().equalsIgnoreCase("Withdraw"))) {
             totalTransAmount += t.getAmount();
          }
       }
-      
+
       if (totalTransAmount > MAX_DAILY_WITHDRAW_LIMIT) {
          return AtmServiceError.DAILY_WITHDRAWAL_LIMIT_EXCEEDED;
       }
@@ -74,12 +105,21 @@ public class LocalAtmService implements IAtmService {
       Transaction withdrawTransaction = new Transaction();
       withdrawTransaction.setActivityType("Withdraw");
       withdrawTransaction.setAmount(amount);
-      withdrawTransaction.setBankAccountId(account.getAccountNumber());
+      withdrawTransaction.setBankAccountId(source.getAccountNumber());
       withdrawTransaction.setDate(new Date());
 
-      return completeTransaction(account, withdrawTransaction);
+      return completeTransaction(source, withdrawTransaction);
    }
 
+   /**
+    * Attempts to transfer the specified amount between accounts withdrawing from the source and depositing into the
+    * destination.
+    *
+    * @param amount The amount to transfer
+    * @param source The source account to withdraw from
+    * @param destination The destination account to deposit into
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public AtmServiceError transfer(final double amount, final BankAccount source, final BankAccount destination) {
 
@@ -128,6 +168,13 @@ public class LocalAtmService implements IAtmService {
       return completeTransaction(destAccount, depositTransaction);
    }
 
+   /**
+    * Attempts to deposit the specified amount into a destination account
+    *
+    * @param amount The amount to deposit
+    * @param destination The account to deposit into
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public AtmServiceError deposit(double amount, BankAccount destination) {
 
@@ -153,6 +200,11 @@ public class LocalAtmService implements IAtmService {
       return completeTransaction(foundAccount, transaction);
    }
 
+   /**
+    * Gets the transaction history for the current user
+    *
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public List<Transaction> getAccountHistory() {
 
@@ -169,6 +221,13 @@ public class LocalAtmService implements IAtmService {
       return retVal;
    }
 
+   /**
+    * Logs a user into the application if the provided user name and pin match an existing user account.
+    *
+    * @param username The user name of the account holder
+    * @param pin The pin of the account holder
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public AtmServiceError login(String username, String pin) {
 
@@ -211,17 +270,32 @@ public class LocalAtmService implements IAtmService {
       return AtmServiceError.SUCCESS;
    }
 
+   /**
+    * Logs the active user out of the application
+    *
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public AtmServiceError logout() {
       currentUser = null;
       return AtmServiceError.SUCCESS;
    }
 
+   /**
+    * Gets the currently logged in user information
+    *
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public UserAccount getLoggedInUser() {
       return currentUser;
    }
 
+   /**
+    * Gets the checking account for the current user
+    *
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public BankAccount getCheckingAccount() {
 
@@ -235,6 +309,11 @@ public class LocalAtmService implements IAtmService {
       return new BankAccount();
    }
 
+   /**
+    * Gets the savings account for the current user
+    *
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public BankAccount getSavingsAccount() {
 
@@ -249,6 +328,11 @@ public class LocalAtmService implements IAtmService {
 
    }
 
+   /**
+    * Gets the last transaction for the current user
+    *
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public Transaction getLastTransaction() {
 
@@ -266,6 +350,14 @@ public class LocalAtmService implements IAtmService {
       return retVal;
    }
 
+   /**
+    * Saves the transaction and updates the account balance in a single call. Attempts to save the transaction first
+    * then attempts to update the account balance.
+    *
+    * @param ba The bank account to update
+    * @param transaction The transaction to store
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    private AtmServiceError completeTransaction(BankAccount ba, Transaction transaction) {
       if (dataAccessLayer.addTransaction(transaction) == false) {
          return AtmServiceError.FAILURE_SAVING_TRANSACTION;
@@ -279,6 +371,12 @@ public class LocalAtmService implements IAtmService {
       return AtmServiceError.SUCCESS;
    }
 
+   /**
+    * Gets the full bank account information for the specified account number
+    *
+    * @param accountId The account number of the desired
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public BankAccount getBankAccount(long accountId) {
       return dataAccessLayer.findBankAccount(accountId);

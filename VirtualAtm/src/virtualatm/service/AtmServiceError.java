@@ -7,6 +7,9 @@
  */
 package virtualatm.service;
 
+/**
+ * Error codes returns by the AtmService layer
+ */
 public enum AtmServiceError {
    SUCCESS,
    ACCOUNT_NOT_OWNED,

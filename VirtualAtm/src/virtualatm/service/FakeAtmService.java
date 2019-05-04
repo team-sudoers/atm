@@ -19,18 +19,54 @@ import virtualatm.datamodel.Transaction;
 import virtualatm.datamodel.UserAccount;
 import virtualatm.utils.Security;
 
+/**
+ * Mockup ATM service containing in memory user account, bank accounts, and transaction information.
+ */
 public class FakeAtmService implements IAtmService {
 
+   /**
+    * Constant for the maximum failed login attempts allowed before a user account is locked
+    */
    private final int MAX_FAILED_LOGINS = 3;
+
+   /**
+    * Constant for the amount of time an account is locked
+    */
    private final int LOCKOUT_SECONDS = 30;
+
+   /**
+    * Constant for the per user maximum daily withdraw limit
+    */
    private final double MAX_DAILY_WITHDRAW_LIMIT = 600.00;
 
+   /**
+    * Current list of user accounts
+    */
    private final List<UserAccount> userAccounts;
+
+   /**
+    * Current list of transactions
+    */
    private final List<Transaction> transactions;
+
+   /**
+    * Current users checking account
+    */
    private final BankAccount checkingAccount;
+
+   /**
+    * Current users savings account
+    */
    private final BankAccount savingsAccount;
+
+   /**
+    * Currently logged in user account
+    */
    private UserAccount currentUser;
 
+   /**
+    * Default constructor. Sets up a user account, checking and savings accounts, and deposits money into each account.
+    */
    public FakeAtmService() {
 
       userAccounts = new ArrayList<>();
@@ -79,18 +115,25 @@ public class FakeAtmService implements IAtmService {
       }
    }
 
+   /**
+    * Attempts to withdraw the specified amount from a bank account
+    *
+    * @param amount The amount to withdraw
+    * @param source The account to withdraw from
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
-   public AtmServiceError withdraw(double amount, BankAccount account) {
+   public AtmServiceError withdraw(double amount, BankAccount source) {
 
-      if (account.getUserId() != currentUser.getId()) {
+      if (source.getUserId() != currentUser.getId()) {
          return AtmServiceError.ACCOUNT_NOT_OWNED;
       }
 
-      if (account.getAccountNumber() != checkingAccount.getAccountNumber()
-              && account.getAccountNumber() != savingsAccount.getAccountNumber()) {
+      if (source.getAccountNumber() != checkingAccount.getAccountNumber()
+              && source.getAccountNumber() != savingsAccount.getAccountNumber()) {
          return AtmServiceError.ACCOUNT_NOT_OWNED;
       }
-      
+
       if (amount > MAX_DAILY_WITHDRAW_LIMIT) {
          return AtmServiceError.WITHDRAWAL_AMOUNT_EXCEEDS_LIMIT;
       }
@@ -98,36 +141,45 @@ public class FakeAtmService implements IAtmService {
       Date date = Date.from(Instant.now().minus(Duration.ofDays(1)));
       double totalTransAmount = amount;
       for (Transaction t : transactions) {
-         if ((t.getDate().after(date)) 
-                 && (t.getBankAccountId() == account.getAccountNumber())
+         if ((t.getDate().after(date))
+                 && (t.getBankAccountId() == source.getAccountNumber())
                  && (t.getActivityType().equalsIgnoreCase("Withdraw"))) {
             totalTransAmount += t.getAmount();
          }
       }
-      
+
       if (totalTransAmount > MAX_DAILY_WITHDRAW_LIMIT) {
          return AtmServiceError.DAILY_WITHDRAWAL_LIMIT_EXCEEDED;
       }
 
-      double currentBalance = account.getAccountBalance();
+      double currentBalance = source.getAccountBalance();
       if (currentBalance < amount) {
          return AtmServiceError.INSUFFICIENT_FUNDS;
       }
 
-      double balance = account.getAccountBalance();
+      double balance = source.getAccountBalance();
       balance -= amount;
-      account.setAccountBalance(balance);
+      source.setAccountBalance(balance);
 
       Transaction withdrawTransaction = new Transaction();
       withdrawTransaction.setActivityType("Withdraw");
       withdrawTransaction.setAmount(amount);
-      withdrawTransaction.setBankAccountId(account.getAccountNumber());
+      withdrawTransaction.setBankAccountId(source.getAccountNumber());
       withdrawTransaction.setDate(new Date());
       transactions.add(withdrawTransaction);
 
       return AtmServiceError.SUCCESS;
    }
 
+   /**
+    * Attempts to transfer the specified amount between accounts withdrawing from the source and depositing into the
+    * destination.
+    *
+    * @param amount The amount to transfer
+    * @param source The source account to withdraw from
+    * @param destination The destination account to deposit into
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public AtmServiceError transfer(double amount, BankAccount source, BankAccount destination) {
 
@@ -175,6 +227,13 @@ public class FakeAtmService implements IAtmService {
       return AtmServiceError.SUCCESS;
    }
 
+   /**
+    * Attempts to deposit the specified amount into a destination account
+    *
+    * @param amount The amount to deposit
+    * @param destination The account to deposit into
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public AtmServiceError deposit(double amount, BankAccount destination) {
 
@@ -201,6 +260,10 @@ public class FakeAtmService implements IAtmService {
       return AtmServiceError.SUCCESS;
    }
 
+   /**
+    * Gets the transaction history for the current user
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */   
    @Override
    public List<Transaction> getAccountHistory() {
 
@@ -223,6 +286,13 @@ public class FakeAtmService implements IAtmService {
       return retVal;
    }
 
+   /**
+    * Logs a user into the application if the provided user name and pin match an existing user account.
+    *
+    * @param username The user name of the account holder
+    * @param pin The pin of the account holder
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public AtmServiceError login(String username, String pin) {
 
@@ -262,17 +332,32 @@ public class FakeAtmService implements IAtmService {
       return AtmServiceError.SUCCESS;
    }
 
+   /**
+    * Logs the active user out of the application
+    *
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public AtmServiceError logout() {
       currentUser = null;
       return AtmServiceError.SUCCESS;
    }
 
+   /**
+    * Gets the currently logged in user information
+    *
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public UserAccount getLoggedInUser() {
       return currentUser;
    }
 
+   /**
+    * Gets the checking account for the current user
+    *
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public BankAccount getCheckingAccount() {
 
@@ -283,6 +368,11 @@ public class FakeAtmService implements IAtmService {
       return checkingAccount;
    }
 
+   /**
+    * Gets the savings account for the current user
+    *
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public BankAccount getSavingsAccount() {
 
@@ -293,6 +383,11 @@ public class FakeAtmService implements IAtmService {
       return savingsAccount;
    }
 
+   /**
+    * Gets the last transaction for the current user
+    *
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public Transaction getLastTransaction() {
 
@@ -310,6 +405,12 @@ public class FakeAtmService implements IAtmService {
       return retVal;
    }
 
+   /**
+    * Gets the full bank account information for the specified account number
+    *
+    * @param accountId The account number of the desired
+    * @return The appropriate AtmServiceError enumeration value depending upon whether the operation was successful.
+    */
    @Override
    public BankAccount getBankAccount(long accountId) {
       if (savingsAccount.getAccountNumber() != accountId) {
