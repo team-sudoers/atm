@@ -7,13 +7,34 @@
  */
 package virtualatm.datamodel;
 
+/**
+ * Simple class to encapsulate BankAccount information used by the application.  Only contains get/set methods for attributes.
+ */
 public class BankAccount {
 
+   /**
+    * The id of the user account associated with this bank account
+    */
    private long userId;
+   
+   /**
+    * The account type ("checking" or "savings")
+    */
    private String accountType;
+   
+   /**
+    * The account number of this bank account
+    */
    private long accountNumber;
+   
+   /**
+    * The current balance of this bank account
+    */
    private double accountBalance;
 
+   /**
+    * Default constructor
+    */
    public BankAccount() {
       userId = -1;
       accountType = "";
