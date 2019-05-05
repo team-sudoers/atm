@@ -27,163 +27,208 @@ import virtualatm.datamodel.BankAccount;
 import virtualatm.datamodel.Transaction;
 import virtualatm.datamodel.UserAccount;
 
+/**
+ * The Account History page controller bound to the HistoryPage.fxml. Retrieves transaction history information from the
+ * atm service and allows the user to view/sort transaction information from the past 7 days.
+ */
 public class HistoryPageController extends BaseAtmController {
 
-    @FXML // fx:id="topLabel"
-    private Label topLabel; // Value injected by FXMLLoader
+   /////////////////////////////////////////////////////////////////////////////
+   // Begin FXML bound controls set in scene builder
+   @FXML // fx:id="topLabel"
+   private Label topLabel; // Value injected by FXMLLoader
 
-    @FXML // fx:id="checkingAmountLabel"
-    private Label checkingAmountLabel; // Value injected by FXMLLoader
+   @FXML // fx:id="checkingAmountLabel"
+   private Label checkingAmountLabel; // Value injected by FXMLLoader
 
-    @FXML // fx:id="savingsAmountLabel"
-    private Label savingsAmountLabel; // Value injected by FXMLLoader
+   @FXML // fx:id="savingsAmountLabel"
+   private Label savingsAmountLabel; // Value injected by FXMLLoader
 
-    @FXML // fx:id="lastTransactionDateLabel"
-    private Label lastTransactionDateLabel; // Value injected by FXMLLoader
+   @FXML // fx:id="lastTransactionDateLabel"
+   private Label lastTransactionDateLabel; // Value injected by FXMLLoader
 
-    @FXML // fx:id="historyTableView"
-    private TableView<TransactionHistory> historyTableView; // Value injected by FXMLLoader
+   @FXML // fx:id="historyTableView"
+   private TableView<TransactionHistory> historyTableView; // Value injected by FXMLLoader
 
-    @FXML // fx:id="dateColumn"
-    private TableColumn<TransactionHistory, Date> dateColumn; // Value injected by FXMLLoader
+   @FXML // fx:id="dateColumn"
+   private TableColumn<TransactionHistory, Date> dateColumn; // Value injected by FXMLLoader
 
-    @FXML // fx:id="typeColumn"
-    private TableColumn<TransactionHistory, String> typeColumn; // Value injected by FXMLLoader
+   @FXML // fx:id="typeColumn"
+   private TableColumn<TransactionHistory, String> typeColumn; // Value injected by FXMLLoader
 
-    @FXML // fx:id="amountColumn"
-    private TableColumn<TransactionHistory, Double> amountColumn; // Value injected by FXMLLoader
+   @FXML // fx:id="amountColumn"
+   private TableColumn<TransactionHistory, Double> amountColumn; // Value injected by FXMLLoader
+   // End FXML bound controls set in scene builder
+   /////////////////////////////////////////////////////////////////////////////
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        super.initialize(url, rb); //To change body of generated methods, choose Tools | Templates.
-        refresh();
-    }
+   /**
+    * Initializes the controller class.
+    *
+    * @param url The location of the FXML which initialized this controller
+    * @param rb The resource bundle instance used to initialize this controller
+    */
+   @Override
+   public void initialize(URL url, ResourceBundle rb) {
+      super.initialize(url, rb); //To change body of generated methods, choose Tools | Templates.
+      refresh();
+   }
 
-    @FXML
-    void handleLogoutAction(ActionEvent event) {
-        try {
-            getAtmService().logout();
-            showLoginPage();
-        } catch (Exception ex) {
-            super.showError(ex.getMessage());
-        }
-    }
+   /**
+    * Logout button click handler. Logs the user out of the atm service and shows the login page.
+    *
+    * @param event The action event instance
+    */
+   @FXML
+   void handleLogoutAction(ActionEvent event) {
+      try {
+         getAtmService().logout();
+         showLoginPage();
+      } catch (Exception ex) {
+         super.showError(ex.getMessage());
+      }
+   }
 
-    @FXML
-    void handleReturnAction(ActionEvent event) {
-        showMainPage();
-    }
+   /**
+    * Return button click handler. Shows the main page.
+    *
+    * @param event The action event instance
+    */
+   @FXML
+   void handleReturnAction(ActionEvent event) {
+      showMainPage();
+   }
 
-    @FXML
-    void handleScrollAction(ScrollEvent event) {
-        resetTimer();
-    }
+   /**
+    * historyTableView scroll handler. Resets the timer.
+    *
+    * @param event The action event instance
+    */
+   @FXML
+   void handleScrollAction(ScrollEvent event) {
+      resetTimer();
+   }
 
-    @FXML
-    void handleMouseAction(MouseEvent event) {
-        resetTimer();
-    }
-    
-    @FXML
-    void handleSortAction(ActionEvent event) {
-        resetTimer();
-    }
-    
-    private void refresh() {
-        try {
-            String pattern = "MM/dd/yyyy";
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-            topLabel.setText(String.format("%s", simpleDateFormat.format(new Date())));
-            String pattern1 = "MM/dd/yyyy hh:mm:ss";
-            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat(pattern1);
-            
-            UserAccount user = getAtmService().getLoggedInUser();
-            BankAccount ca = getAtmService().getCheckingAccount();
-            BankAccount sa = getAtmService().getSavingsAccount();
-            Transaction lastTransaction = getAtmService().getLastTransaction();
+   /**
+    * historyTableView mouse click handler. Resets the timer.
+    *
+    * @param event The action event instance
+    */
+   @FXML
+   void handleMouseAction(MouseEvent event) {
+      resetTimer();
+   }
 
-            if (ca != null) {
-                checkingAmountLabel.setText(String.format("$%.2f", ca.getAccountBalance()));
-            }
+   /**
+    * historyTableView column sort handler. Resets the timer.
+    *
+    * @param event The action event instance
+    */
+   @FXML
+   void handleSortAction(ActionEvent event) {
+      resetTimer();
+   }
 
-            if (sa != null) {
-                savingsAmountLabel.setText(String.format("$%.2f", sa.getAccountBalance()));
-            }
+   /**
+    * Private method used to refresh the controls on this page from data provided by the atm service.
+    */
+   private void refresh() {
+      try {
+         String pattern = "MM/dd/yyyy";
+         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+         topLabel.setText(String.format("%s", simpleDateFormat.format(new Date())));
+         String pattern1 = "MM/dd/yyyy hh:mm:ss";
+         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat(pattern1);
 
-            if (lastTransaction != null) {
-                lastTransactionDateLabel.setText(String.format("%s", simpleDateFormat.format(lastTransaction.getDate())));
-            }
+         UserAccount user = getAtmService().getLoggedInUser();
+         BankAccount ca = getAtmService().getCheckingAccount();
+         BankAccount sa = getAtmService().getSavingsAccount();
+         Transaction lastTransaction = getAtmService().getLastTransaction();
 
-            List<Transaction> history = getAtmService().getAccountHistory();
-            List<TransactionHistory> transactionHistory = new ArrayList<TransactionHistory>();
-            
-            for(Transaction item : history) {
-                TransactionHistory transactionHistory1 = new TransactionHistory();
-                transactionHistory1.setTransactionDate(simpleDateFormat1.format(item.getDate()));
-                transactionHistory1.setAmount(String.format("$%.02f", item.getAmount()));
-                BankAccount bankAccountType = getAtmService().getBankAccount(item.getBankAccountId());
-                transactionHistory1.setTransactionActivity(String.format("%s (%s)", getTranslatedText(item.getActivityType()), getTranslatedText(bankAccountType.getAccountType())));
-                transactionHistory.add(transactionHistory1);
-            }
-            dateColumn.setCellValueFactory(new PropertyValueFactory<>("transactionDate"));
-            typeColumn.setCellValueFactory(new PropertyValueFactory<>("transactionActivity"));
-            amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+         if (ca != null) {
+            checkingAmountLabel.setText(String.format("$%.2f", ca.getAccountBalance()));
+         }
 
-            ObservableList<TransactionHistory> data = FXCollections.observableArrayList(transactionHistory);
-            historyTableView.setItems(data);
-        } catch (Exception ex) {
-            super.showError(ex.getMessage());
-        }
+         if (sa != null) {
+            savingsAmountLabel.setText(String.format("$%.2f", sa.getAccountBalance()));
+         }
 
-    }
-    
-    public class TransactionHistory {
-        private String transactionDate;
-        private String transactionActivity;
-        private String amount;
+         if (lastTransaction != null) {
+            lastTransactionDateLabel.setText(String.format("%s", simpleDateFormat.format(lastTransaction.getDate())));
+         }
 
-        /**
-         * @return the transactionDate
-         */
-        public String getTransactionDate() {
-            return transactionDate;
-        }
+         List<Transaction> history = getAtmService().getAccountHistory();
+         List<TransactionHistory> transactionHistory = new ArrayList<TransactionHistory>();
 
-        /**
-         * @param transactionDate the transactionDate to set
-         */
-        public void setTransactionDate(String transactionDate) {
-            this.transactionDate = transactionDate;
-        }
+         for (Transaction item : history) {
+            TransactionHistory transactionHistory1 = new TransactionHistory();
+            transactionHistory1.setTransactionDate(simpleDateFormat1.format(item.getDate()));
+            transactionHistory1.setAmount(String.format("$%.02f", item.getAmount()));
+            BankAccount bankAccountType = getAtmService().getBankAccount(item.getBankAccountId());
+            transactionHistory1.setTransactionActivity(String.format("%s (%s)", getTranslatedText(item.getActivityType()), getTranslatedText(bankAccountType.getAccountType())));
+            transactionHistory.add(transactionHistory1);
+         }
+         dateColumn.setCellValueFactory(new PropertyValueFactory<>("transactionDate"));
+         typeColumn.setCellValueFactory(new PropertyValueFactory<>("transactionActivity"));
+         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
-        /**
-         * @return the transactionActivity
-         */
-        public String getTransactionActivity() {
-            return transactionActivity;
-        }
+         ObservableList<TransactionHistory> data = FXCollections.observableArrayList(transactionHistory);
+         historyTableView.setItems(data);
+      } catch (Exception ex) {
+         super.showError(ex.getMessage());
+      }
 
-        /**
-         * @param transactionActivity the transactionActivity to set
-         */
-        public void setTransactionActivity(String transactionActivity) {
-            this.transactionActivity = transactionActivity;
-        }
+   }
 
-        /**
-         * @return the amount
-         */
-        public String getAmount() {
-            return amount;
-        }
+   /**
+    * Transaction history class used internally by this class to format transaction history data in a user friendly manner.
+    */
+   public class TransactionHistory {
 
-        /**
-         * @param amount the amount to set
-         */
-        public void setAmount(String amount) {
-            this.amount = amount;
-        }
-        
-        
-    }
+      private String transactionDate;
+      private String transactionActivity;
+      private String amount;
+
+      /**
+       * @return the transactionDate
+       */
+      public String getTransactionDate() {
+         return transactionDate;
+      }
+
+      /**
+       * @param transactionDate the transactionDate to set
+       */
+      public void setTransactionDate(String transactionDate) {
+         this.transactionDate = transactionDate;
+      }
+
+      /**
+       * @return the transactionActivity
+       */
+      public String getTransactionActivity() {
+         return transactionActivity;
+      }
+
+      /**
+       * @param transactionActivity the transactionActivity to set
+       */
+      public void setTransactionActivity(String transactionActivity) {
+         this.transactionActivity = transactionActivity;
+      }
+
+      /**
+       * @return the amount
+       */
+      public String getAmount() {
+         return amount;
+      }
+
+      /**
+       * @param amount the amount to set
+       */
+      public void setAmount(String amount) {
+         this.amount = amount;
+      }
+
+   }
 }
