@@ -93,6 +93,7 @@ public class Security {
       byte[] salt = Arrays.copyOfRange(blob, 0, DEFAULT_SALT_LENGTH);
       byte[] hashedValue = deriveKey(alg, value.toCharArray(), salt, iterations);
 
+      // although less efficient - comparisons should be on the entire hash to ensure every comparision performs takes constant time
       int accumulator = 0;
       for (int i = 0; i < hashedValue.length; i++) {
          accumulator |= blob[salt.length + i] ^ hashedValue[i];
