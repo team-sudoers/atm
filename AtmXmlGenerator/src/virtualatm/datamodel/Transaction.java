@@ -2,21 +2,46 @@
  * File:    Transaction.java
  * Date:    05/03/2019
  * Authors: Raysean Jones-Dent, Tonye Andre Martial, Matt Mitchell, Kristine Dudley, Woo Choi, Justin Kim
- * Project: AtmXmlGenerator
+ * Project: VirtualAtm
  * Course:  UMUC CMSC 495-7982
  */
 package virtualatm.datamodel;
 
 import java.util.Date;
 
+/**
+ * Simple class to encapsulate Transaction information used by the application.  Only contains get/set methods for attributes.
+ */
 public class Transaction {
 
+   /**
+    * The id of this transaction
+    */
    private long id;
+   
+   /**
+    * The id of the bank account associated with this transaction
+    */
    private long bankAccountId;
+   
+   /**
+    * The date of this transaction
+    */
    private Date date;
+   
+   /**
+    * The amount of this transaction
+    */
    private double amount;
+   
+   /**
+    * The activity type of this transaction ("withdraw" or "deposit")
+    */
    private String activityType;
 
+   /**
+    * Default constructor
+    */
    public Transaction() {
       bankAccountId = -1;
       date = new Date();

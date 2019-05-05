@@ -2,7 +2,7 @@
  * File:    UserAccount.java
  * Date:    05/03/2019
  * Authors: Raysean Jones-Dent, Tonye Andre Martial, Matt Mitchell, Kristine Dudley, Woo Choi, Justin Kim
- * Project: AtmXmlGenerator
+ * Project: VirtualAtm
  * Course:  UMUC CMSC 495-7982
  */
 package virtualatm.datamodel;
@@ -10,18 +10,59 @@ package virtualatm.datamodel;
 import java.sql.Timestamp;
 import java.util.Date;
 
+/**
+ * Simple class to encapsulate UserAccount information used by the application.  Only contains get/set methods for attributes.
+ */
 public class UserAccount {
 
+   /**
+    * The id of this user account
+    */
    private long id;
+   
+   /**
+    * The first name of this user account
+    */
    private String firstName;
+   
+   /**
+    * The last name of this user account
+    */
    private String lastName;
+   
+   /**
+    * The cell number of this user account
+    */
    private String cellNumber;
+   
+   /**
+    * The email address of this user account
+    */
    private String email;
+   
+   /**
+    * The user name of this user account
+    */
    private String userName;
+   
+   /**
+    * The pin of this user account
+    */
    private String pin;
+   
+   /**
+    * The failed login count of this user account
+    */
    private int failedLoginCount;
+   
+   /**
+    * The date of the last failed login of this user account
+    */
    private Date lastFailedLogin;
 
+   /**
+    * Default constructor
+    */
    public UserAccount() {
       id = -1;
       firstName = "";

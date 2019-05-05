@@ -24,8 +24,14 @@ import virtualatm.datamodel.Transaction;
 import virtualatm.datamodel.UserAccount;
 import virtualatm.utils.Security;
 
+/**
+ * The Main page controller bound to the Main.fxml. Captures all user input and handles user feedback for creating a xml
+ * file based data store.
+ */
 public class MainController implements Initializable {
 
+   /////////////////////////////////////////////////////////////////////////////
+   // Begin FXML bound controls set in scene builder
    @FXML
    private TextField firstName;
    @FXML
@@ -46,20 +52,28 @@ public class MainController implements Initializable {
    private TextField savingsAccountNumber;
    @FXML
    private TextField savingsAccountBalance;
+   // End FXML bound controls set in scene builder
+   /////////////////////////////////////////////////////////////////////////////
 
    /**
     * Initializes the controller class.
+    *
+    * @param url The location of the FXML which initialized this controller
+    * @param rb The resource bundle instance used to initialize this controller
     */
    @Override
    public void initialize(URL url, ResourceBundle rb) {
-      // TODO
-
    }
 
+   /**
+    * Create test data button click handler. Generates the xml file based on our initial project plan.
+    *
+    * @param event The action event instance
+    */
    @FXML
    public void handleCreateTestDataAction(ActionEvent event) {
       try {
-         
+
          XmlDataAccess dataAccess = new XmlDataAccess("testdata.xml");
          long counter = 0;
 
@@ -92,6 +106,15 @@ public class MainController implements Initializable {
       }
    }
 
+   /**
+    * Private method to create a bank account and deposit transaction in the xml file
+    *
+    * @param userId The user id associated with the bank account
+    * @param accountNumber The account number to assign
+    * @param accountType The account type to assign
+    * @param accountBalance The account balanace to assign
+    * @param da The xml data access instance used to save the bank account information
+    */
    private void createBankAccount(long userId, long accountNumber, String accountType, double accountBalance, XmlDataAccess da) {
       BankAccount account = new BankAccount();
       account.setAccountNumber(accountNumber);
@@ -110,6 +133,18 @@ public class MainController implements Initializable {
       }
    }
 
+   /**
+    * Private method to create a user account in the xml file
+    * @param userId The id of the new user
+    * @param firstName The first name of the new user
+    * @param lastName The last name of the new user
+    * @param cellNumber The cell number of the new user
+    * @param email The email account of the new user
+    * @param userName The user name of the new user
+    * @param pin The pin of the new user
+    * @param da The xml data access instance used to save the user account information
+    * @throws Exception
+    */
    private void createUser(long userId, String firstName, String lastName, String cellNumber, String email, String userName, String pin, XmlDataAccess da) throws Exception {
       UserAccount userAccount = new UserAccount();
       userAccount.setId(userId);
@@ -123,6 +158,11 @@ public class MainController implements Initializable {
       da.addUserAccount(userAccount);
    }
 
+   /**
+    * Create user and transaction button click handler. Adds information from the user interfaces controls to the xml file.
+    *
+    * @param event The action event instance
+    */
    @FXML
    public void handleAddButtonAction(ActionEvent event) {
       try {
@@ -213,6 +253,12 @@ public class MainController implements Initializable {
 
    }
 
+   /**
+    * Private method use to find any errors in the user input before adding information to the xml file
+    * @param error The string builder instance to store any errors found
+    * @param dataAccess The data access instance used to verify conflicts don't exist with existing information
+    * @return true/false based upon the result of the validation
+    */
    private boolean validateUserInput(StringBuilder error, IAtmDataAccess dataAccess) {
       if (firstName.getText().isEmpty()) {
          error.append("First Name cannot be empty!");
